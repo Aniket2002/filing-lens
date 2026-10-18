@@ -1,0 +1,79 @@
+{
+  "started_date_utc": "2026-10-18T10:04:17.445360+00:00",
+  "duration_seconds": 950.1044362999965,
+  "python": "3.12.15",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 141 Stepping 1, GenuineIntel",
+  "torch_threads": 4,
+  "seed": 17,
+  "git_commit": "e87c0a0fe87ad369e4d7a25699e66a2c391269c4",
+  "packages": {
+    "numpy": "2.5.4",
+    "pymupdf": "1.27.2.3",
+    "sentence-transformers": "5.7.0",
+    "torch": "2.14.1",
+    "rank-bm25": "0.2.2"
+  },
+  "input_lock": {
+    "question_count": 80,
+    "annotations_sha256": "9eca9a0b0db83a058e7e9b227867c353d8e73de2a6cf1dfbca8203c49de8dbc4",
+    "questions_sha256": "f1836439f5da8841334258dcf7f28ffedaa3d8616a46aeb4cd2be8b2f2d55e3d",
+    "pages_sha256": "103859bc4348d135b99d32ced67339de2deb99827c7666b479d0ec3767670ea8",
+    "tables_sha256": "4501c41e2964f4f3e7814bda746badcb7420a9fdff712dcbfd8a0a79f61bdc66",
+    "authorship": "AI-authored, individually written after source inspection; human adjudication pending. No model-generated answers are used as gold.",
+    "split_unit": "company"
+  },
+  "model_lock": {
+    "sentence-transformers/all-MiniLM-L6-v2": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "cross-encoder/ms-marco-MiniLM-L-6-v2": "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+  },
+  "lexical_only": false,
+  "source_lock_sha256": "97d2023621fcb8f5b03f654c94159234a1de45179659f7399abd96308f180b58",
+  "chunk_size_words": 160,
+  "fixed_overlap_words": 32,
+  "candidate_pool": 20,
+  "answer_context_k": 5,
+  "rrf_constant": 60,
+  "reader": "frozen extractive v1",
+  "selection_rule": "dev recall@5, then dev MRR@20, then config name",
+  "selected_on_dev": "fixed-bm25-rerank",
+  "paired_test_comparisons": [
+    {
+      "metric": "recall_at_5",
+      "difference_right_minus_left": 0.11904761904761904,
+      "ci95": [
+        0.023809523809523808,
+        0.21428571428571427
+      ],
+      "resampling_unit": "company",
+      "companies": 7,
+      "samples": 2000,
+      "seed": 17
+    },
+    {
+      "metric": "mrr_at_20",
+      "difference_right_minus_left": 0.019444444444444448,
+      "ci95": [
+        -0.060185185185185196,
+        0.09021164021164021
+      ],
+      "resampling_unit": "company",
+      "companies": 7,
+      "samples": 2000,
+      "seed": 17
+    },
+    {
+      "metric": "correct",
+      "difference_right_minus_left": 0.08928571428571429,
+      "ci95": [
+        0.03571428571428571,
+        0.16071428571428573
+      ],
+      "resampling_unit": "company",
+      "companies": 7,
+      "samples": 2000,
+      "seed": 17
+    }
+  ],
+  "timing": "warm models; cached document embeddings; query encoding and reader included; CPU"
+}

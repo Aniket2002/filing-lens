@@ -1,0 +1,14 @@
+{
+  "generator_lock": {
+    "model": "google/flan-t5-small",
+    "revision": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab",
+    "max_input_tokens": 512,
+    "max_new_tokens": 24,
+    "do_sample": false
+  },
+  "retrieval_config": "fixed-bm25-rerank",
+  "scope": "50 numeric + 20 unanswerable; narratives excluded",
+  "context_policy": "complete visible source rows if available; otherwise first two retrieved snippets",
+  "decoding": "greedy; CPU; four threads",
+  "source_run": "results\\reference"
+}

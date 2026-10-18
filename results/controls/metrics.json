@@ -1,0 +1,49 @@
+{
+  "scope": "oracle source-cell verifier audit; not QA accuracy",
+  "positive_claims": 50,
+  "tampered_claims": 450,
+  "cases": 500,
+  "passed": 500,
+  "by_mutation": {
+    "correct": {
+      "cases": 50,
+      "passed": 50
+    },
+    "displayed_amount_disagrees": {
+      "cases": 50,
+      "passed": 50
+    },
+    "wrong_amount": {
+      "cases": 50,
+      "passed": 50
+    },
+    "wrong_column": {
+      "cases": 50,
+      "passed": 50
+    },
+    "wrong_entity": {
+      "cases": 50,
+      "passed": 50
+    },
+    "wrong_metric": {
+      "cases": 50,
+      "passed": 50
+    },
+    "wrong_page": {
+      "cases": 50,
+      "passed": 50
+    },
+    "wrong_period": {
+      "cases": 50,
+      "passed": 50
+    },
+    "wrong_sign": {
+      "cases": 50,
+      "passed": 50
+    },
+    "wrong_unit": {
+      "cases": 50,
+      "passed": 50
+    }
+  }
+}

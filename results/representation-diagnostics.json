@@ -1,0 +1,24 @@
+[
+  {
+    "strategy": "fixed",
+    "chunks": 5816,
+    "word_count_p50": 163.0,
+    "word_count_max": 165,
+    "wordpiece_count_p50": 211.0,
+    "wordpiece_count_p95": 274.0,
+    "wordpiece_count_max": 436,
+    "dense_256_token_truncation_fraction": 0.0873452544704264,
+    "note": "Includes metadata and repeated headers. No evaluation labels used."
+  },
+  {
+    "strategy": "structure",
+    "chunks": 6515,
+    "word_count_p50": 126.0,
+    "word_count_max": 331,
+    "wordpiece_count_p50": 172.0,
+    "wordpiece_count_p95": 257.0,
+    "wordpiece_count_max": 418,
+    "dense_256_token_truncation_fraction": 0.05049884881043745,
+    "note": "Includes metadata and repeated headers. No evaluation labels used."
+  }
+]

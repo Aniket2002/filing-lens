@@ -11,3 +11,6 @@ data/processed/
 .cache/
 dist/
 *.egg-info/
+results/reproduced/
+results/lexical/
+docs/reproduced/

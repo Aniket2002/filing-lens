@@ -32,6 +32,7 @@ def main() -> None:
         "--config", default=None, help="E.g. structure-hybrid-rerank; default: dev-selected"
     )
     ask.add_argument("--json", action="store_true", dest="as_json")
+    ask.add_argument("--reader", choices=["extractive", "flan-t5"], default="extractive")
     report = sub.add_parser(
         "report", help="Render measured results as Markdown, PNG, and standalone HTML"
     )
@@ -105,6 +106,19 @@ def main() -> None:
             index = Index(chunks, Models(root), dense=method != "bm25")
             found = index.search(args.question, method=method, rerank=rerank)
             answer = answer_question(args.question, found["chunks"], tables, documents)
+            if args.reader == "flan-t5":
+                from filing_lens.generation import LocalGenerator, gate_generated
+
+                if answer["claims"]:
+                    context = "\n".join(
+                        c.get("header", "") + "\n" + c["quote"] for c in answer["citations"]
+                    )
+                    context += "\nUnit: " + answer["claims"][0]["unit"]
+                else:
+                    context = "\n".join(c["text"][:600] for c in found["chunks"][:2])
+                raw = LocalGenerator(root).generate(args.question, context)
+                answer = gate_generated(raw, answer, tables, {d["id"]: d for d in documents})
+                answer["raw_generation"] = raw
             docs = {d["id"]: d for d in documents}
             for citation in answer["citations"]:
                 citation["url"] = docs[citation["doc_id"]]["url"] + f"#page={citation['page']}"

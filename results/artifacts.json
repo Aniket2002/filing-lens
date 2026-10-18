@@ -1,0 +1,101 @@
+{
+  "algorithm": "sha256",
+  "files": [
+    {
+      "path": "data/evidence/statement-tables.jsonl",
+      "sha256": "7f25b5d73680d5a8849daedeb07359adefc663c822652bbdf87b9691fc0b3189",
+      "bytes": 130209
+    },
+    {
+      "path": "data/questions.jsonl",
+      "sha256": "f1836439f5da8841334258dcf7f28ffedaa3d8616a46aeb4cd2be8b2f2d55e3d",
+      "bytes": 45114
+    },
+    {
+      "path": "docs/EXPERIMENT_PROTOCOL.md",
+      "sha256": "d29d38adc3649882a15e3414814f699db983af86b9efc1f32b53e686fe7c45fc",
+      "bytes": 6933
+    },
+    {
+      "path": "docs/FAILURE_ANALYSIS.md",
+      "sha256": "b4016d375429e0fa58a01120869baa0fad5f743277568c517ab58cc8a28a58cc",
+      "bytes": 7523
+    },
+    {
+      "path": "docs/report/ablations.md",
+      "sha256": "8a394b430dd2fe3d5eedea56cc62d78e55e88818f84db1d613dd2a5d16ceff70",
+      "bytes": 1361
+    },
+    {
+      "path": "docs/report/ablations.png",
+      "sha256": "f62b114fc61156dd783180a17e46d4c20337a7a4ba896c89c14987f8762c5fe6",
+      "bytes": 156600
+    },
+    {
+      "path": "docs/report/failure-ledger.md",
+      "sha256": "cda8c387431daac763141c9a59608f4e3f5d19f34e3de4b543c236f7bf023082",
+      "bytes": 12911
+    },
+    {
+      "path": "docs/report/index.html",
+      "sha256": "80b171c48ce137ae211589ec86626a493d29b7999eb015f62d1f9421a668270a",
+      "bytes": 2801005
+    },
+    {
+      "path": "docs/report/preview.png",
+      "sha256": "84aa27b28dd3763018d7059225b7853edc80433c96ca615394ebd20858e5d587",
+      "bytes": 106051
+    },
+    {
+      "path": "README.md",
+      "sha256": "9067374cb7687da7a78937f5c461acbbf73cb41cc4d0d08d9f4666f1dfd40872",
+      "bytes": 11775
+    },
+    {
+      "path": "results/controls/metrics.json",
+      "sha256": "f4286e2dd347c45e52039a3768e2e6d1ca68c62df1c8a810959bb0a33d64d5a3",
+      "bytes": 848
+    },
+    {
+      "path": "results/controls/predictions.jsonl",
+      "sha256": "ddb99a8224e4944f603377ee261ee393e181df64e0f58343010fe5ab8db78a16",
+      "bytes": 221628
+    },
+    {
+      "path": "results/generator/metrics.json",
+      "sha256": "a7546a662fa04cdabf073873b85b5181df0bb4fd07d22eecab19bedc32a3615c",
+      "bytes": 1440
+    },
+    {
+      "path": "results/generator/predictions.jsonl",
+      "sha256": "22e19abba8a99bc0ffcf17b6e1efea34d38f39b0cdadbc54b7532443c86c82aa",
+      "bytes": 105091
+    },
+    {
+      "path": "results/generator/run.json",
+      "sha256": "af5867770bd50fc35acf4cd52d31b053da8db85308c932c5411cac60633287de",
+      "bytes": 498
+    },
+    {
+      "path": "results/reference/metrics.json",
+      "sha256": "083740a854dd1dd2b8bb648300fb51d92ec091260935fd223581b3d37004e8e2",
+      "bytes": 31479
+    },
+    {
+      "path": "results/reference/predictions.jsonl",
+      "sha256": "0195b8c47a2a6cdec0ba109233a0e7f74d67e4203aede14ae0ee47841b4675fb",
+      "bytes": 2712403
+    },
+    {
+      "path": "results/reference/run.json",
+      "sha256": "e58f1a7bd7c6ca89e31161998284c1d7a4aa1a9b06f57b1fbb3d8a96f5a61fae",
+      "bytes": 2651
+    },
+    {
+      "path": "results/representation-diagnostics.json",
+      "sha256": "b41305173413bd2714a35915ef08cd535cc818a095525bae7f403aa53ae2403f",
+      "bytes": 716
+    }
+  ],
+  "note": "Integrity seal of evidence and report bytes; does not independently validate source facts."
+}
