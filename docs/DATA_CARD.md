@@ -22,6 +22,9 @@ and statement pages. They have **not been independently adjudicated by a human**
 They must not be described as a human-labelled dataset. A separate AI-assisted
 visual spot check covered twelve numeric annotations across three rendered source
 pages; see [the inspection record](SOURCE_SPOT_CHECKS.md).
+The [source-linked review workflow](ANNOTATION_REVIEW.md) now exports all 80
+questions and validates separately recorded adjudications. The committed sheet
+has **zero completed reviews**; independent human review remains pending.
 
 1. Inspect the source statement or paragraph.
 2. Write a question, explicitly specify the fiscal period, and independently

@@ -1,6 +1,6 @@
 # Filing Lens
 
-**A measured filings Q&A system: twelve retrieval configurations, source-linked answers, and deterministic numeric controls.**
+**A filings retrieval benchmark with guarded local generation, source-linked answers, and measured failure modes.**
 
 ![Python 3.12](https://img.shields.io/badge/python-3.12-255e6a)
 ![License MIT](https://img.shields.io/badge/license-MIT-52616b)
@@ -13,8 +13,9 @@ written, source-anchored questions**, and preserves every ranking, answer, citat
 refusal, and timing. Everything runs locally on a CPU; no API key is required.
 
 The main study fixes one **extractive reader** across all retrieval ablations.
-A separate pinned FLAN-T5-small experiment measures generated numeric answers before
-and after a source-cell guard. Neither result is presented as a production assistant.
+Separate pinned FLAN-T5-small and FLAN-T5-base experiments measure generated numeric
+answers before and after a source-cell guard. A local API exposes answers, refusals,
+health, and request metrics. This is a research prototype with no production deployment.
 
 ![Measured retrieval ablations](docs/report/ablations.png)
 
@@ -50,6 +51,10 @@ The highest observed test recall belongs to `structure-bm25-rerank` (69.0% recal
 Citation support is conditional on returning an answer. The selected system returns source-supported but irrelevant answers to three negative questions; 100% citation support therefore does not mean 100% correctness.
 
 **Failed generation pilot, retained:** FLAN-T5-small achieves 0.0% raw amount correctness on the 35 numeric test questions. The guard declines every test answer (0.0% numeric coverage). Its 100% negative refusal rate is degenerate and does not demonstrate useful generative QA. See the failure analysis and preserved raw outputs.
+
+**Current CLI/API reader:** same-page table-evidence assembly is now enabled by default for `ask` and `serve`. The separately measured extractive profile achieves **57.1% correctness (24/42)** and **64.3% coverage (27/42)**, with unchanged retrieval and unanswerable refusal. Use `--no-assemble-table-evidence` for the original reader; benchmark defaults and frozen reference artifacts retain the original behavior. See [Iteration 1](docs/ITERATION_1.md).
+
+**Generation v2, exploratory:** pinned FLAN-T5-base with aligned year/value records achieves **60.0% raw amount correctness (21/35)** and **57.1% verified numeric correctness and coverage (20/35)**. It uses the same retrieval rankings plus table-evidence assembly. The guard withholds one correct raw amount without sufficient retrieved evidence. The model's exact `UNKNOWN` rate on 14 negatives is **0/14**; guarded refusals come from the controls. This is row-assisted amount generation on a previously inspected test set, with model, prompt, context format, and evidence assembly changed together. It is not an independent validation, a controlled model-size comparison, or general financial QA. See the [generation study](docs/GENERATION_V2.md) and [preserved outputs](results/generator-v2/test/predictions.jsonl).
 <!-- RESULTS_END -->
 
 The complete metric ledger includes recall@1/5/10, MRR@20, numeric and narrative
@@ -80,6 +85,7 @@ uv sync --locked --extra dev --python 3.12
 # Fast checks: no source PDFs, model downloads, or inference required
 uv run pytest -q
 uv run python scripts/audit_reference.py
+uv run python scripts/audit_generation_results.py
 
 # Acquire the exact source documents and build the canonical corpus
 uv run filing-lens fetch
@@ -111,9 +117,10 @@ fit a new parser is a dataset revision, not reproduction.
 
 ## Ask a source-cited question
 
-After `fetch` and `parse`, the default configuration is selected from development
-results stored in the reference run. The question-answering path does not read
-question labels, gold answers, or annotations.
+After `fetch` and `parse`, retrieval defaults to the development-selected reference
+configuration. The live reader enables the measured same-page table-evidence
+improvement. The question-answering path does not read question labels, gold answers,
+or annotations.
 
 ```bash
 uv run filing-lens ask "What was Micron Technology's FY2023 revenue in USD millions?"
@@ -123,12 +130,16 @@ uv run filing-lens ask "What was NVIDIA's FY2028 revenue?"
 # Override retrieval, or try the optional local amount-only generator
 uv run filing-lens ask "What was AMD's FY2023 net income?" --config structure-bm25-rerank
 uv run filing-lens ask "What was AMD's FY2023 net income?" --reader flan-t5
+uv run filing-lens ask "What was AMD's FY2023 net income?" --reader flan-t5-base
+
+# Reproduce the original extractive reader behavior
+uv run filing-lens ask "What was AMD's FY2023 net income?" --no-assemble-table-evidence
 ```
 
 Answers include a one-based PDF page, exact evidence quote, source URL, and numeric
 check results. A refusal records the failed evidence gate. A numeric question
-requires complete retrieved header and row evidence; having the number somewhere
-in the global corpus is insufficient.
+requires complete retrieved header and row evidence on the same PDF page; having
+the number somewhere in the global corpus is insufficient.
 
 The local generative audit can be reproduced separately:
 
@@ -140,6 +151,38 @@ It reuses the reference retrieval rankings, scores **50 numeric + 20 unanswerabl
 questions, preserves raw outputs, and excludes the ten narrative questions. It uses
 complete retrieved rows when available and is explicitly a row-assisted experiment.
 See [generator results](results/generator/metrics.json) for its own denominators.
+
+The new experiment runs development first and refuses changed implementation or
+inputs before test. Choose an unused output directory; existing results cannot be
+overwritten by this runner.
+
+```bash
+uv run python scripts/audit_generator_v2.py --split dev --output results/reproduced/generator-v2
+uv run python scripts/audit_generator_v2.py --split test --output results/reproduced/generator-v2
+```
+
+It downloads approximately 1 GB of FLAN-T5-base weights on first use. Both readers
+generate an amount from retrieved rows; the final sentence is a deterministic
+rendering of the verified claim. Neither is a general narrative-generation system.
+
+## Local service and independent review
+
+```bash
+uv run filing-lens serve --reader flan-t5-base
+```
+
+Send JSON `{"question":"What was AMD's FY2023 net income?"}` to
+`POST http://127.0.0.1:8000/ask`. `GET /health`, `/ready`, and `/metrics` expose
+service health, loaded profile, and request/error/refusal/latency counters. Logs
+include request IDs and evidence-gate reasons. See [API usage and operational
+limits](docs/SERVICE.md). The service runs locally; production hosting and external
+monitoring remain unimplemented.
+
+[The review sheet](data/review/pending.csv) contains all 80 source-linked questions
+with blank adjudication fields: **0 independently reviewed, 80 pending**. The
+[review workflow](docs/ANNOTATION_REVIEW.md) validates recorded decisions, requires
+visual-PDF or XBRL checks for numeric labels, and saves proposed corrections
+separately. It does not turn an AI-authored benchmark into a human-validated one.
 
 ## Architecture and design choices
 
@@ -206,6 +249,8 @@ data/evidence/                Small parsed-statement audit fixtures
 src/filing_lens/              Parsing, chunking, retrieval, reader, controls, evaluation
 results/reference/           All 960 main predictions, 36 aggregate rows, run metadata
 results/generator/           Raw local-model outputs and guarded answer metrics
+results/generator-v2/        Dev-first FLAN-T5-base outputs, fingerprints, and metrics
+data/review/                 Pending source-linked review sheet and explicit status
 results/controls/            Isolated source-cell mutation study
 docs/report/                 Standalone interactive report, plot, and failure ledger
 tests/                       Offline behavior, leakage, parsing, and tampering checks

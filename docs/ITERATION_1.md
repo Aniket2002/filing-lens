@@ -1,5 +1,10 @@
 # Iteration 1: retrieved table-part assembly
 
+This document records the original opt-in study. The current `ask` and `serve`
+commands enable this measured improvement by default; use
+`--no-assemble-table-evidence` to reproduce the original live reader. The
+`benchmark` default still uses the original reader across all reference ablations.
+
 ## Failure classification
 
 I checked every incorrect development and test prediction for `fixed-bm25-rerank`
@@ -84,8 +89,8 @@ selected using test metrics.
 
 ## Implemented fix and measured results
 
-Implemented rank 1 as opt-in `--assemble-table-evidence`. The standard reader
-remains unchanged by default. The option can combine only an exact parsed table
+Implemented rank 1 initially as opt-in `--assemble-table-evidence`. The benchmark
+reader remains unchanged by default. The option can combine only an exact parsed table
 header and exact matching row that both appear in the retrieved top five, for
 the same issuer and PDF page. It returns citations to both chunks and retains
 the existing entity/year/unit/value verification. It cannot consult un-retrieved

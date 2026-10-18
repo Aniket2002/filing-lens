@@ -7,9 +7,34 @@
       "bytes": 130209
     },
     {
+      "path": "data/generator-v2-lock.json",
+      "sha256": "175a1f73327d67c33e41ba4db5684f684fb0ca240e370e5c2ba2ad3db5692566",
+      "bytes": 948
+    },
+    {
       "path": "data/questions.jsonl",
       "sha256": "f1836439f5da8841334258dcf7f28ffedaa3d8616a46aeb4cd2be8b2f2d55e3d",
       "bytes": 45114
+    },
+    {
+      "path": "data/review/pending.csv",
+      "sha256": "8800cc03456c0b23db298e25b66bd59bd529c1bcc39e105530f6389f9249af6c",
+      "bytes": 22801
+    },
+    {
+      "path": "data/review/status.json",
+      "sha256": "2962181f41ab0ee9464c883400bdc24152380d1a0f0a5e176193052cde9d7554",
+      "bytes": 585
+    },
+    {
+      "path": "docs/ANNOTATION_REVIEW.md",
+      "sha256": "4db361b5a20560ebd482c318a80c3937d428da8e40c134f7ef54c875b678eb69",
+      "bytes": 2752
+    },
+    {
+      "path": "docs/DATA_CARD.md",
+      "sha256": "d439f00c7e039809af909073b785618f1f0eb366a9d668c49519e27d86b21611",
+      "bytes": 5073
     },
     {
       "path": "docs/EXPERIMENT_PROTOCOL.md",
@@ -18,8 +43,18 @@
     },
     {
       "path": "docs/FAILURE_ANALYSIS.md",
-      "sha256": "b4016d375429e0fa58a01120869baa0fad5f743277568c517ab58cc8a28a58cc",
-      "bytes": 7523
+      "sha256": "cb4f5f7fdf49d2f293d578873a0bf915c0712bebfbe6705613d26d09a9166d0f",
+      "bytes": 7919
+    },
+    {
+      "path": "docs/GENERATION_V2.md",
+      "sha256": "fb372d9a7d2b3f80db6ebdd9a71ad9f9372801e560ca22b1032e753f752d74c2",
+      "bytes": 5186
+    },
+    {
+      "path": "docs/ITERATION_1.md",
+      "sha256": "83451221882f7de33506c304a35cb957e5a55c0bcdb85c0f8c562404106d680f",
+      "bytes": 10707
     },
     {
       "path": "docs/report/ablations.md",
@@ -47,9 +82,14 @@
       "bytes": 106051
     },
     {
+      "path": "docs/SERVICE.md",
+      "sha256": "7f5db4ec7e632d1668cd3d816aa85462ba0256fd7aa800a1b5cb613a0472e9a9",
+      "bytes": 2943
+    },
+    {
       "path": "README.md",
-      "sha256": "13a6b5c0849fbd05b56f1afc7332c606f41a1dfcdf055749e222a2bafa4817d4",
-      "bytes": 12251
+      "sha256": "10e6970f2285f83082be2fd17bb1d4ef21e27357eaeba0459e1d1dc50cee546e",
+      "bytes": 15697
     },
     {
       "path": "results/controls/metrics.json",
@@ -75,6 +115,66 @@
       "path": "results/generator/run.json",
       "sha256": "af5867770bd50fc35acf4cd52d31b053da8db85308c932c5411cac60633287de",
       "bytes": 498
+    },
+    {
+      "path": "results/generator-v2/dev/metrics.json",
+      "sha256": "ba93775d8b9803ca06dbcc3378e9d937f4aecfd83fc61039077afd2ff1a64e7f",
+      "bytes": 828
+    },
+    {
+      "path": "results/generator-v2/dev/predictions.jsonl",
+      "sha256": "7f0d5d6ca96c8db673080e71a8703a5ed244650c1183ae5fca96371c6eacc56c",
+      "bytes": 35260
+    },
+    {
+      "path": "results/generator-v2/dev/run.json",
+      "sha256": "a3f86fed523bb723b0a3b0484b4b80cadf2d10d7341e4b08371c93af71fa72de",
+      "bytes": 2348
+    },
+    {
+      "path": "results/generator-v2/test/metrics.json",
+      "sha256": "2442e299d6b130a6198fb0b7c88fb605a31dbd813a1514acf9d6dac718632376",
+      "bytes": 833
+    },
+    {
+      "path": "results/generator-v2/test/predictions.jsonl",
+      "sha256": "97c2e0a9bc47123b48c954002615ccfe802730620b78c9b1085c56f3a50025bc",
+      "bytes": 84052
+    },
+    {
+      "path": "results/generator-v2/test/run.json",
+      "sha256": "3f0a846bf06d780fd735136a5800dc4553b12eea0c5d3feb7ea1da9e8da94906",
+      "bytes": 2348
+    },
+    {
+      "path": "results/iter1/dev/metrics.json",
+      "sha256": "09b90b06b15aa8a93c935d94d1cbcc587cb8195e52b928aadc5e17a41396665c",
+      "bytes": 905
+    },
+    {
+      "path": "results/iter1/dev/predictions.jsonl",
+      "sha256": "5772eb89850c072f18748ba72b54e601bef30e4a65b5bea6910b058aaaae56a1",
+      "bytes": 69572
+    },
+    {
+      "path": "results/iter1/dev/run.json",
+      "sha256": "03343e2e30676441abbfe1507929cb5642fb6ba7f542d89b9eb8a2d50713a301",
+      "bytes": 2376
+    },
+    {
+      "path": "results/iter1/test/metrics.json",
+      "sha256": "1b1ed17b00923541d64c766c1f307f3f1f9bff21bc525dd21b335400375403a9",
+      "bytes": 909
+    },
+    {
+      "path": "results/iter1/test/predictions.jsonl",
+      "sha256": "56877526c13fe480ff73691e8b6306f52fb99642fb9b959e12c19de98e7334f1",
+      "bytes": 163783
+    },
+    {
+      "path": "results/iter1/test/run.json",
+      "sha256": "1a6a6c54cb6bed5fcd73d624079efdb9bfbb6f02f249f6eb3d00e6927c736be4",
+      "bytes": 3137
     },
     {
       "path": "results/reference/metrics.json",

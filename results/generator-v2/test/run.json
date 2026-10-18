@@ -1,0 +1,34 @@
+{
+  "created_utc": "2026-10-18T11:23:12.114955+00:00",
+  "generator_lock": {
+    "protocol": "row-assisted-v2",
+    "model": "google/flan-t5-base",
+    "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+    "max_input_tokens": 512,
+    "max_new_tokens": 32,
+    "do_sample": false,
+    "prompt_template": "Read the financial records and answer the question. Copy only the signed number for the requested fiscal year. Do not convert units. If the records do not answer the question, output UNKNOWN.\nRecords:\n{context}\nQuestion: {question}\nAnswer:",
+    "retrieval_config": "fixed-bm25-rerank",
+    "assemble_table_evidence": true,
+    "context_policy": "Retrieved complete metric row, all available year/value pairs, normalized signs, source entity and unit. If no verified candidate, use the first two retrieved snippets.",
+    "selection_policy": "One predeclared model/prompt; run dev before test. No tuning on test outputs. The test set has been inspected previously; this is a reused benchmark, not fresh independent validation."
+  },
+  "fingerprint": {
+    "data/generator-v2-lock.json": "175a1f73327d67c33e41ba4db5684f684fb0ca240e370e5c2ba2ad3db5692566",
+    "data/questions.jsonl": "f1836439f5da8841334258dcf7f28ffedaa3d8616a46aeb4cd2be8b2f2d55e3d",
+    "data/benchmark-lock.json": "d73ac6e903b41354200746298052d78e3236a5ff41072a532b910764828d4d2c",
+    "results/reference/predictions.jsonl": "0195b8c47a2a6cdec0ba109233a0e7f74d67e4203aede14ae0ee47841b4675fb",
+    "src/filing_lens/generation.py": "162788502c8c472fe0fa6af0325b86ca870e3bc1c04d8db45698714176edeb11",
+    "src/filing_lens/generator_experiment.py": "8e059541a623bd7842a055bb12735f9ba575747893f527eaf4f32527e7ab195a",
+    "src/filing_lens/reader.py": "2fbbd6744721121807f4bd997ade0a852622c5b18ac0b4e8d1d1977954c2fa80",
+    "src/filing_lens/numeric.py": "bda56a3b6468ca5bef28125983822ce117a85d7f6978e0f2a53f4c043aceeb36",
+    "src/filing_lens/evaluation.py": "dd73c2d57dfe39ed0d18c55edee52e761d4462b8dcbcac029981a56a5870e114"
+  },
+  "scope": "numeric and unanswerable only; row-assisted amount generation",
+  "timing": "CPU, four threads; candidate reader and generation; cached retrieval excluded",
+  "packages": {
+    "torch": "2.14.1+cpu",
+    "transformers": "5.20.1"
+  },
+  "test_reuse": "Previously inspected test split; exploratory, not independent validation"
+}

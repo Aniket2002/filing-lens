@@ -40,17 +40,19 @@ def gate_generated(raw: str, candidate: dict, tables: dict, documents: dict) -> 
     original_amount = candidate["claims"][0]["value"]
     result["answer"] = result["answer"].replace(f"{number(original_amount):,}", f"{amount:,}", 1)
     result["numeric_checks"] = [check, verify_answer_numbers(result["answer"], claim)]
+    if not all(check["supported"] for check in result["numeric_checks"]):
+        return refuse("generated_answer_surface_verification_failed")
     return result
 
 
 class LocalGenerator:
-    def __init__(self, root: Path):
+    def __init__(self, root: Path, lock_path: Path | None = None):
         import torch
         from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
         torch.set_num_threads(4)
         torch.manual_seed(17)
-        self.lock = read_json(root / "data/generator-lock.json")
+        self.lock = read_json(lock_path or root / "data/generator-lock.json")
         self.tokenizer = AutoTokenizer.from_pretrained(
             self.lock["model"], revision=self.lock["revision"]
         )
@@ -62,11 +64,16 @@ class LocalGenerator:
     def generate(self, question: str, context: str) -> str:
         import torch
 
+        template = self.lock.get("prompt_template")
         prompt = (
-            "Answer the financial question using only the context. Return just one signed "
-            "number in the source's unit, with no words. Parentheses mean negative. "
-            "If the answer is missing, return UNKNOWN.\n"
-            f"Question: {question}\nContext: {context}\nAnswer:"
+            template.format(question=question, context=context)
+            if template
+            else (
+                "Answer the financial question using only the context. Return just one signed "
+                "number in the source's unit, with no words. Parentheses mean negative. "
+                "If the answer is missing, return UNKNOWN.\n"
+                f"Question: {question}\nContext: {context}\nAnswer:"
+            )
         )
         inputs = self.tokenizer(
             prompt, return_tensors="pt", truncation=True, max_length=self.lock["max_input_tokens"]

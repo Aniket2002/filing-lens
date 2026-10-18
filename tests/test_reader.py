@@ -3,6 +3,7 @@ from copy import deepcopy
 import pytest
 
 from filing_lens.generation import gate_generated, generated_amount
+from filing_lens.generator_experiment import generation_context
 from filing_lens.reader import answer_question
 
 
@@ -130,6 +131,25 @@ def test_generator_gate_rejects_wrong_sign_and_invented_amount(corpus):
     assert gate_generated("5,833", candidate, tables, {d["id"]: d for d in docs})["refused"]
     assert gate_generated("8,687", candidate, tables, {d["id"]: d for d in docs})["refused"]
     assert gate_generated("UNKNOWN", candidate, tables, {d["id"]: d for d in docs})["refused"]
+
+
+def test_generator_never_returns_a_surface_that_failed_verification(corpus):
+    docs, tables, chunks = corpus
+    candidate = answer_question("What was Micron's FY2023 net income?", chunks, tables, docs)
+    candidate["answer"] = candidate["answer"].replace("-5,833", "5,833")
+    result = gate_generated("-5833", candidate, tables, {d["id"]: d for d in docs})
+    assert result["refused"]
+    assert result["reason"] == "generated_answer_surface_verification_failed"
+
+
+def test_generator_context_contains_all_years_and_preserves_source_signs(corpus):
+    docs, tables, chunks = corpus
+    candidate = answer_question("What was Micron's FY2023 net income?", chunks, tables, docs)
+    candidate["claims"][0]["value"] = "999"  # Must read the source row, not a rendered answer.
+    context = generation_context(candidate, chunks, tables, {d["id"]: d for d in docs})
+    assert "FY2023: -5833" in context and "FY2022: 8687" in context
+    assert "999" not in context
+    assert "USD_millions" in context
 
 
 @pytest.mark.parametrize("text", ["100 million", "100 and 200", "Revenue was 100", "UNKNOWN", ""])

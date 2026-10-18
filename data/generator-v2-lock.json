@@ -1,0 +1,13 @@
+{
+  "protocol": "row-assisted-v2",
+  "model": "google/flan-t5-base",
+  "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+  "max_input_tokens": 512,
+  "max_new_tokens": 32,
+  "do_sample": false,
+  "prompt_template": "Read the financial records and answer the question. Copy only the signed number for the requested fiscal year. Do not convert units. If the records do not answer the question, output UNKNOWN.\nRecords:\n{context}\nQuestion: {question}\nAnswer:",
+  "retrieval_config": "fixed-bm25-rerank",
+  "assemble_table_evidence": true,
+  "context_policy": "Retrieved complete metric row, all available year/value pairs, normalized signs, source entity and unit. If no verified candidate, use the first two retrieved snippets.",
+  "selection_policy": "One predeclared model/prompt; run dev before test. No tuning on test outputs. The test set has been inspected previously; this is a reused benchmark, not fresh independent validation."
+}

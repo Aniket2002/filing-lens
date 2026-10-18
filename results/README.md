@@ -5,6 +5,12 @@
   verification checks, correctness decisions, and measured query timing.
 - `generator/`: a separate local FLAN-T5-small amount-only experiment on numeric
   and unanswerable questions. Includes raw model output before deterministic gating.
+- `generator-v2/dev/` and `generator-v2/test/`: a development-first FLAN-T5-base
+  experiment with aligned year/value records and retrieved table-evidence assembly.
+  Preserves all 70 outputs, source contexts, metrics and implementation fingerprints.
+  Test is a reused, previously inspected split; see `docs/GENERATION_V2.md`.
+- `iter1/dev/` and `iter1/test/`: the separately measured table-assembly reader
+  improvement. The current live CLI/API enables it; reference benchmark defaults do not.
 - `controls/`: isolated numeric verifier study on correct source cells with
   deliberately corrupted claims. This is not end-to-end answer accuracy.
 
@@ -18,6 +24,7 @@ To verify committed results without PDFs or model downloads:
 
 ```bash
 uv run python scripts/audit_reference.py
+uv run python scripts/audit_generation_results.py
 ```
 
 To reproduce inference, use `results/reproduced` as the output directory. Preserve

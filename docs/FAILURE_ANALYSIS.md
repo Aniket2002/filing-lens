@@ -1,5 +1,11 @@
 # What broke, and why
 
+This analysis describes the frozen reference reader and failed FLAN-T5-small
+pilot. Subsequent work is measured separately: [table-evidence assembly](ITERATION_1.md)
+improves extractive coverage, and [generation v2](GENERATION_V2.md) produces 20/35
+verified numeric test answers. Generation v2 remains row-assisted and exploratory;
+the original failures and scores below have not been replaced.
+
 The reference study ran all twelve configurations on the same 1,275-page corpus.
 The default was selected on development companies: `fixed-bm25-rerank`. On seven
 held-out companies it retrieved the gold passage in the first five results for

@@ -1,0 +1,14 @@
+{
+  "questions_sha256": "f1836439f5da8841334258dcf7f28ffedaa3d8616a46aeb4cd2be8b2f2d55e3d",
+  "review_sheet_sha256": "8800cc03456c0b23db298e25b66bd59bd529c1bcc39e105530f6389f9249af6c",
+  "total_questions": 80,
+  "reviewed": 0,
+  "pending": 80,
+  "decisions": {
+    "accept": 0,
+    "correct": 0,
+    "reject": 0
+  },
+  "provenance": "Reviewer identities and source methods are self-reported. Validation checks completeness and consistency; it does not certify independent human review. Corrections are proposals and do not modify the frozen dataset or its metrics.",
+  "records": []
+}

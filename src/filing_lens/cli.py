@@ -9,7 +9,7 @@ from pathlib import Path
 from rich.console import Console
 from rich.panel import Panel
 
-from filing_lens.io import read_json, read_jsonl
+from filing_lens.io import read_jsonl
 
 
 def main() -> None:
@@ -39,11 +39,24 @@ def main() -> None:
         "--config", default=None, help="E.g. structure-hybrid-rerank; default: dev-selected"
     )
     ask.add_argument("--json", action="store_true", dest="as_json")
-    ask.add_argument("--reader", choices=["extractive", "flan-t5"], default="extractive")
+    ask.add_argument(
+        "--reader", choices=["extractive", "flan-t5", "flan-t5-base"], default="extractive"
+    )
     ask.add_argument(
         "--assemble-table-evidence",
-        action="store_true",
-        help="Opt in to joining retrieved same-page table headers and rows",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Join retrieved same-page table headers and rows (default: enabled)",
+    )
+    serve = sub.add_parser("serve", help="Run a local JSON API with health and request metrics")
+    serve.add_argument("--host", default="127.0.0.1")
+    serve.add_argument("--port", type=int, default=8000)
+    serve.add_argument("--config", default=None)
+    serve.add_argument(
+        "--reader", choices=["extractive", "flan-t5", "flan-t5-base"], default="extractive"
+    )
+    serve.add_argument(
+        "--assemble-table-evidence", action=argparse.BooleanOptionalAction, default=True
     )
     report = sub.add_parser(
         "report", help="Render measured results as Markdown, PNG, and standalone HTML"
@@ -93,60 +106,25 @@ def main() -> None:
             from filing_lens.reporting import render
 
             render(root, root / args.results, root / args.output)
+        elif args.command == "serve":
+            from filing_lens.engine import QueryEngine
+            from filing_lens.service import create_server
+
+            engine = QueryEngine(root, args.config, args.reader, args.assemble_table_evidence)
+            with create_server(engine, args.host, args.port) as server:
+                Console(stderr=True).print(
+                    f"Local API: http://{args.host}:{server.server_port} (Ctrl+C to stop)"
+                )
+                try:
+                    server.serve_forever()
+                except KeyboardInterrupt:
+                    pass
         elif args.command == "ask":
-            from filing_lens.chunking import chunk_pages
-            from filing_lens.reader import answer_question
-            from filing_lens.retrieval import Index, Models
+            from filing_lens.engine import QueryEngine
 
-            config = args.config
-            if config is None:
-                reference = root / "results/reference/run.json"
-                config = (
-                    read_json(reference)["selected_on_dev"]
-                    if reference.exists()
-                    else "structure-bm25"
-                )
-            parts = config.split("-")
-            if (
-                len(parts) not in (2, 3)
-                or parts[0] not in {"fixed", "structure"}
-                or parts[1] not in {"bm25", "dense", "hybrid"}
-                or (len(parts) == 3 and parts[2] != "rerank")
-            ):
-                raise ValueError(
-                    "Invalid --config; use {fixed,structure}-{bm25,dense,hybrid}[-rerank]"
-                )
-            strategy, method = parts[:2]
-            rerank = len(parts) == 3
-            documents = read_json(root / "data/corpus.json")["documents"]
-            pages = read_jsonl(root / "data/processed/pages.jsonl")
-            tables = {t["id"]: t for t in read_jsonl(root / "data/processed/tables.jsonl")}
-            chunks = chunk_pages(pages, documents, strategy)
-            index = Index(chunks, Models(root), dense=method != "bm25")
-            found = index.search(args.question, method=method, rerank=rerank)
-            answer = answer_question(
-                args.question,
-                found["chunks"],
-                tables,
-                documents,
-                assemble_table_evidence=args.assemble_table_evidence,
-            )
-            if args.reader == "flan-t5":
-                from filing_lens.generation import LocalGenerator, gate_generated
-
-                if answer["claims"]:
-                    context = "\n".join(
-                        c.get("header", "") + "\n" + c["quote"] for c in answer["citations"]
-                    )
-                    context += "\nUnit: " + answer["claims"][0]["unit"]
-                else:
-                    context = "\n".join(c["text"][:600] for c in found["chunks"][:2])
-                raw = LocalGenerator(root).generate(args.question, context)
-                answer = gate_generated(raw, answer, tables, {d["id"]: d for d in documents})
-                answer["raw_generation"] = raw
-            docs = {d["id"]: d for d in documents}
-            for citation in answer["citations"]:
-                citation["url"] = docs[citation["doc_id"]]["url"] + f"#page={citation['page']}"
+            engine = QueryEngine(root, args.config, args.reader, args.assemble_table_evidence)
+            config = engine.config
+            answer = engine.ask(args.question)
             if args.as_json:
                 print(json.dumps(answer, indent=2, ensure_ascii=True))
             else:

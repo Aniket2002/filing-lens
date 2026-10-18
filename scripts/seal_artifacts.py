@@ -10,13 +10,24 @@ paths = [
     root / "data/questions.jsonl",
     root / "docs/FAILURE_ANALYSIS.md",
     root / "docs/EXPERIMENT_PROTOCOL.md",
+    root / "docs/GENERATION_V2.md",
+    root / "docs/ANNOTATION_REVIEW.md",
+    root / "docs/SERVICE.md",
+    root / "docs/DATA_CARD.md",
+    root / "docs/ITERATION_1.md",
+    root / "data/generator-v2-lock.json",
 ]
 for folder in [
     "results/reference",
     "results/generator",
+    "results/generator-v2/dev",
+    "results/generator-v2/test",
+    "results/iter1/dev",
+    "results/iter1/test",
     "results/controls",
     "docs/report",
     "data/evidence",
+    "data/review",
 ]:
     paths.extend(p for p in (root / folder).iterdir() if p.is_file())
 paths.append(root / "results/representation-diagnostics.json")
