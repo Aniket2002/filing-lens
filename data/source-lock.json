@@ -1,0 +1,52 @@
+{
+  "NVDA-2023": {
+    "sha256": "7bbb6ec51fa8fea39f46cccb16153e3d290bcfd0507c4410bc0c1de71e3e764f",
+    "bytes": 41968287,
+    "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/n/NASDAQ_NVDA_2023.pdf"
+  },
+  "AMD-2023": {
+    "sha256": "3d1ac11b5b0f3a35ff1a5e8b55f8d151ba35d94f9984dd916561d771cea57e2e",
+    "bytes": 6537744,
+    "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/a/NASDAQ_AMD_2023.pdf"
+  },
+  "INTC-2023": {
+    "sha256": "94df1a703b709c14529891573e4efda26be8f7754bb18d40f50589bfb521f45c",
+    "bytes": 23422990,
+    "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/i/NASDAQ_INTC_2023.pdf"
+  },
+  "QCOM-2023": {
+    "sha256": "7d0bd533637ed2ebd57a8d4b6cdd3e5cf1d5bdcc4ce474d7602091464e11fc47",
+    "bytes": 833770,
+    "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/q/NASDAQ_QCOM_2023.pdf"
+  },
+  "AVGO-2023": {
+    "sha256": "7243c658bb4e50c48172239675b41d95bb591779d03dc5fdddc56ba0c7f1beb2",
+    "bytes": 1495547,
+    "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/b/NASDAQ_AVGO_2023.pdf"
+  },
+  "TXN-2023": {
+    "sha256": "fc0401f66f266f3bae28682468e01ec474563f9f27c384a2e50f699c1087e6e9",
+    "bytes": 934029,
+    "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/t/NASDAQ_TXN_2023.pdf"
+  },
+  "MU-2023": {
+    "sha256": "84b298838ae4dba117a3edacdfcd15278e7edcab6b2863a8838a755828ff36ae",
+    "bytes": 5962165,
+    "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/m/NYSE_MU_2023.pdf"
+  },
+  "ADI-2023": {
+    "sha256": "ea2afbb9dbfe1f6819a68bc6e6f28138966197ccc413b5735c53a91a94e2092e",
+    "bytes": 3640372,
+    "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/a/NASDAQ_ADI_2023.pdf"
+  },
+  "MCHP-2023": {
+    "sha256": "3c279dddd7b90f5bdd612c33a4d7388b0054993cc95a2a5820790024a86eb879",
+    "bytes": 5695884,
+    "url": "https://ir.microchip.com/sec-filings/all-sec-filings/content/0000827054-23-000080/0000827054-23-000080.pdf"
+  },
+  "NXPI-2023": {
+    "sha256": "96bed6725f37221dcf08ef3140113c0e9b38d6cd725a9fc6f69210aedb42761c",
+    "bytes": 3634495,
+    "url": "https://www.annualreports.com/HostedData/AnnualReportArchive/n/NASDAQ_NXPI_2023.pdf"
+  }
+}

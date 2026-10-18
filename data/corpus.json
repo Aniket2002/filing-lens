@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "sector": "Semiconductors (US-listed issuers)",
+  "documents": [
+    {"id":"NVDA-2023","ticker":"NVDA","company":"NVIDIA","fiscal_year":2023,"fiscal_end":"2023-01-29","url":"https://www.annualreports.com/HostedData/AnnualReportArchive/n/NASDAQ_NVDA_2023.pdf"},
+    {"id":"AMD-2023","ticker":"AMD","company":"Advanced Micro Devices","fiscal_year":2023,"fiscal_end":"2023-12-30","url":"https://www.annualreports.com/HostedData/AnnualReportArchive/a/NASDAQ_AMD_2023.pdf"},
+    {"id":"INTC-2023","ticker":"INTC","company":"Intel","fiscal_year":2023,"fiscal_end":"2023-12-30","url":"https://www.annualreports.com/HostedData/AnnualReportArchive/i/NASDAQ_INTC_2023.pdf"},
+    {"id":"QCOM-2023","ticker":"QCOM","company":"Qualcomm","fiscal_year":2023,"fiscal_end":"2023-09-24","url":"https://www.annualreports.com/HostedData/AnnualReportArchive/q/NASDAQ_QCOM_2023.pdf"},
+    {"id":"AVGO-2023","ticker":"AVGO","company":"Broadcom","fiscal_year":2023,"fiscal_end":"2023-10-29","url":"https://www.annualreports.com/HostedData/AnnualReportArchive/b/NASDAQ_AVGO_2023.pdf"},
+    {"id":"TXN-2023","ticker":"TXN","company":"Texas Instruments","fiscal_year":2023,"fiscal_end":"2023-12-31","url":"https://www.annualreports.com/HostedData/AnnualReportArchive/t/NASDAQ_TXN_2023.pdf"},
+    {"id":"MU-2023","ticker":"MU","company":"Micron Technology","fiscal_year":2023,"fiscal_end":"2023-08-31","url":"https://www.annualreports.com/HostedData/AnnualReportArchive/m/NYSE_MU_2023.pdf"},
+    {"id":"ADI-2023","ticker":"ADI","company":"Analog Devices","fiscal_year":2023,"fiscal_end":"2023-10-28","url":"https://www.annualreports.com/HostedData/AnnualReportArchive/a/NASDAQ_ADI_2023.pdf"},
+    {"id":"MCHP-2023","ticker":"MCHP","company":"Microchip Technology","fiscal_year":2023,"fiscal_end":"2023-03-31","url":"https://ir.microchip.com/sec-filings/all-sec-filings/content/0000827054-23-000080/0000827054-23-000080.pdf"},
+    {"id":"NXPI-2023","ticker":"NXPI","company":"NXP Semiconductors","fiscal_year":2023,"fiscal_end":"2023-12-31","url":"https://www.annualreports.com/HostedData/AnnualReportArchive/n/NASDAQ_NXPI_2023.pdf"}
+  ]
+}
