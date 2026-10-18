@@ -1,8 +1,11 @@
 # Attribution and licensing
 
-Original code: Copyright 2026 Aniket Bhardwaj. Licensed under
-AGPL-3.0-or-later; see [LICENSE](LICENSE). PyMuPDF is an AGPL/commercial dependency;
-this project's open-source distribution uses the AGPL option.
+Original code: Copyright 2026 Aniket Bhardwaj. Licensed under the MIT License;
+see [LICENSE](LICENSE).
+
+PyMuPDF is an AGPL/commercial dependency and is licensed separately from this
+project's code. Review PyMuPDF's licensing terms before redistributing an
+installation that includes it.
 
 Annual reports belong to their original issuers. The repository does not claim
 ownership of those filings or grant a blanket license to them. Full PDFs are

@@ -3,7 +3,8 @@
 **A measured filings Q&A system: twelve retrieval configurations, source-linked answers, and deterministic numeric controls.**
 
 ![Python 3.12](https://img.shields.io/badge/python-3.12-255e6a)
-![License AGPL 3.0](https://img.shields.io/badge/license-AGPL--3.0-52616b)
+![License MIT](https://img.shields.io/badge/license-MIT-52616b)
+[![CI](https://github.com/Aniket2002/filing-lens/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Aniket2002/filing-lens/actions/workflows/ci.yml)
 
 A plausible financial answer can cite the wrong company, the wrong fiscal year,
 or the right number in the wrong unit. Filing Lens measures where that happens.
@@ -28,7 +29,7 @@ review. It is a standalone file; it needs no server and makes no network request
 ## What was measured
 
 <!-- RESULTS_START -->
-Development selected **`fixed-bm25-rerank`**. Its test recall@5 is **59.5%**, versus 47.6% for fixed/BM25: **+11.9 percentage points** (paired company-bootstrap 95% interval: +2.4 to +21.4 points; seven test companies). Answer correctness is 42.9%, answerable-question coverage is 50.0%, and unanswerable refusal is 78.6%.
+Development selected **`fixed-bm25-rerank`**. Its test recall@5 is **59.5%**, versus 47.6% for fixed/BM25: **+11.9 percentage points** (paired company-bootstrap 95% interval: +2.4 to +21.4 points; seven test companies). Treat this small-sample interval as descriptive, not as evidence of statistical significance or general superiority. Answer correctness is 42.9%, answerable-question coverage is 50.0%, and unanswerable refusal is 78.6%.
 
 The highest observed test recall belongs to `structure-bm25-rerank` (69.0% recall@5; 64.3% answer correctness). It was not selected by the development set, so it remains a descriptive test result.
 
@@ -63,8 +64,11 @@ remain searchable in every configuration.
 and have not been independently human-adjudicated. Numeric questions cover five
 repeated metric types; half the negatives are easy future-period questions. A high
 citation-support rate is conditional on answering and does not imply high coverage
-or relevance. The dataset is a narrow, inspectable benchmark. See the
-[dataset card](docs/DATA_CARD.md) for limitations and annotation provenance.
+or relevance. The dataset is a narrow, inspectable benchmark, and the selected
+system's absolute answer quality remains modest. See the
+[failure analysis](docs/FAILURE_ANALYSIS.md) for the measured failure modes,
+[dataset card](docs/DATA_CARD.md) for limitations and annotation provenance, and
+[experiment protocol](docs/EXPERIMENT_PROTOCOL.md) for uncertainty and selection details.
 
 ## Reproduce it
 
@@ -189,9 +193,9 @@ uv run ruff check .
 uv run ruff format --check .
 ```
 
-CI runs offline tests and reference-result audits on Windows and Linux. It does
-not download the corpus or rerun neural inference. Actual CI status is visible
-once the repository is published and its workflow has run.
+CI runs offline tests and reference-result audits on Windows and Linux, but does
+not download the corpus or rerun neural inference. The badge above tracks the
+`main` branch workflow status.
 
 ## Repository map
 
@@ -210,4 +214,5 @@ tests/                       Offline behavior, leakage, parsing, and tampering c
 
 The reports are historical, issuer fiscal years differ, and results do not establish
 investment-research reliability. Full source PDFs, model weights, and caches are
-excluded from Git. Code is [AGPL-3.0-or-later](LICENSE); see [attributions](NOTICE.md).
+excluded from Git. Code is [MIT licensed](LICENSE); see [attributions](NOTICE.md),
+including the separate licensing terms for PyMuPDF.
