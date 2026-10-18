@@ -5,11 +5,20 @@ import pytest
 
 from filing_lens.chunking import chunk_pages
 from filing_lens.evaluation import contains_gold, paired_company_bootstrap, retrieval_metrics
-from filing_lens.io import digest, read_json, read_jsonl
+from filing_lens.io import digest, read_json, read_jsonl, write_json, write_jsonl
 from filing_lens.reader import answer_question, resolve_question
 from filing_lens.retrieval import ranked, reciprocal_rank_fusion
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_artifact_serialization_is_identical_across_operating_systems(tmp_path):
+    path = tmp_path / "test.json"
+    write_json(path, {"value": "µ"})
+    assert b"\r" not in path.read_bytes()
+    path = tmp_path / "test.jsonl"
+    write_jsonl(path, [{"value": "µ"}])
+    assert b"\r" not in path.read_bytes()
 
 
 def test_benchmark_is_80_unique_questions_with_company_disjoint_splits():

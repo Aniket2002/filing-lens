@@ -1,9 +1,9 @@
 {
   "question_count": 80,
   "annotations_sha256": "9eca9a0b0db83a058e7e9b227867c353d8e73de2a6cf1dfbca8203c49de8dbc4",
-  "questions_sha256": "06592a959595dd712f953e1c6797cf2d64281b1508b2eb51231c23a19b3484c6",
-  "pages_sha256": "b0de5167071ece49305dc9b0e71584859d1e72765b5d62b04a6a5bd7c095314d",
-  "tables_sha256": "611cf55cd3c59b81fa9831f4f62f969abd9f565ae9768273f5a671f8a1c3a7d4",
+  "questions_sha256": "f1836439f5da8841334258dcf7f28ffedaa3d8616a46aeb4cd2be8b2f2d55e3d",
+  "pages_sha256": "103859bc4348d135b99d32ced67339de2deb99827c7666b479d0ec3767670ea8",
+  "tables_sha256": "4501c41e2964f4f3e7814bda746badcb7420a9fdff712dcbfd8a0a79f61bdc66",
   "authorship": "AI-authored, individually written after source inspection; human adjudication pending. No model-generated answers are used as gold.",
   "split_unit": "company"
 }
