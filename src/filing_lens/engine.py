@@ -10,7 +10,7 @@ from filing_lens.io import read_json, read_jsonl
 from filing_lens.reader import answer_question
 from filing_lens.retrieval import Index, Models
 
-READERS = ("extractive", "flan-t5", "flan-t5-base")
+READERS = ("extractive", "flan-t5", "flan-t5-base", "flan-t5-explain")
 
 
 class QueryEngine:
@@ -42,6 +42,7 @@ class QueryEngine:
         self.documents = read_json(root / "data/corpus.json")["documents"]
         self.doc_map = {d["id"]: d for d in self.documents}
         pages = read_jsonl(root / "data/processed/pages.jsonl")
+        self.page_text = {(p["doc_id"], p["page"]): p["text"] for p in pages}
         self.tables = {t["id"]: t for t in read_jsonl(root / "data/processed/tables.jsonl")}
         chunks = chunk_pages(pages, self.documents, parts[0])
         models = Models(root)
@@ -49,7 +50,12 @@ class QueryEngine:
         if self.rerank:
             _ = models.reranker
         self.generator = None
-        if reader != "extractive":
+        self.explainer = None
+        if reader == "flan-t5-explain":
+            from filing_lens.explanations import ExplanationReader
+
+            self.explainer = ExplanationReader(root)
+        elif reader != "extractive":
             from filing_lens.generation import LocalGenerator
 
             lock = root / "data/generator-v2-lock.json" if reader == "flan-t5-base" else None
@@ -62,13 +68,29 @@ class QueryEngine:
         # Keep model inference bounded to one concurrent CPU request.
         with self._lock:
             found = self.index.search(question, method=self.method, rerank=self.rerank)
-            answer = answer_question(
-                question,
-                found["chunks"],
-                self.tables,
-                self.documents,
-                assemble_table_evidence=self.assemble_table_evidence,
-            )
+            if self.explainer is not None:
+                evidence = [
+                    {
+                        "chunk_id": chunk["id"],
+                        "doc_id": chunk["doc_id"],
+                        "page": chunk["page"],
+                        "start": chunk["start"],
+                        "end": chunk["end"],
+                        "quote": self.page_text[(chunk["doc_id"], chunk["page"])][
+                            chunk["start"] : chunk["end"]
+                        ],
+                    }
+                    for chunk in found["chunks"][:5]
+                ]
+                answer = self.explainer.answer(question, evidence)
+            else:
+                answer = answer_question(
+                    question,
+                    found["chunks"],
+                    self.tables,
+                    self.documents,
+                    assemble_table_evidence=self.assemble_table_evidence,
+                )
             if self.generator is not None:
                 from filing_lens.generation import gate_generated
 
@@ -92,5 +114,5 @@ class QueryEngine:
             **answer,
             "config": self.config,
             "reader": self.reader,
-            "table_evidence_assembly": self.assemble_table_evidence,
+            "table_evidence_assembly": self.assemble_table_evidence and self.explainer is None,
         }

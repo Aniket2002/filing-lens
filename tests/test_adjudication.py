@@ -79,3 +79,33 @@ def test_duplicate_questions_are_rejected(sheet):
     edit(sheet, lambda rows: rows.append(rows[0]))
     with pytest.raises(ValueError, match="exactly once"):
         validate_sheet(ROOT, sheet)
+
+
+def test_explanation_review_is_separate_and_all_pending(tmp_path):
+    path = tmp_path / "explanations.csv"
+    export_sheet(ROOT, path, "explanations")
+    report = validate_sheet(ROOT, path, "explanations")
+    assert report["total_questions"] == report["pending"] == 40
+    assert report["reviewed"] == 0
+    with pytest.raises(ValueError, match="exactly once"):
+        validate_sheet(ROOT, path)
+
+
+def test_context_unsupported_reviews_require_passage_evidence(tmp_path):
+    path = tmp_path / "explanations.csv"
+    export_sheet(ROOT, path, "explanations")
+
+    def review(rows):
+        row = next(r for r in rows if r["kind"] == "context_unanswerable")
+        row.update(
+            {
+                "reviewer": "Example reviewer",
+                "decision": "accept",
+                "evidence_method": "passage_inspection",
+                "reviewed_answer": "Not in supplied passage",
+                "rationale": "Passage contains no launch delay in days",
+            }
+        )
+
+    edit(path, review)
+    assert validate_sheet(ROOT, path, "explanations")["reviewed"] == 1

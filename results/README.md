@@ -13,6 +13,10 @@
   improvement. The current live CLI/API enables it; reference benchmark defaults do not.
 - `controls/`: isolated numeric verifier study on correct source cells with
   deliberately corrupted claims. This is not end-to-end answer accuracy.
+- `explanations/dev/` and `explanations/test/`: a separate study on 40 newly frozen
+  AI-authored questions. Supplied source passages isolate direct model explanation
+  and learned answerability; no extractive or numeric guard decides refusals.
+  Concept coverage is a screen, while human correctness and entailment remain null.
 
 `reference/metrics.json` has development, test, and pooled aggregates. Use the test
 split for headline comparisons. Pooled results are descriptive and must not be
@@ -25,6 +29,7 @@ To verify committed results without PDFs or model downloads:
 ```bash
 uv run python scripts/audit_reference.py
 uv run python scripts/audit_generation_results.py
+uv run python scripts/audit_explanation_results.py
 ```
 
 To reproduce inference, use `results/reproduced` as the output directory. Preserve

@@ -15,6 +15,7 @@ paths = [
     root / "docs/SERVICE.md",
     root / "docs/DATA_CARD.md",
     root / "docs/ITERATION_1.md",
+    root / "docs/EXPLANATION_STUDY.md",
     root / "data/generator-v2-lock.json",
 ]
 for folder in [
@@ -24,10 +25,13 @@ for folder in [
     "results/generator-v2/test",
     "results/iter1/dev",
     "results/iter1/test",
+    "results/explanations/dev",
+    "results/explanations/test",
     "results/controls",
     "docs/report",
     "data/evidence",
     "data/review",
+    "data/explanations",
 ]:
     paths.extend(p for p in (root / folder).iterdir() if p.is_file())
 paths.append(root / "results/representation-diagnostics.json")

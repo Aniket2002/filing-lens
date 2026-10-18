@@ -20,6 +20,9 @@ class Metrics:
             "answers": 0,
             "refusals": 0,
             "numeric_verification_failures": 0,
+            "model_refusals": 0,
+            "model_protocol_errors": 0,
+            "unverified_answers": 0,
             "duration_seconds_sum": 0.0,
             "duration_seconds_max": 0.0,
         }
@@ -31,6 +34,12 @@ class Metrics:
             if status == 200:
                 self.values["refusals"] += int(result.get("refused", False))
                 self.values["answers"] += int(not result.get("refused", True))
+                self.values["model_refusals"] += int(result.get("model_refused", False))
+                self.values["model_protocol_errors"] += int(result.get("protocol_error", False))
+                self.values["unverified_answers"] += int(
+                    result.get("verification_status") == "unverified_generation"
+                    and not result.get("refused", True)
+                )
                 self.values["numeric_verification_failures"] += int(
                     result.get("reason")
                     in {
@@ -130,6 +139,8 @@ def create_server(engine, host: str = "127.0.0.1", port: int = 8000, log=None):
                     "duration_seconds": elapsed,
                     "refused": result.get("refused"),
                     "reason": result.get("reason"),
+                    "model_refused": result.get("model_refused"),
+                    "verification_status": result.get("verification_status"),
                 }
             )
             self.respond(status, result, request_id)

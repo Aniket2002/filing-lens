@@ -43,8 +43,30 @@ def source_row(question: dict, documents: dict) -> dict:
     }
 
 
-def export_sheet(root: Path, output: Path) -> None:
-    questions = read_jsonl(root / "data/questions.jsonl")
+def review_questions(root: Path, dataset: str) -> tuple[Path, list[dict]]:
+    if dataset == "reference":
+        path = root / "data/questions.jsonl"
+        return path, read_jsonl(path)
+    if dataset != "explanations":
+        raise ValueError("Dataset must be reference or explanations")
+    path = root / "data/explanations/questions.jsonl"
+    return path, [
+        {
+            **q,
+            "gold": q["evidence"],
+            "expected_answer": (
+                "Concept screen only: "
+                + " AND ".join("(" + " OR ".join(group) + ")" for group in q["concept_groups"])
+                if q["answerable"]
+                else "Not answerable from the supplied passage"
+            ),
+        }
+        for q in read_jsonl(path)
+    ]
+
+
+def export_sheet(root: Path, output: Path, dataset: str = "reference") -> None:
+    _, questions = review_questions(root, dataset)
     documents = {d["ticker"]: d for d in read_json(root / "data/corpus.json")["documents"]}
     output.parent.mkdir(parents=True, exist_ok=True)
     with output.open("x", encoding="utf-8", newline="") as stream:
@@ -56,8 +78,9 @@ def export_sheet(root: Path, output: Path) -> None:
             writer.writerow(source_row(q, documents))
 
 
-def validate_sheet(root: Path, sheet: Path) -> dict:
-    questions = {q["id"]: q for q in read_jsonl(root / "data/questions.jsonl")}
+def validate_sheet(root: Path, sheet: Path, dataset: str = "reference") -> dict:
+    question_path, records = review_questions(root, dataset)
+    questions = {q["id"]: q for q in records}
     documents = {d["ticker"]: d for d in read_json(root / "data/corpus.json")["documents"]}
     with sheet.open(encoding="utf-8-sig", newline="") as stream:
         reader = csv.DictReader(stream)
@@ -83,11 +106,13 @@ def validate_sheet(root: Path, sheet: Path) -> dict:
         allowed = (
             {"visual_pdf", "xbrl"} if q["kind"] == "numeric" else {"visual_pdf", "corpus_search"}
         )
+        if dataset == "explanations":
+            allowed = {"visual_pdf", "passage_inspection"}
         if method not in allowed:
             raise ValueError(
                 f"Independent source method must be one of {sorted(allowed)}: {q['id']}"
             )
-        if not q["answerable"] and method != "corpus_search":
+        if dataset == "reference" and not q["answerable"] and method != "corpus_search":
             raise ValueError(f"Unanswerable review requires corpus_search: {q['id']}")
         if not row["rationale"].strip():
             raise ValueError(f"Record the source check and reasoning: {q['id']}")
@@ -117,7 +142,7 @@ def validate_sheet(root: Path, sheet: Path) -> dict:
                 raise ValueError(f"Record the answer or corpus-scoped refusal: {q['id']}")
         reviewed.append({"question_id": q["id"], **{k: row[k] for k in REVIEW_FIELDS}})
     return {
-        "questions_sha256": digest((root / "data/questions.jsonl").read_bytes()),
+        "questions_sha256": digest(question_path.read_bytes()),
         "review_sheet_sha256": digest(sheet.read_bytes()),
         "total_questions": len(questions),
         "reviewed": len(reviewed),
@@ -134,9 +159,9 @@ def validate_sheet(root: Path, sheet: Path) -> dict:
     }
 
 
-def save_review(root: Path, sheet: Path, output: Path) -> dict:
+def save_review(root: Path, sheet: Path, output: Path, dataset: str = "reference") -> dict:
     if output.exists():
         raise ValueError(f"Review output already exists: {output}")
-    report = validate_sheet(root, sheet)
+    report = validate_sheet(root, sheet, dataset)
     write_json(output, report)
     return report

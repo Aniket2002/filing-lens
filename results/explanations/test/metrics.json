@@ -1,0 +1,15 @@
+{
+  "questions": 32,
+  "answerable": 16,
+  "unanswerable_in_context": 16,
+  "model_refusal_on_unanswerables": 0.9375,
+  "model_false_refusal_on_answerables": 0.0625,
+  "model_false_accept_on_unanswerables": 0.0625,
+  "answerable_coverage": 0.9375,
+  "protocol_errors": 0,
+  "all_concepts_covered_on_answerables": 0.375,
+  "all_concepts_covered_given_answer": 0.4,
+  "human_answer_correctness": null,
+  "human_citation_entailment": null,
+  "human_reviews_completed": 0
+}

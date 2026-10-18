@@ -16,6 +16,10 @@ class FakeEngine:
             raise RuntimeError("private filesystem details")
         if question == "invalid_model_output":
             raise ValueError("private inference details")
+        if question == "model_missing":
+            return {"refused": True, "model_refused": True, "protocol_error": False}
+        if question == "draft":
+            return {"refused": False, "verification_status": "unverified_generation"}
         return {"answer": "evidence", "refused": question == "missing", "reason": None}
 
 
@@ -48,13 +52,18 @@ def test_service_serves_answers_and_measures_errors_and_refusals(api):
     assert request(api, "POST", "/ask", json.dumps({"question": "missing"}))[2]["refused"]
     status, _, result = request(api, "POST", "/ask", json.dumps({"question": "crash"}))
     assert status == 500 and result == {"error": "inference_failed"}
+    assert request(api, "POST", "/ask", json.dumps({"question": "model_missing"}))[2][
+        "model_refused"
+    ]
+    assert request(api, "POST", "/ask", json.dumps({"question": "draft"}))[0] == 200
     status, _, result = request(
         api, "POST", "/ask", json.dumps({"question": "invalid_model_output"})
     )
     assert status == 500 and result == {"error": "inference_failed"}
     metrics = request(api, "GET", "/metrics")[2]
-    assert metrics["requests"] == 4 and metrics["errors"] == 2
-    assert metrics["answers"] == metrics["refusals"] == 1
+    assert metrics["requests"] == 6 and metrics["errors"] == 2
+    assert metrics["answers"] == metrics["refusals"] == 2
+    assert metrics["model_refusals"] == metrics["unverified_answers"] == 1
     assert metrics["duration_seconds_sum"] >= metrics["duration_seconds_max"] > 0
     assert all("question" not in event and "answer" not in event for event in api[1])
 

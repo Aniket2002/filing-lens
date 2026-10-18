@@ -17,6 +17,7 @@ generator = next(
 best = max(metrics, key=lambda r: r["recall_at_5"])
 assembled = read_json(root / "results/iter1/test/metrics.json")[0]
 generation_v2 = read_json(root / "results/generator-v2/test/metrics.json")
+explanations = read_json(root / "results/explanations/test/metrics.json")
 body = (
     f"Development selected **`{selected['config']}`**. Its test recall@5 is "
     f"**{selected['recall_at_5']:.1%}**, versus {baseline['recall_at_5']:.1%} for fixed/BM25: "
@@ -57,7 +58,18 @@ body = (
     "prompt, context format, and evidence assembly changed together. It is not an independent "
     "validation, a controlled model-size comparison, or general financial QA. "
     "See the [generation study](docs/GENERATION_V2.md) and "
-    "[preserved outputs](results/generator-v2/test/predictions.jsonl)."
+    "[preserved outputs](results/generator-v2/test/predictions.jsonl).\n\n"
+    "**New explanation challenge, supplied evidence:** 40 new AI-authored questions "
+    "(8 development, 32 test) were frozen before inference using the same source filings. "
+    "The experimental `flan-t5-explain` reader generates prose and its own yes/no answerability "
+    "decision without the extractive reader or numeric guard. On test it declines "
+    f"**{explanations['model_refusal_on_unanswerables']:.1%} of unsupported questions (15/16)** "
+    "and falsely declines **1/16 supported questions**. Explanation quality remains weak: "
+    "only **6/16** supported questions pass the full automatic concept screen, which is not "
+    "a correctness or entailment score. Human quality scores remain unassigned. "
+    "This isolates model behavior on supplied passages; it does not evaluate retrieval or "
+    "establish independent human validation. See the "
+    "[explanation study](docs/EXPLANATION_STUDY.md)."
 )
 path = root / "README.md"
 text = path.read_text(encoding="utf-8")

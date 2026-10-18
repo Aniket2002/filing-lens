@@ -16,6 +16,9 @@ The main study fixes one **extractive reader** across all retrieval ablations.
 Separate pinned FLAN-T5-small and FLAN-T5-base experiments measure generated numeric
 answers before and after a source-cell guard. A local API exposes answers, refusals,
 health, and request metrics. This is a research prototype with no production deployment.
+An experimental explanation reader also measures model-native answerability on a
+separate set of 40 new, source-anchored questions frozen before inference. Its
+generated explanations remain unverified and often incomplete.
 
 ![Measured retrieval ablations](docs/report/ablations.png)
 
@@ -55,6 +58,8 @@ Citation support is conditional on returning an answer. The selected system retu
 **Current CLI/API reader:** same-page table-evidence assembly is now enabled by default for `ask` and `serve`. The separately measured extractive profile achieves **57.1% correctness (24/42)** and **64.3% coverage (27/42)**, with unchanged retrieval and unanswerable refusal. Use `--no-assemble-table-evidence` for the original reader; benchmark defaults and frozen reference artifacts retain the original behavior. See [Iteration 1](docs/ITERATION_1.md).
 
 **Generation v2, exploratory:** pinned FLAN-T5-base with aligned year/value records achieves **60.0% raw amount correctness (21/35)** and **57.1% verified numeric correctness and coverage (20/35)**. It uses the same retrieval rankings plus table-evidence assembly. The guard withholds one correct raw amount without sufficient retrieved evidence. The model's exact `UNKNOWN` rate on 14 negatives is **0/14**; guarded refusals come from the controls. This is row-assisted amount generation on a previously inspected test set, with model, prompt, context format, and evidence assembly changed together. It is not an independent validation, a controlled model-size comparison, or general financial QA. See the [generation study](docs/GENERATION_V2.md) and [preserved outputs](results/generator-v2/test/predictions.jsonl).
+
+**New explanation challenge, supplied evidence:** 40 new AI-authored questions (8 development, 32 test) were frozen before inference using the same source filings. The experimental `flan-t5-explain` reader generates prose and its own yes/no answerability decision without the extractive reader or numeric guard. On test it declines **93.8% of unsupported questions (15/16)** and falsely declines **1/16 supported questions**. Explanation quality remains weak: only **6/16** supported questions pass the full automatic concept screen, which is not a correctness or entailment score. Human quality scores remain unassigned. This isolates model behavior on supplied passages; it does not evaluate retrieval or establish independent human validation. See the [explanation study](docs/EXPLANATION_STUDY.md).
 <!-- RESULTS_END -->
 
 The complete metric ledger includes recall@1/5/10, MRR@20, numeric and narrative
@@ -86,6 +91,7 @@ uv sync --locked --extra dev --python 3.12
 uv run pytest -q
 uv run python scripts/audit_reference.py
 uv run python scripts/audit_generation_results.py
+uv run python scripts/audit_explanation_results.py
 
 # Acquire the exact source documents and build the canonical corpus
 uv run filing-lens fetch
@@ -131,6 +137,7 @@ uv run filing-lens ask "What was NVIDIA's FY2028 revenue?"
 uv run filing-lens ask "What was AMD's FY2023 net income?" --config structure-bm25-rerank
 uv run filing-lens ask "What was AMD's FY2023 net income?" --reader flan-t5
 uv run filing-lens ask "What was AMD's FY2023 net income?" --reader flan-t5-base
+uv run filing-lens ask "Explain how in-house manufacturing supports Texas Instruments' cost and supply-chain strategy." --reader flan-t5-explain
 
 # Reproduce the original extractive reader behavior
 uv run filing-lens ask "What was AMD's FY2023 net income?" --no-assemble-table-evidence
@@ -164,6 +171,9 @@ uv run python scripts/audit_generator_v2.py --split test --output results/reprod
 It downloads approximately 1 GB of FLAN-T5-base weights on first use. Both readers
 generate an amount from retrieved rows; the final sentence is a deterministic
 rendering of the verified claim. Neither is a general narrative-generation system.
+The separate `flan-t5-explain` reader generates prose and its own answerability
+decision from evidence. Its source references identify input context; they do not
+certify the explanation's correctness. See the [explanation study](docs/EXPLANATION_STUDY.md).
 
 ## Local service and independent review
 
@@ -183,6 +193,8 @@ with blank adjudication fields: **0 independently reviewed, 80 pending**. The
 [review workflow](docs/ANNOTATION_REVIEW.md) validates recorded decisions, requires
 visual-PDF or XBRL checks for numeric labels, and saves proposed corrections
 separately. It does not turn an AI-authored benchmark into a human-validated one.
+The new explanation challenge has its own 40-row pending review sheet; those
+labels and the generated prose also await independent human assessment.
 
 ## Architecture and design choices
 
@@ -250,6 +262,8 @@ src/filing_lens/              Parsing, chunking, retrieval, reader, controls, ev
 results/reference/           All 960 main predictions, 36 aggregate rows, run metadata
 results/generator/           Raw local-model outputs and guarded answer metrics
 results/generator-v2/        Dev-first FLAN-T5-base outputs, fingerprints, and metrics
+results/explanations/        New supplied-passage explanation and native-refusal study
+data/explanations/           Frozen new questions, model/protocol locks, pending review
 data/review/                 Pending source-linked review sheet and explicit status
 results/controls/            Isolated source-cell mutation study
 docs/report/                 Standalone interactive report, plot, and failure ledger

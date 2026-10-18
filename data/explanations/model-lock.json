@@ -1,0 +1,11 @@
+{
+  "model": "google/flan-t5-base",
+  "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2",
+  "max_input_tokens": 512,
+  "max_new_tokens": 128,
+  "do_sample": false,
+  "answerability_template": "Decide whether the passage contains enough information to answer the entire question. Reply only yes or no.\nExample passage: Revenue fell because shipments decreased.\nExample question: Why did revenue fall?\nReply: yes\nExample passage: Revenue fell because shipments decreased.\nExample question: What exact percentage did shipments fall?\nReply: no\nPassage:\n{context}\nQuestion: {question}\nReply:",
+  "prompt_template": "Use only the supplied financial passage to answer the question in one or two sentences. Explain the stated cause and consequence. Do not invent missing details or investment advice.\nPassage:\n{context}\nQuestion: {question}\nAnswer:",
+  "scope": "experimental qualitative explanation from supplied evidence; model-generated yes/no answerability; no extractive reader or numeric guard",
+  "evaluation_policy": "One model and prompt pair, frozen before development inference; run dev before test; do not tune using test outputs. Test questions are newly authored from previously used source filings and still require independent human review."
+}

@@ -1,0 +1,23 @@
+{
+  "version": "explanations-1",
+  "frozen_utc": "2026-10-18T11:39:43.451752+00:00",
+  "fingerprint": {
+    "data/explanations/questions.jsonl": "0122cf4101cef07ff44f447b1ad0a14db2254a65d37c2de37e95e53ab3e30177",
+    "data/explanations/model-lock.json": "fa2f5f43d90738bea1bab7c4faa1cc288d8e134894d04155452ba72ddbedaa15",
+    "data/benchmark-lock.json": "d73ac6e903b41354200746298052d78e3236a5ff41072a532b910764828d4d2c",
+    "src/filing_lens/explanations.py": "4c2c3b0460fe9773f4490100563ab6cb4689a42a20aacf6ac9243d74fbd561e2",
+    "src/filing_lens/explanation_study.py": "5862676900af13434fbebf405566d1e4be3fab3a4602e92587861e2a1e7b61d5",
+    "src/filing_lens/generation.py": "162788502c8c472fe0fa6af0325b86ca870e3bc1c04d8db45698714176edeb11",
+    "scripts/prepare_explanation_challenge.py": "03bb323c4601877ef34cccd5993fffee1bf9e583a809914708f60cb5aad64251"
+  },
+  "questions": 40,
+  "dev": 8,
+  "test": 32,
+  "test_companies": 8,
+  "newness": "New questions frozen before inference; source filings used in earlier studies",
+  "authorship": "AI-authored, source-anchored; zero independent human adjudications",
+  "unit": "Questions share ten passages; dev has two companies and test has eight",
+  "input_policy": "Supplied evidence only; no retrieval, extractive reader or numeric guard",
+  "quality_metric": "Automatic concept coverage screen; semantic correctness unadjudicated",
+  "model_selection": "One predeclared model and prompt pair; no test-based tuning"
+}

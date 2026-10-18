@@ -77,3 +77,32 @@ def test_live_generator_uses_model_output_and_refuses_wrong_amount(root, monkeyp
 def test_engine_rejects_unsupported_profile_before_loading_data(tmp_path):
     with pytest.raises(ValueError, match="Invalid config"):
         QueryEngine(tmp_path, config="invalid")
+
+
+def test_explanation_engine_bypasses_extractive_reader_and_uses_source_text(root, monkeypatch):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Explanation mode must bypass the extractive answerer")
+
+    class FakeExplainer:
+        def __init__(self, *args):
+            pass
+
+        def answer(self, question, evidence):
+            assert evidence[0]["quote"].startswith("Metric |")
+            assert "Micron Technology (MU) FY2023." not in evidence[0]["quote"]
+            return {
+                "answer": "An explanation.",
+                "refused": False,
+                "reason": None,
+                "citations": [{**evidence[0], "role": "input_context"}],
+                "claims": [],
+                "numeric_checks": [],
+                "verification_status": "unverified_generation",
+            }
+
+    monkeypatch.setattr("filing_lens.engine.answer_question", forbidden)
+    monkeypatch.setattr("filing_lens.explanations.ExplanationReader", FakeExplainer)
+    engine = QueryEngine(root, config="fixed-bm25", reader="flan-t5-explain")
+    response = engine.ask("Explain Micron revenue")
+    assert not response["table_evidence_assembly"]
+    assert response["reader"] == "flan-t5-explain"

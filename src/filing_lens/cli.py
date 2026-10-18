@@ -9,6 +9,7 @@ from pathlib import Path
 from rich.console import Console
 from rich.panel import Panel
 
+from filing_lens.engine import READERS
 from filing_lens.io import read_jsonl
 
 
@@ -39,9 +40,7 @@ def main() -> None:
         "--config", default=None, help="E.g. structure-hybrid-rerank; default: dev-selected"
     )
     ask.add_argument("--json", action="store_true", dest="as_json")
-    ask.add_argument(
-        "--reader", choices=["extractive", "flan-t5", "flan-t5-base"], default="extractive"
-    )
+    ask.add_argument("--reader", choices=READERS, default="extractive")
     ask.add_argument(
         "--assemble-table-evidence",
         action=argparse.BooleanOptionalAction,
@@ -52,9 +51,7 @@ def main() -> None:
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8000)
     serve.add_argument("--config", default=None)
-    serve.add_argument(
-        "--reader", choices=["extractive", "flan-t5", "flan-t5-base"], default="extractive"
-    )
+    serve.add_argument("--reader", choices=READERS, default="extractive")
     serve.add_argument(
         "--assemble-table-evidence", action=argparse.BooleanOptionalAction, default=True
     )
@@ -145,6 +142,10 @@ def main() -> None:
                 if answer["numeric_checks"]:
                     console.print(
                         "[green]PASS: amount, source cell, entity, year, and unit agree[/green]"
+                    )
+                if answer.get("verification_status") == "unverified_generation":
+                    console.print(
+                        "Unverified explanation; source references show model input context."
                     )
                 if answer["refused"]:
                     console.print(f"Evidence gate: {answer['reason']}")
