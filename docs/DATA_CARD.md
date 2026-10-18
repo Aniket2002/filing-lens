@@ -17,11 +17,11 @@ and normalized primary-statement data are included for auditability.
 
 ## Annotation procedure and authorship
 
-The 80 questions were individually written by the AI coding assistant after
-inspecting actual source text and statement pages. They have **not been independently
-adjudicated by a human**. They must not be described as a human-labelled dataset.
-The assistant also visually spot-checked twelve numeric annotations against three
-rendered source pages; see [the inspection record](SOURCE_SPOT_CHECKS.md).
+The 80 questions were individually AI-authored after inspecting actual source text
+and statement pages. They have **not been independently adjudicated by a human**.
+They must not be described as a human-labelled dataset. A separate AI-assisted
+visual spot check covered twelve numeric annotations across three rendered source
+pages; see [the inspection record](SOURCE_SPOT_CHECKS.md).
 
 1. Inspect the source statement or paragraph.
 2. Write a question, explicitly specify the fiscal period, and independently

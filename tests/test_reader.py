@@ -41,6 +41,81 @@ def test_global_table_lookup_does_not_bypass_missing_row(corpus):
     assert answer_question("What was Micron's FY2023 net income?", chunks, tables, docs)["refused"]
 
 
+def test_opt_in_assembles_header_and_row_from_retrieved_same_page_chunks(corpus):
+    docs, tables, chunks = deepcopy(corpus)
+    chunks[0]["text"] = "Metric | 2023 | 2022"
+    chunks[0]["end"] = len(chunks[0]["text"])
+    row = "Net income (loss) | (5,833) | 8,687"
+    chunks.append(
+        {
+            "id": "C2",
+            "doc_id": "MU-2023",
+            "page": 57,
+            "start": len(chunks[0]["text"]) + 1,
+            "end": len(chunks[0]["text"]) + len(row) + 1,
+            "text": row,
+        }
+    )
+    assert answer_question("What was Micron's FY2023 net income?", chunks, tables, docs)["refused"]
+    response = answer_question(
+        "What was Micron's FY2023 net income?",
+        chunks,
+        tables,
+        docs,
+        assemble_table_evidence=True,
+    )
+    assert not response["refused"]
+    assert response["claims"][0]["value"] == "-5833"
+    assert {citation["chunk_id"] for citation in response["citations"]} == {"C", "C2"}
+
+
+def test_table_parts_outside_retrieved_top_k_are_not_assembled(corpus):
+    docs, tables, chunks = deepcopy(corpus)
+    chunks[0]["text"] = "Metric | 2023 | 2022"
+    chunks[1:1] = [
+        {
+            "id": "C2",
+            "doc_id": "MU-2023",
+            "page": 57,
+            "start": 0,
+            "end": len("Net income (loss) | (5,833) | 8,687"),
+            "text": "Net income (loss) | (5,833) | 8,687",
+        }
+    ]
+    response = answer_question(
+        "What was Micron's FY2023 net income?",
+        chunks,
+        tables,
+        docs,
+        k=1,
+        assemble_table_evidence=True,
+    )
+    assert response["refused"]
+
+
+def test_opt_in_does_not_borrow_header_from_another_page(corpus):
+    docs, tables, chunks = deepcopy(corpus)
+    chunks[0]["text"] = "Net income (loss) | (5,833) | 8,687"
+    chunks.append(
+        {
+            "id": "C2",
+            "doc_id": "MU-2023",
+            "page": 58,
+            "start": 0,
+            "end": len("Metric | 2023 | 2022"),
+            "text": "Metric | 2023 | 2022",
+        }
+    )
+    response = answer_question(
+        "What was Micron's FY2023 net income?",
+        chunks,
+        tables,
+        docs,
+        assemble_table_evidence=True,
+    )
+    assert response["refused"]
+
+
 def test_no_answer_can_be_borrowed_from_another_entity(corpus):
     docs, tables, chunks = deepcopy(corpus)
     chunks[0]["doc_id"] = "AMD-2023"

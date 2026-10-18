@@ -24,6 +24,13 @@ def main() -> None:
     bench = sub.add_parser("benchmark", help="Run 12 ablations and preserve individual predictions")
     bench.add_argument("--output", type=Path, default=Path("results/reproduced"))
     bench.add_argument("--lexical-only", action="store_true", help="Two BM25 chunking baselines")
+    bench.add_argument("--config", help="Run one configuration instead of the full ablation set")
+    bench.add_argument("--split", choices=["dev", "test"], help="Run only one company split")
+    bench.add_argument(
+        "--assemble-table-evidence",
+        action="store_true",
+        help="Opt in to joining retrieved same-page table headers and rows",
+    )
     ask = sub.add_parser(
         "ask", help="Ask a source-cited question without access to evaluation labels"
     )
@@ -33,6 +40,11 @@ def main() -> None:
     )
     ask.add_argument("--json", action="store_true", dest="as_json")
     ask.add_argument("--reader", choices=["extractive", "flan-t5"], default="extractive")
+    ask.add_argument(
+        "--assemble-table-evidence",
+        action="store_true",
+        help="Opt in to joining retrieved same-page table headers and rows",
+    )
     report = sub.add_parser(
         "report", help="Render measured results as Markdown, PNG, and standalone HTML"
     )
@@ -69,7 +81,14 @@ def main() -> None:
         elif args.command == "benchmark":
             from filing_lens.benchmark import run
 
-            run(root, root / args.output, args.lexical_only)
+            run(
+                root,
+                root / args.output,
+                args.lexical_only,
+                args.config,
+                args.split,
+                args.assemble_table_evidence,
+            )
         elif args.command == "report":
             from filing_lens.reporting import render
 
@@ -105,7 +124,13 @@ def main() -> None:
             chunks = chunk_pages(pages, documents, strategy)
             index = Index(chunks, Models(root), dense=method != "bm25")
             found = index.search(args.question, method=method, rerank=rerank)
-            answer = answer_question(args.question, found["chunks"], tables, documents)
+            answer = answer_question(
+                args.question,
+                found["chunks"],
+                tables,
+                documents,
+                assemble_table_evidence=args.assemble_table_evidence,
+            )
             if args.reader == "flan-t5":
                 from filing_lens.generation import LocalGenerator, gate_generated
 

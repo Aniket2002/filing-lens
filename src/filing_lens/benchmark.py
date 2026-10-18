@@ -36,13 +36,28 @@ def validate_dataset(root: Path) -> dict:
     return lock
 
 
-def run(root: Path, output: Path, lexical_only: bool = False) -> None:
+def run(
+    root: Path,
+    output: Path,
+    lexical_only: bool = False,
+    config: str | None = None,
+    split: str | None = None,
+    assemble_table_evidence: bool = False,
+) -> None:
+    if split not in {None, "dev", "test"}:
+        raise ValueError("Benchmark split must be dev or test")
+    if split is not None and config is None:
+        raise ValueError("--split requires one --config")
+    if assemble_table_evidence and config is None:
+        raise ValueError("--assemble-table-evidence requires one --config")
     lock = validate_dataset(root)
     pages = read_jsonl(root / "data/processed/pages.jsonl")
     page_map = {(p["doc_id"], p["page"]): p for p in pages}
     tables = {t["id"]: t for t in read_jsonl(root / "data/processed/tables.jsonl")}
     documents = read_json(root / "data/corpus.json")["documents"]
     questions = read_jsonl(root / "data/questions.jsonl")
+    if split is not None:
+        questions = [q for q in questions if q["split"] == split]
     models = Models(root)
     # Warmup excludes one-off model load. Query encoding remains in measured time.
     if not lexical_only:
@@ -50,75 +65,139 @@ def run(root: Path, output: Path, lexical_only: bool = False) -> None:
         models.reranker.predict([("warmup", "warmup")], show_progress_bar=False)
     all_rows, results = [], []
     experiment_start = time.perf_counter()
-    for strategy in ("fixed", "structure"):
+    configurations = [
+        (strategy, method, rerank)
+        for strategy in ("fixed", "structure")
+        for method in (["bm25"] if lexical_only else ["bm25", "dense", "hybrid"])
+        for rerank in ([False] if lexical_only else [False, True])
+    ]
+    if config is not None:
+        selected = [
+            values
+            for values in configurations
+            if f"{values[0]}-{values[1]}" + ("-rerank" if values[2] else "") == config
+        ]
+        if not selected:
+            raise ValueError(f"Unknown benchmark configuration: {config}")
+        configurations = selected
+    if assemble_table_evidence and lexical_only:
+        raise ValueError("--assemble-table-evidence requires neural reranking mode")
+    config_label = (
+        f"{config}+table-evidence" if assemble_table_evidence and config is not None else config
+    )
+    for strategy, method, rerank in configurations:
         chunks = chunk_pages(pages, documents, strategy)
-        write_jsonl(root / f"data/processed/chunks-{strategy}.jsonl", chunks)
+        if config is None and split is None:
+            write_jsonl(root / f"data/processed/chunks-{strategy}.jsonl", chunks)
         print(f"[cyan]Index[/cyan] {strategy}: {len(chunks):,} chunks")
         index_start = time.perf_counter()
         index = Index(chunks, models, dense=not lexical_only)
         index_seconds = time.perf_counter() - index_start
-        for method in ["bm25"] if lexical_only else ["bm25", "dense", "hybrid"]:
-            for rerank in [False] if lexical_only else [False, True]:
-                config = f"{strategy}-{method}" + ("-rerank" if rerank else "")
-                rows = []
-                for q in questions:
-                    start = time.perf_counter()
-                    found = index.search(q["question"], method, pool=20, rerank=rerank)
-                    response = answer_question(q["question"], found["chunks"], tables, documents)
-                    query_ms = (time.perf_counter() - start) * 1000
-                    row = {
-                        "config": config,
-                        "question_id": q["id"],
-                        "question": q["question"],
-                        "company": q["company"],
-                        "kind": q["kind"],
-                        "split": q["split"],
-                        "answerable": q["answerable"],
-                        "query_ms": query_ms,
-                        "retrieval_ms": found["retrieval_ms"],
-                        "rerank_ms": found["rerank_ms"],
-                        **retrieval_metrics(found["chunks"], q["gold"]),
-                        **score_answer(q, response, page_map),
-                        "response": response,
-                        "ranking": [
-                            {key: c[key] for key in ["id", "doc_id", "page", "start", "end"]}
-                            for c in found["chunks"]
-                        ],
-                    }
-                    rows.append(row)
-                all_rows.extend(rows)
-                for split in ("dev", "test", "all"):
-                    selected = rows if split == "all" else [r for r in rows if r["split"] == split]
-                    results.append(
-                        {
-                            "config": config,
-                            "chunking": strategy,
-                            "retrieval": method,
-                            "rerank": rerank,
-                            "split": split,
-                            "chunks": len(chunks),
-                            "index_seconds_this_run": index_seconds,
-                            **aggregate(selected),
-                        }
-                    )
-                write_jsonl(output / "predictions.jsonl", all_rows)
-                write_json(output / "metrics.json", results)
-                print(
-                    f"[green]Measured[/green] {config}: "
-                    f"test R@5={results[-2]['recall_at_5']:.3f}, "
-                    f"answer={results[-2]['answer_correctness']:.3f}"
-                )
+        run_config = f"{strategy}-{method}" + ("-rerank" if rerank else "")
+        result_config = f"{run_config}+table-evidence" if assemble_table_evidence else run_config
+        rows = []
+        for q in questions:
+            start = time.perf_counter()
+            found = index.search(q["question"], method, pool=20, rerank=rerank)
+            response = answer_question(
+                q["question"],
+                found["chunks"],
+                tables,
+                documents,
+                assemble_table_evidence=assemble_table_evidence,
+            )
+            query_ms = (time.perf_counter() - start) * 1000
+            row = {
+                "config": result_config,
+                "question_id": q["id"],
+                "question": q["question"],
+                "company": q["company"],
+                "kind": q["kind"],
+                "split": q["split"],
+                "answerable": q["answerable"],
+                "query_ms": query_ms,
+                "retrieval_ms": found["retrieval_ms"],
+                "rerank_ms": found["rerank_ms"],
+                **retrieval_metrics(found["chunks"], q["gold"]),
+                **score_answer(q, response, page_map),
+                "response": response,
+                "ranking": [
+                    {key: c[key] for key in ["id", "doc_id", "page", "start", "end"]}
+                    for c in found["chunks"]
+                ],
+            }
+            rows.append(row)
+        all_rows.extend(rows)
+        split_names = (split,) if split is not None else ("dev", "test", "all")
+        for split_name in split_names:
+            selected_rows = (
+                rows if split_name == "all" else [r for r in rows if r["split"] == split_name]
+            )
+            results.append(
+                {
+                    "config": result_config,
+                    "chunking": strategy,
+                    "retrieval": method,
+                    "rerank": rerank,
+                    "split": split_name,
+                    "chunks": len(chunks),
+                    "index_seconds_this_run": index_seconds,
+                    **aggregate(selected_rows),
+                }
+            )
+        write_jsonl(output / "predictions.jsonl", all_rows)
+        write_json(output / "metrics.json", results)
+        measured = results[-1]
+        print(
+            f"[green]Measured[/green] {result_config} ({measured['split']}): "
+            f"R@5={measured['recall_at_5']:.3f}, "
+            f"answer={measured['answer_correctness']:.3f}"
+        )
     dev = [r for r in results if r["split"] == "dev"]
-    # Predeclared model selection: development recall, then development MRR,
-    # then simpler configuration name. No test metrics enter selection.
-    chosen = sorted(dev, key=lambda r: (-r["recall_at_5"], -r["mrr_at_20"], r["config"]))[0]
-    baseline = [r for r in all_rows if r["config"] == "fixed-bm25" and r["split"] == "test"]
-    selected = [r for r in all_rows if r["config"] == chosen["config"] and r["split"] == "test"]
-    comparisons = [
-        paired_company_bootstrap(baseline, selected, metric)
-        for metric in ("recall_at_5", "mrr_at_20", "correct")
-    ]
+    if config is not None:
+        chosen_name = config_label or config
+    elif dev:
+        # Predeclared model selection: development recall, then development MRR,
+        # then simpler configuration name. No test metrics enter selection.
+        chosen_name = sorted(dev, key=lambda r: (-r["recall_at_5"], -r["mrr_at_20"], r["config"]))[
+            0
+        ]["config"]
+    else:
+        raise ValueError("A full benchmark run requires development results for selection")
+    comparisons = []
+    if split == "test":
+        baseline_config = config if config is not None else "fixed-bm25"
+        baseline_rows = [
+            row
+            for row in read_jsonl(root / "results/reference/predictions.jsonl")
+            if row["config"] == baseline_config and row["split"] == "test"
+        ]
+        selected_rows = [
+            row
+            for row in all_rows
+            if row["config"] == (config_label or config) and row["split"] == "test"
+        ]
+        if baseline_rows and selected_rows:
+            comparisons = [
+                paired_company_bootstrap(baseline_rows, selected_rows, metric)
+                for metric in ("recall_at_5", "mrr_at_20", "correct")
+            ]
+    elif split is None:
+        baseline_rows = [
+            row for row in all_rows if row["config"] == "fixed-bm25" and row["split"] == "test"
+        ]
+        selected_rows = [
+            row for row in all_rows if row["config"] == chosen_name and row["split"] == "test"
+        ]
+        if baseline_rows and selected_rows:
+            comparisons = [
+                paired_company_bootstrap(baseline_rows, selected_rows, metric)
+                for metric in ("recall_at_5", "mrr_at_20", "correct")
+            ]
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=root, capture_output=True, text=True)
+    git_status = subprocess.run(
+        ["git", "status", "--porcelain"], cwd=root, capture_output=True, text=True
+    )
     write_json(
         output / "run.json",
         {
@@ -130,6 +209,15 @@ def run(root: Path, output: Path, lexical_only: bool = False) -> None:
             "torch_threads": 4,
             "seed": 17,
             "git_commit": commit.stdout.strip() if commit.returncode == 0 else None,
+            "git_worktree_dirty": bool(git_status.stdout.strip()),
+            "implementation_sha256": {
+                path: digest((root / path).read_bytes())
+                for path in [
+                    "src/filing_lens/benchmark.py",
+                    "src/filing_lens/reader.py",
+                    "src/filing_lens/cli.py",
+                ]
+            },
             "packages": {
                 name: importlib.metadata.version(name)
                 for name in ["numpy", "pymupdf", "sentence-transformers", "torch", "rank-bm25"]
@@ -143,9 +231,17 @@ def run(root: Path, output: Path, lexical_only: bool = False) -> None:
             "candidate_pool": 20,
             "answer_context_k": 5,
             "rrf_constant": 60,
-            "reader": "frozen extractive v1",
+            "reader": (
+                "frozen extractive v1 with retrieved same-page table-part assembly"
+                if assemble_table_evidence
+                else "frozen extractive v1"
+            ),
             "selection_rule": "dev recall@5, then dev MRR@20, then config name",
-            "selected_on_dev": chosen["config"],
+            "selected_on_dev": chosen_name,
+            "requested_config": config,
+            "requested_split": split,
+            "table_evidence_assembly": assemble_table_evidence,
+            "paired_baseline_config": config if split == "test" else None,
             "paired_test_comparisons": comparisons,
             "timing": (
                 "warm models; cached document embeddings; query encoding and reader included; CPU"

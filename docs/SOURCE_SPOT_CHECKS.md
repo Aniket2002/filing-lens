@@ -1,10 +1,10 @@
 # Source visual spot checks
 
-On 18 October 2026, the AI coding assistant rendered three original PDF pages
-and inspected the visible statement headings, year columns, units, and twelve
-numeric annotations below. This is an AI visual spot check, **not independent
-human adjudication** or a complete extraction audit. The original PDF hashes are
-recorded in `data/source-lock.json`.
+On 18 October 2026, three original PDF pages were rendered and inspected for
+statement headings, year columns, units, and the twelve numeric annotations below.
+This AI-assisted visual spot check is **not independent human adjudication** or a
+complete extraction audit. The original PDF hashes are recorded in
+`data/source-lock.json`.
 
 | Original PDF page | Visually checked values | Why this page matters |
 | :-- | :-- | :-- |

@@ -20,8 +20,7 @@ and after a source-cell guard. Neither result is presented as a production assis
 
 **Start here:** [measured ablations](docs/report/ablations.md) ·
 [failure analysis](docs/FAILURE_ANALYSIS.md) ·
-[experiment protocol](docs/EXPERIMENT_PROTOCOL.md) ·
-[interview walkthrough](docs/INTERVIEW_GUIDE.md).
+[experiment protocol](docs/EXPERIMENT_PROTOCOL.md).
 Open `docs/report/index.html` locally for the interactive experiment and case-file
 review. It is a standalone file; it needs no server and makes no network requests.
 [Preview the review interface](docs/report/preview.png).

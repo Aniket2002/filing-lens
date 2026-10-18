@@ -76,7 +76,12 @@ def refuse(reason: str) -> dict:
 
 
 def answer_question(
-    query: str, chunks: list[dict], tables: dict[str, dict], documents: list[dict], k: int = 5
+    query: str,
+    chunks: list[dict],
+    tables: dict[str, dict],
+    documents: list[dict],
+    k: int = 5,
+    assemble_table_evidence: bool = False,
 ) -> dict:
     intent = resolve_question(query, documents)
     doc, year, metric = intent["doc"], intent["year"], intent["metric"]
@@ -91,6 +96,73 @@ def answer_question(
     if intent["unsupported_scope"]:
         return refuse("unsupported_question_scope")
     if metric:
+
+        def respond(table: dict, row_index: int, row: list, row_chunk: dict, header_chunk: dict):
+            header = " | ".join(table["rows"][0])
+            quote = " | ".join(row)
+            column = table["years"].index(year) + 1
+            value, unit = number(row[column]), row_unit(table, row[0])
+            if value is None or unit is None:
+                return None
+            claim = {
+                "doc_id": doc["id"],
+                "page": table["page"],
+                "table_id": table["id"],
+                "row_index": row_index,
+                "column_index": column,
+                "row_label": row[0],
+                "metric": metric,
+                "period": year,
+                "value": str(value),
+                "unit": unit,
+            }
+            label = {
+                "USD_millions": "USD million",
+                "USD_thousands": "USD thousand",
+                "USD_per_share": "USD per share",
+            }[unit]
+            answer = (
+                f"{doc['company']} reported {value:,} {label} "
+                f"for {metric.replace('_', ' ')} in FY{year}."
+            )
+            checks = [
+                verify_claim(claim, tables, {d["id"]: d for d in documents}),
+                verify_answer_numbers(answer, claim),
+            ]
+            if not all(c["supported"] for c in checks):
+                return refuse("numeric_verification_failed")
+            citations = [
+                {
+                    "chunk_id": row_chunk["id"],
+                    "doc_id": doc["id"],
+                    "page": table["page"],
+                    "quote": quote,
+                    "header": header,
+                    "start": row_chunk["start"],
+                    "end": row_chunk["end"],
+                }
+            ]
+            if header_chunk["id"] != row_chunk["id"]:
+                citations.append(
+                    {
+                        "chunk_id": header_chunk["id"],
+                        "doc_id": doc["id"],
+                        "page": table["page"],
+                        "quote": header,
+                        "header": header,
+                        "start": header_chunk["start"],
+                        "end": header_chunk["end"],
+                    }
+                )
+            return {
+                "answer": answer,
+                "refused": False,
+                "reason": None,
+                "citations": citations,
+                "claims": [claim],
+                "numeric_checks": checks,
+            }
+
         for chunk in chunks[:k]:
             if chunk["doc_id"] != doc["id"]:
                 continue
@@ -104,59 +176,39 @@ def answer_question(
                 header = " | ".join(table["rows"][0])
                 if header not in chunk["text"]:
                     continue
-                column = table["years"].index(year) + 1
                 for row_index, row in enumerate(table["rows"][1:], 1):
                     quote = " | ".join(row)
                     if not matches_metric(row[0], metric) or quote not in chunk["text"]:
                         continue
-                    value, unit = number(row[column]), row_unit(table, row[0])
-                    if value is None or unit is None:
+                    response = respond(table, row_index, row, chunk, chunk)
+                    if response is not None:
+                        return response
+        if assemble_table_evidence:
+            retrieved = chunks[:k]
+            for table in tables.values():
+                if table["doc_id"] != doc["id"] or year not in table.get("years", []):
+                    continue
+                same_page = [
+                    chunk
+                    for chunk in retrieved
+                    if chunk["doc_id"] == doc["id"] and chunk["page"] == table["page"]
+                ]
+                if not same_page:
+                    continue
+                header = " | ".join(table["rows"][0])
+                header_chunk = next((chunk for chunk in same_page if header in chunk["text"]), None)
+                if header_chunk is None:
+                    continue
+                for row_index, row in enumerate(table["rows"][1:], 1):
+                    if not matches_metric(row[0], metric):
                         continue
-                    claim = {
-                        "doc_id": doc["id"],
-                        "page": table["page"],
-                        "table_id": table["id"],
-                        "row_index": row_index,
-                        "column_index": column,
-                        "row_label": row[0],
-                        "metric": metric,
-                        "period": year,
-                        "value": str(value),
-                        "unit": unit,
-                    }
-                    label = {
-                        "USD_millions": "USD million",
-                        "USD_thousands": "USD thousand",
-                        "USD_per_share": "USD per share",
-                    }[unit]
-                    answer = (
-                        f"{doc['company']} reported {value:,} {label} "
-                        f"for {metric.replace('_', ' ')} in FY{year}."
-                    )
-                    checks = [
-                        verify_claim(claim, tables, {d["id"]: d for d in documents}),
-                        verify_answer_numbers(answer, claim),
-                    ]
-                    if not all(c["supported"] for c in checks):
-                        return refuse("numeric_verification_failed")
-                    return {
-                        "answer": answer,
-                        "refused": False,
-                        "reason": None,
-                        "citations": [
-                            {
-                                "chunk_id": chunk["id"],
-                                "doc_id": doc["id"],
-                                "page": chunk["page"],
-                                "quote": quote,
-                                "header": header,
-                                "start": chunk["start"],
-                                "end": chunk["end"],
-                            }
-                        ],
-                        "claims": [claim],
-                        "numeric_checks": checks,
-                    }
+                    quote = " | ".join(row)
+                    row_chunk = next((chunk for chunk in same_page if quote in chunk["text"]), None)
+                    if row_chunk is None or row_chunk["id"] == header_chunk["id"]:
+                        continue
+                    response = respond(table, row_index, row, row_chunk, header_chunk)
+                    if response is not None:
+                        return response
         return refuse("no_complete_table_evidence_in_top_k")
     # A weak but reproducible narrative reader: choose the sentence with the
     # greatest non-stopword query overlap. Its mistakes remain in the results.

@@ -1,0 +1,29 @@
+[
+  {
+    "config": "fixed-bm25-rerank+table-evidence",
+    "chunking": "fixed",
+    "retrieval": "bm25",
+    "rerank": true,
+    "split": "test",
+    "chunks": 5816,
+    "index_seconds_this_run": 0.4593243999988772,
+    "questions": 56,
+    "answerable": 42,
+    "unanswerable": 14,
+    "recall_at_1": 0.2857142857142857,
+    "recall_at_5": 0.5952380952380952,
+    "recall_at_10": 0.6190476190476191,
+    "mrr_at_20": 0.4003968253968254,
+    "answer_correctness": 0.5714285714285714,
+    "numeric_correctness": 0.6,
+    "narrative_correctness": 0.42857142857142855,
+    "citation_support": 1.0,
+    "gold_citation_accuracy": 0.47619047619047616,
+    "answer_coverage": 0.6428571428571429,
+    "unanswerable_refusal_rate": 0.7857142857142857,
+    "false_refusal_rate": 0.35714285714285715,
+    "answered_precision": 0.8,
+    "latency_p50_ms": 926.0424500098452,
+    "latency_p95_ms": 1114.6244999981718
+  }
+]

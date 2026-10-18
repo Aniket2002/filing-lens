@@ -38,8 +38,8 @@
     },
     {
       "path": "docs/report/index.html",
-      "sha256": "80b171c48ce137ae211589ec86626a493d29b7999eb015f62d1f9421a668270a",
-      "bytes": 2801005
+      "sha256": "989ae02223057642b94ff62e5ad936b1dc37673bc08d33574876c6801facf4fa",
+      "bytes": 2800977
     },
     {
       "path": "docs/report/preview.png",
@@ -48,8 +48,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "9067374cb7687da7a78937f5c461acbbf73cb41cc4d0d08d9f4666f1dfd40872",
-      "bytes": 11775
+      "sha256": "13a6b5c0849fbd05b56f1afc7332c606f41a1dfcdf055749e222a2bafa4817d4",
+      "bytes": 12251
     },
     {
       "path": "results/controls/metrics.json",
