@@ -52,6 +52,10 @@ def main() -> None:
     serve.add_argument("--port", type=int, default=8000)
     serve.add_argument("--config", default=None)
     serve.add_argument("--reader", choices=READERS, default="extractive")
+    serve.add_argument("--max-in-flight", type=int, default=4)
+    serve.add_argument(
+        "--queue-timeout", type=float, default=5.0, help="Maximum queue wait in seconds"
+    )
     serve.add_argument(
         "--assemble-table-evidence", action=argparse.BooleanOptionalAction, default=True
     )
@@ -108,7 +112,13 @@ def main() -> None:
             from filing_lens.service import create_server
 
             engine = QueryEngine(root, args.config, args.reader, args.assemble_table_evidence)
-            with create_server(engine, args.host, args.port) as server:
+            with create_server(
+                engine,
+                args.host,
+                args.port,
+                max_in_flight=args.max_in_flight,
+                queue_timeout=args.queue_timeout,
+            ) as server:
                 Console(stderr=True).print(
                     f"Local API: http://{args.host}:{server.server_port} (Ctrl+C to stop)"
                 )

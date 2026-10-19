@@ -52,3 +52,15 @@ sheet. Add `--dataset explanations` to both commands to work with it. Answerabil
 is scoped to the supplied passage; use `passage_inspection` or `visual_pdf`.
 All 40 new reviews are pending, separate from the 80 original pending reviews.
 The concept checklist is only a screening rubric, not a human-approved answer key.
+
+## Reviewing generated answers
+
+Question-label review and response-quality review answer different questions.
+The separate [answer review workflow](ANSWER_REVIEW.md) presents all 40 saved
+explanation responses with their actual input excerpts. It collects correctness,
+completeness, and claim-support judgments separately, and also assesses whether
+the question was answerable from the supplied context. Automatic concept-screen
+scores and proposed gold labels are omitted from that sheet.
+
+All answer reviews remain pending. Exporting a sheet or passing its validator
+does not establish independent human validation.

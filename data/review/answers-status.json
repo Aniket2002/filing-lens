@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "questions_sha256": "0122cf4101cef07ff44f447b1ad0a14db2254a65d37c2de37e95e53ab3e30177",
+  "predictions_sha256": {
+    "dev": "25208b3b718858355fb352d6f5f73a4ff6644f7ac950befcc61c8a38917ae1e5",
+    "test": "9092acf41c961b08728735f15a5d1114525f6f67a5f75acd70313bc66dfbcbad"
+  },
+  "review_sheet_sha256": "2ac1445577a5e825ffa65f4a0ade031423f34ed446e5eadadc662ce9dda7405b",
+  "splits": {
+    "dev": {
+      "total": 8,
+      "reviewed": 0,
+      "pending": 8,
+      "answer_correct_given_answer": {
+        "passed": 0,
+        "scored": 0,
+        "eligible": 4,
+        "unscored": 4,
+        "rate": null
+      },
+      "answer_complete_given_answer": {
+        "passed": 0,
+        "scored": 0,
+        "eligible": 4,
+        "unscored": 4,
+        "rate": null
+      },
+      "claims_supported_given_answer": {
+        "passed": 0,
+        "scored": 0,
+        "eligible": 4,
+        "unscored": 4,
+        "rate": null
+      },
+      "appropriate_response": {
+        "passed": 0,
+        "scored": 0,
+        "eligible": 8,
+        "unscored": 8,
+        "rate": null
+      }
+    },
+    "test": {
+      "total": 32,
+      "reviewed": 0,
+      "pending": 32,
+      "answer_correct_given_answer": {
+        "passed": 0,
+        "scored": 0,
+        "eligible": 16,
+        "unscored": 16,
+        "rate": null
+      },
+      "answer_complete_given_answer": {
+        "passed": 0,
+        "scored": 0,
+        "eligible": 16,
+        "unscored": 16,
+        "rate": null
+      },
+      "claims_supported_given_answer": {
+        "passed": 0,
+        "scored": 0,
+        "eligible": 16,
+        "unscored": 16,
+        "rate": null
+      },
+      "appropriate_response": {
+        "passed": 0,
+        "scored": 0,
+        "eligible": 32,
+        "unscored": 32,
+        "rate": null
+      }
+    }
+  },
+  "provenance": "Reviewer identities are self-reported; this validator cannot certify human identity or independence. Rates describe scored reviews only. Pending and uncertain judgments are not successes. Evidence is the supplied model context, not an independent PDF extraction. Frozen study metrics are unchanged.",
+  "records": []
+}

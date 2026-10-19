@@ -30,7 +30,12 @@ uv run filing-lens serve --config fixed-bm25 --reader extractive
 This process loads the corpus/index/models once and uses the same `QueryEngine`
 as `ask`. It does not read evaluation questions or annotations. Readiness is
 available only after initialization completes. Inference is serialized within
-the engine to limit simultaneous CPU model execution.
+the engine to limit simultaneous CPU model execution. The HTTP service admits at
+most four requests to inference and its waiting queue combined; excess requests
+receive HTTP 503 immediately. An admitted request waits at most five seconds to
+start inference. Configure these limits with `--max-in-flight` and
+`--queue-timeout` (seconds). A zero queue timeout allows only immediate execution.
+The wait limit does not interrupt an already running model call.
 
 ## Request and response
 
@@ -54,6 +59,11 @@ with one-based PDF pages. An evidence-based refusal is HTTP 200 with `refused: t
 Malformed requests are 400, oversized bodies 413, unsupported media types 415,
 unknown routes 404 and unexpected inference failures 500. Each POST has an
 `X-Request-ID` header. Bodies are limited to 16 KiB and questions to 2,000 characters.
+An idle request-body read times out with 408. Requests must supply exactly one
+valid `Content-Length` and a UTF-8 JSON body. Saturated admission returns 503
+`server_busy`; an expired inference wait returns 503 `queue_timeout`. Both include
+`Retry-After: 1`. Admission slots are released on completion, timeout, or inference
+failure. Health and metrics probes remain available while inference is busy.
 Explanation responses also include `raw_answerability`, `model_decision`,
 `model_refused`, `protocol_error`, `verification_status` and `input_sources`.
 `citation_supported` remains null. Model `no` refusals and invalid decision outputs
@@ -63,10 +73,13 @@ have different reasons; invalid outputs are not counted as model refusals.
 
 - `GET /health`: process is serving HTTP.
 - `GET /ready`: initialized engine's retrieval configuration and reader.
+  Includes `max_in_flight` and `queue_timeout_seconds`.
 - `GET /metrics`: cumulative POST request, error, answer, refusal, numeric
   verification failure and elapsed-time counters, plus process uptime. Separate
   `model_refusals`, `model_protocol_errors` and `unverified_answers` counters
   distinguish the explanation path's behavior from guarded numeric answers.
+  `in_flight` counts admitted running and waiting requests. `overload_rejections`,
+  `queue_timeouts`, and `queue_seconds_sum` expose saturation and waiting time.
 
 Elapsed time includes inference and waiting for the engine lock. Metrics are
 in-memory and reset when the process restarts. The endpoints do not claim to
@@ -76,9 +89,11 @@ excluded from the inference request counters.
 JSON logs on stderr contain request IDs, status, duration, refusal state and gate
 reason. Questions, source excerpts and generated answers are omitted from logs.
 Explanation logs also record model refusal and verification status.
+They include queue wait time and an error code for failed requests.
 Unexpected exceptions return a generic error rather than server filesystem details.
 
 This is a local demonstration using Python's standard-library HTTP server. It has
 no production deployment, authentication, TLS, persistent telemetry, alerting,
-rate limits or bounded request queue. External hosting and monitoring are future
+or rate limits. Inference admission is bounded, but HTTP connection threads and
+active model execution time are not. External hosting and monitoring are future
 work; exposing this server publicly is not a production deployment plan.

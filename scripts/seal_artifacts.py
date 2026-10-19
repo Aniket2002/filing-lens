@@ -12,6 +12,7 @@ paths = [
     root / "docs/EXPERIMENT_PROTOCOL.md",
     root / "docs/GENERATION_V2.md",
     root / "docs/ANNOTATION_REVIEW.md",
+    root / "docs/ANSWER_REVIEW.md",
     root / "docs/SERVICE.md",
     root / "docs/DATA_CARD.md",
     root / "docs/ITERATION_1.md",

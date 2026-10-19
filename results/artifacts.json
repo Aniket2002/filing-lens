@@ -42,6 +42,16 @@
       "bytes": 45114
     },
     {
+      "path": "data/review/answers-pending.csv",
+      "sha256": "2ac1445577a5e825ffa65f4a0ade031423f34ed446e5eadadc662ce9dda7405b",
+      "bytes": 39270
+    },
+    {
+      "path": "data/review/answers-status.json",
+      "sha256": "cec5178064aca9e909bca66db6621d42c00ae57ad6875846099f60d2c65ccf30",
+      "bytes": 2166
+    },
+    {
       "path": "data/review/pending.csv",
       "sha256": "8800cc03456c0b23db298e25b66bd59bd529c1bcc39e105530f6389f9249af6c",
       "bytes": 22801
@@ -53,8 +63,13 @@
     },
     {
       "path": "docs/ANNOTATION_REVIEW.md",
-      "sha256": "e4c113a2875a4a7da091cd956c8e968a2cd46eb24198c00404497a8c7f1a76a3",
-      "bytes": 3159
+      "sha256": "a7ca3295132497ca4cb25fecdee72e7d4ece80a7b29cfa51f867e0e38e9d9581",
+      "bytes": 3778
+    },
+    {
+      "path": "docs/ANSWER_REVIEW.md",
+      "sha256": "962ee81cb37150f61037210ade896441c4bbfa7362ecdf03e8e218003953ed66",
+      "bytes": 4556
     },
     {
       "path": "docs/DATA_CARD.md",
@@ -113,13 +128,13 @@
     },
     {
       "path": "docs/SERVICE.md",
-      "sha256": "1c6ca8f9e05875b2cd9f6e4393ad41d79ddc92d5d12bc56722ea6854d0f2a534",
-      "bytes": 4022
+      "sha256": "247a2c54e306698fc55e6e12cd8ec05f2d98c957151bcdebaae75e730c26d543",
+      "bytes": 5191
     },
     {
       "path": "README.md",
-      "sha256": "1761c983f33de1090ba4e20683699a7ccc560f8eab932260032b5cc61ce169ef",
-      "bytes": 17501
+      "sha256": "79cd4dcb2c742951f0acf0b45c3e745c4b0eebebd5ae4c422cae7f47398fa51f",
+      "bytes": 17967
     },
     {
       "path": "results/controls/metrics.json",

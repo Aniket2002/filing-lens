@@ -195,6 +195,12 @@ visual-PDF or XBRL checks for numeric labels, and saves proposed corrections
 separately. It does not turn an AI-authored benchmark into a human-validated one.
 The new explanation challenge has its own 40-row pending review sheet; those
 labels and the generated prose also await independent human assessment.
+The [answer review workflow](docs/ANSWER_REVIEW.md) now exports the 40 saved model
+responses with their exact input context, validates separate correctness,
+completeness, and claim-support judgments, and reports scored and pending counts
+for each split. All 40 response reviews remain pending; quality rates remain null.
+The API bounds inference admission and queue waiting, returning retryable 503
+responses under load and exposing overload and queue-time metrics.
 
 ## Architecture and design choices
 
