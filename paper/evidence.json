@@ -1,0 +1,169 @@
+{
+  "selected_on_dev": "structure-entity-60",
+  "test_answerable": 42,
+  "retrieval_paired_changes": {
+    "gains": 14,
+    "losses": 2,
+    "unchanged": 26,
+    "leave_one_company_out": {
+      "ADI": 0.25,
+      "AVGO": 0.2777777777777778,
+      "MCHP": 0.3055555555555556,
+      "MU": 0.25,
+      "NXPI": 0.3611111111111111,
+      "QCOM": 0.2777777777777778,
+      "TXN": 0.2777777777777778
+    }
+  },
+  "answer_paired_changes": {
+    "gains": 14,
+    "losses": 2,
+    "unchanged": 26,
+    "leave_one_company_out": {
+      "ADI": 0.25,
+      "AVGO": 0.3055555555555556,
+      "MCHP": 0.3333333333333333,
+      "MU": 0.2222222222222222,
+      "NXPI": 0.3333333333333333,
+      "QCOM": 0.2777777777777778,
+      "TXN": 0.2777777777777778
+    }
+  },
+  "per_company": [
+    {
+      "company": "ADI",
+      "fixed-baseline-20": {
+        "n": 6,
+        "hits": 2.0
+      },
+      "structure-baseline-20": {
+        "n": 6,
+        "hits": 4.0
+      },
+      "structure-entity-60": {
+        "n": 6,
+        "hits": 5.0
+      }
+    },
+    {
+      "company": "AVGO",
+      "fixed-baseline-20": {
+        "n": 6,
+        "hits": 4.0
+      },
+      "structure-baseline-20": {
+        "n": 6,
+        "hits": 4.0
+      },
+      "structure-entity-60": {
+        "n": 6,
+        "hits": 6.0
+      }
+    },
+    {
+      "company": "MCHP",
+      "fixed-baseline-20": {
+        "n": 6,
+        "hits": 5.0
+      },
+      "structure-baseline-20": {
+        "n": 6,
+        "hits": 6.0
+      },
+      "structure-entity-60": {
+        "n": 6,
+        "hits": 6.0
+      }
+    },
+    {
+      "company": "MU",
+      "fixed-baseline-20": {
+        "n": 6,
+        "hits": 2.0
+      },
+      "structure-baseline-20": {
+        "n": 6,
+        "hits": 4.0
+      },
+      "structure-entity-60": {
+        "n": 6,
+        "hits": 5.0
+      }
+    },
+    {
+      "company": "NXPI",
+      "fixed-baseline-20": {
+        "n": 6,
+        "hits": 4.0
+      },
+      "structure-baseline-20": {
+        "n": 6,
+        "hits": 2.0
+      },
+      "structure-entity-60": {
+        "n": 6,
+        "hits": 3.0
+      }
+    },
+    {
+      "company": "QCOM",
+      "fixed-baseline-20": {
+        "n": 6,
+        "hits": 4.0
+      },
+      "structure-baseline-20": {
+        "n": 6,
+        "hits": 4.0
+      },
+      "structure-entity-60": {
+        "n": 6,
+        "hits": 6.0
+      }
+    },
+    {
+      "company": "TXN",
+      "fixed-baseline-20": {
+        "n": 6,
+        "hits": 4.0
+      },
+      "structure-baseline-20": {
+        "n": 6,
+        "hits": 5.0
+      },
+      "structure-entity-60": {
+        "n": 6,
+        "hits": 6.0
+      }
+    }
+  ],
+  "fields": {
+    "pages": "1,275",
+    "companies": "10",
+    "questions": "80",
+    "test_answerable": "42",
+    "baseline_recall": "59.5%",
+    "selected_recall": "88.1%",
+    "baseline_correct": "57.1%",
+    "selected_correct": "85.7%",
+    "baseline_misses": "16",
+    "selected_misses": "2",
+    "baseline_latency": "1.36 s",
+    "selected_latency": "3.25 s",
+    "recall_delta": "28.6",
+    "recall_interval": "[+9.5, +42.9]",
+    "structure_delta": "19.0",
+    "structure_interval": "[+11.9, +26.2]",
+    "retrieval_gains": "14",
+    "retrieval_losses": "2",
+    "retrieval_net": "12",
+    "answer_gains": "14",
+    "answer_losses": "2",
+    "leave_one_out_min": "25.0",
+    "leave_one_out_max": "36.1",
+    "dataset_table": "| Type | All | Dev | Test |\n| --- | --- | --- | --- |\n| Numeric | 50 | 15 | 35 |\n| Narrative | 10 | 3 | 7 |\n| Unanswerable | 20 | 6 | 14 |\n| Total | 80 | 24 | 56 |",
+    "dev_table": "| Setting | Candidate R | R@5 | MRR@20 | Correct | Neg. refusal | p95 s |\n| --- | --- | --- | --- | --- | --- | --- |\n| F20 | 72.2% | 72.2% | 0.457 | 66.7% | 83.3% | 1.25 |\n| S20 | 66.7% | 66.7% | 0.463 | 66.7% | 83.3% | 1.20 |\n| E20 | 83.3% | 83.3% | 0.551 | 83.3% | 83.3% | 1.16 |\n| E60 | 100.0% | 100.0% | 0.648 | 100.0% | 83.3% | 3.22 |\n| F60 | 100.0% | 100.0% | 0.608 | 100.0% | 83.3% | 3.40 |\n| H60 | 100.0% | 100.0% | 0.608 | 100.0% | 83.3% | 3.09 |",
+    "test_table": "| Setting | Candidate R | R@5 | MRR@20 | Correct | Neg. refusal | p95 s |\n| --- | --- | --- | --- | --- | --- | --- |\n| F20 | 61.9% | 59.5% | 0.400 | 57.1% | 78.6% | 1.36 |\n| S20 | 69.0% | 69.0% | 0.520 | 64.3% | 78.6% | 1.31 |\n| E60 | 95.2% | 88.1% | 0.607 | 85.7% | 85.7% | 3.25 |",
+    "failure_table": "| Setting | Hit@5 | Candidate miss | Ranking miss |\n| --- | --- | --- | --- |\n| F20 | 25 | 16 | 1 |\n| S20 | 29 | 13 | 0 |\n| E60 | 37 | 2 | 3 |",
+    "company_table": "| Issuer | F20 hits/n | S20 hits/n | E60 hits/n |\n| --- | --- | --- | --- |\n| ADI | 2/6 | 4/6 | 5/6 |\n| AVGO | 4/6 | 4/6 | 6/6 |\n| MCHP | 5/6 | 6/6 | 6/6 |\n| MU | 2/6 | 4/6 | 5/6 |\n| NXPI | 4/6 | 2/6 | 3/6 |\n| QCOM | 4/6 | 4/6 | 6/6 |\n| TXN | 4/6 | 5/6 | 6/6 |"
+  }
+}

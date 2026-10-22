@@ -128,7 +128,7 @@
     },
     {
       "path": "docs/RESUME.md",
-      "sha256": "b006c9d1bc3fb2a13f1192165bcb6f1aff79aecfbbe716270c70b74699e5bbaf",
+      "sha256": "ae20aea0f623ab2c2962e896f61ef9fbcd31669a72cf994b64b4fa772d83ccb8",
       "bytes": 5802
     },
     {
@@ -157,9 +157,64 @@
       "bytes": 6057
     },
     {
+      "path": "paper/build.json",
+      "sha256": "d1f07a2f42b30604772e92e75fbfc63e32d1d2bf405ea587141ce8f2a41a5ad8",
+      "bytes": 2386
+    },
+    {
+      "path": "paper/corpus-summary.json",
+      "sha256": "0a9661f1c9ee348058fbc81262cf0415451e94b5b9b2246523a522d4234a7a51",
+      "bytes": 418
+    },
+    {
+      "path": "paper/evidence.json",
+      "sha256": "172e5f48436229b783939ca3b14f5e13d05b38910e2e08b55603d4817e874bdc",
+      "bytes": 4790
+    },
+    {
+      "path": "paper/manuscript.html",
+      "sha256": "3172199e996aa93f793ee11abd70d442d293f203e6db1b85e249f7423c59c08b",
+      "bytes": 27532
+    },
+    {
+      "path": "paper/manuscript.md",
+      "sha256": "33240477e4c429589c480232dd45e999bc36cb2d7468437bcc1e4c2f6fd6117c",
+      "bytes": 24877
+    },
+    {
+      "path": "paper/manuscript.pdf",
+      "sha256": "c30ba13a1041e60ee919f3244f02b8406c984e6051872dc1c7bbbb83a2bb5e0d",
+      "bytes": 358583
+    },
+    {
+      "path": "paper/manuscript.template.md",
+      "sha256": "4f3c013c6e1c870aa108bbd784ef89d3147049f64f7c0b799c732d27202abb2d",
+      "bytes": 22258
+    },
+    {
+      "path": "paper/README.md",
+      "sha256": "43ad6f51e1197788eb4837e02ce75d89f6ccfceebffc71f969a127fe66fe4d66",
+      "bytes": 3466
+    },
+    {
+      "path": "paper/references.bib",
+      "sha256": "80f45f7dd3e12249eac18d4d8996a282d9df2611b25cce06f236ed27a6385af5",
+      "bytes": 2195
+    },
+    {
+      "path": "paper/references.json",
+      "sha256": "c1ac4e0f813324b46fa7266df83bbf076e132440e89d352865944f9afb971d39",
+      "bytes": 2066
+    },
+    {
+      "path": "paper/VALIDATION_PLAN.md",
+      "sha256": "50447886a1f7b79c463d3259490223e4202c2c9966a21840e439f8075c4f3f12",
+      "bytes": 5410
+    },
+    {
       "path": "README.md",
-      "sha256": "ebca9ed1544f5f4dd90a6360d53a3a74bf5452654cffab771477e612e8523254",
-      "bytes": 19747
+      "sha256": "4a1e968c434edc93d5102f47147c17591bd28a7c50f78763a94f8c3053924cd8",
+      "bytes": 20323
     },
     {
       "path": "results/controls/metrics.json",

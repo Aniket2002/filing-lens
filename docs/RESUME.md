@@ -33,7 +33,7 @@ The retrieval comparison is exploratory, not an independently validated result.
 The associated latency tradeoff is CPU p95 **1.36 s → 3.25 s**. There are also 14
 negative test questions: refusal improved from 11/14 to 12/14. Cite the full
 [measured comparison](retrieval-v2/results.md) if asked about denominators or tradeoffs.
-The updated repository passes **135 tests**, and its new offline audit checks
+The updated repository passes **140 tests**, and its new offline audit checks
 all **312** iteration predictions without downloading models or source PDFs.
 
 ## A 60-second explanation

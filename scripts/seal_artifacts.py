@@ -35,6 +35,7 @@ for folder in [
     "results/controls",
     "docs/report",
     "docs/retrieval-v2",
+    "paper",
     "data/evidence",
     "data/review",
     "data/explanations",

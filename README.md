@@ -31,6 +31,13 @@ See the [measured comparison](docs/retrieval-v2/results.md),
 [design and reproduction](docs/RETRIEVAL_V2.md), and
 [resume bullets and interview guide](docs/RESUME.md).
 
+**Research paper:** [read the draft PDF](paper/manuscript.pdf) or
+[browse the manuscript and reproducible build](paper/README.md). Its tables,
+paired gains/regressions, and company-level sensitivity analysis derive from the
+saved experiments. It includes verified primary references and an explicit
+[validation plan](paper/VALIDATION_PLAN.md); independent review and a fresh holdout
+remain necessary for stronger publication claims.
+
 ![Exploratory retrieval improvements with the reader held fixed](docs/retrieval-v2/comparison.png)
 
 [View the original 12-configuration ablation plot](docs/report/ablations.png).
@@ -106,6 +113,7 @@ uv run python scripts/audit_reference.py
 uv run python scripts/audit_generation_results.py
 uv run python scripts/audit_explanation_results.py
 uv run python scripts/audit_retrieval_results.py
+uv run python scripts/build_paper.py --check
 
 # Acquire the exact source documents and build the canonical corpus
 uv run filing-lens fetch
@@ -295,6 +303,7 @@ results/controls/            Isolated source-cell mutation study
 docs/report/                 Standalone interactive report, plot, and failure ledger
 docs/retrieval-v2/           New measured comparison, plot, recovered cases, and remaining failures
 docs/RESUME.md               Evidence-backed resume bullets and interview discussion guide
+paper/                       Research draft PDF/Markdown/HTML, BibTeX, evidence, validation plan
 tests/                       Offline behavior, leakage, parsing, and tampering checks
 ```
 

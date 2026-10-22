@@ -1,0 +1,31 @@
+{
+  "inputs": {
+    "paper/manuscript.template.md": "4f3c013c6e1c870aa108bbd784ef89d3147049f64f7c0b799c732d27202abb2d",
+    "paper/references.json": "c1ac4e0f813324b46fa7266df83bbf076e132440e89d352865944f9afb971d39",
+    "paper/corpus-summary.json": "0a9661f1c9ee348058fbc81262cf0415451e94b5b9b2246523a522d4234a7a51",
+    "src/filing_lens/paper.py": "1558e18b9e5ebd79846199c11a154d69ec715f661adc807b4f9be2457ce97044",
+    "scripts/build_paper.py": "ababc080fedca051d08d173b26c4a60ed6cf097bd501c2359b794801b0fffdc0",
+    "scripts/audit_retrieval_results.py": "41f01ef90edf43d6019990c521f06baa79f0fb95d657113f4bf15c566a4d035e",
+    "data/questions.jsonl": "f1836439f5da8841334258dcf7f28ffedaa3d8616a46aeb4cd2be8b2f2d55e3d",
+    "data/corpus.json": "d90d45fda8ec6d89f86fe24b93561ff3e14d6c945789baf4166187650014a685",
+    "data/benchmark-lock.json": "d73ac6e903b41354200746298052d78e3236a5ff41072a532b910764828d4d2c",
+    "results/retrieval-v2/dev/metrics.json": "b51b81cdd4e5919b4ba6658260b3b5fe9a045f70d50eb17217de71579d3e6176",
+    "results/retrieval-v2/dev/run.json": "6e34f136ddcbe71f8a3c3cad978600591f4afd560ea54ec15e2b24e31c64e19b",
+    "results/retrieval-v2/dev/predictions.jsonl": "1501c4a3ae6c2fcb9babe42fa7cd2e818cbd980725b449b33af1ec65c607edc6",
+    "results/retrieval-v2/test/metrics.json": "132a524f46d998eb3c333ce08b3ca15b8497c8bfaa9fd79362d8ef31b7592896",
+    "results/retrieval-v2/test/run.json": "b3cb531571908af109d8d8bfbe9deb0a4df2aba7054a2f542bb06642f523ea00",
+    "results/retrieval-v2/test/predictions.jsonl": "cc41e4d348a5dec18f73f11db50bb7488e222314b38b32c0419679f5f7a600ce",
+    "docs/retrieval-v2/comparison.png": "de9586b90d55cbbadd85acfaa235fc3a165f6fa556a2280ba7d82c8af436ceb7"
+  },
+  "outputs": {
+    "manuscript.md": "33240477e4c429589c480232dd45e999bc36cb2d7468437bcc1e4c2f6fd6117c",
+    "manuscript.html": "3172199e996aa93f793ee11abd70d442d293f203e6db1b85e249f7423c59c08b",
+    "references.bib": "80f45f7dd3e12249eac18d4d8996a282d9df2611b25cce06f236ed27a6385af5",
+    "evidence.json": "172e5f48436229b783939ca3b14f5e13d05b38910e2e08b55603d4817e874bdc",
+    "manuscript.pdf": "c30ba13a1041e60ee919f3244f02b8406c984e6051872dc1c7bbbb83a2bb5e0d"
+  },
+  "pdf_pages": 7,
+  "pymupdf": "1.27.2.3",
+  "status": "research draft; not independently reviewed or submitted",
+  "note": "PDF bytes may vary by renderer; derived text and source fingerprints are checked"
+}

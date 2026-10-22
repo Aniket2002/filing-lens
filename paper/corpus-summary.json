@@ -1,0 +1,16 @@
+{
+  "pages_sha256": "103859bc4348d135b99d32ced67339de2deb99827c7666b479d0ec3767670ea8",
+  "document_pages": {
+    "ADI-2023": 104,
+    "AMD-2023": 175,
+    "AVGO-2023": 113,
+    "INTC-2023": 137,
+    "MCHP-2023": 124,
+    "MU-2023": 142,
+    "NVDA-2023": 169,
+    "NXPI-2023": 133,
+    "QCOM-2023": 85,
+    "TXN-2023": 93
+  },
+  "note": "Counts from canonical pages; offline snapshot tied to frozen extraction hash"
+}
