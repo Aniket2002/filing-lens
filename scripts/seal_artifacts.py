@@ -17,6 +17,8 @@ paths = [
     root / "docs/DATA_CARD.md",
     root / "docs/ITERATION_1.md",
     root / "docs/EXPLANATION_STUDY.md",
+    root / "docs/RETRIEVAL_V2.md",
+    root / "docs/RESUME.md",
     root / "data/generator-v2-lock.json",
 ]
 for folder in [
@@ -28,8 +30,11 @@ for folder in [
     "results/iter1/test",
     "results/explanations/dev",
     "results/explanations/test",
+    "results/retrieval-v2/dev",
+    "results/retrieval-v2/test",
     "results/controls",
     "docs/report",
+    "docs/retrieval-v2",
     "data/evidence",
     "data/review",
     "data/explanations",

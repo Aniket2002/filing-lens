@@ -11,6 +11,7 @@ from rich.panel import Panel
 
 from filing_lens.engine import READERS
 from filing_lens.io import read_jsonl
+from filing_lens.query_planning import PROFILES
 
 
 def main() -> None:
@@ -59,6 +60,17 @@ def main() -> None:
     serve.add_argument(
         "--assemble-table-evidence", action=argparse.BooleanOptionalAction, default=True
     )
+    for command in (ask, serve):
+        command.add_argument("--retrieval-profile", choices=PROFILES, default="baseline")
+        command.add_argument(
+            "--candidate-pool",
+            type=int,
+            default=20,
+            help="Candidates scored before returning 20 results (20 to 200)",
+        )
+    study = sub.add_parser("retrieval-study", help="Run the separate dev-first retrieval study")
+    study.add_argument("--split", choices=["dev", "test"], required=True)
+    study.add_argument("--output", type=Path, default=Path("results/reproduced/retrieval-v2"))
     report = sub.add_parser(
         "report", help="Render measured results as Markdown, PNG, and standalone HTML"
     )
@@ -107,11 +119,22 @@ def main() -> None:
             from filing_lens.reporting import render
 
             render(root, root / args.results, root / args.output)
+        elif args.command == "retrieval-study":
+            from filing_lens.retrieval_study import run_study
+
+            run_study(root, root / args.output, args.split)
         elif args.command == "serve":
             from filing_lens.engine import QueryEngine
             from filing_lens.service import create_server
 
-            engine = QueryEngine(root, args.config, args.reader, args.assemble_table_evidence)
+            engine = QueryEngine(
+                root,
+                args.config,
+                args.reader,
+                args.assemble_table_evidence,
+                args.retrieval_profile,
+                args.candidate_pool,
+            )
             with create_server(
                 engine,
                 args.host,
@@ -129,7 +152,14 @@ def main() -> None:
         elif args.command == "ask":
             from filing_lens.engine import QueryEngine
 
-            engine = QueryEngine(root, args.config, args.reader, args.assemble_table_evidence)
+            engine = QueryEngine(
+                root,
+                args.config,
+                args.reader,
+                args.assemble_table_evidence,
+                args.retrieval_profile,
+                args.candidate_pool,
+            )
             config = engine.config
             answer = engine.ask(args.question)
             if args.as_json:

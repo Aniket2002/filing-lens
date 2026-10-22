@@ -1,6 +1,6 @@
 # Filing Lens
 
-**A filings retrieval benchmark with guarded local generation, source-linked answers, and measured failure modes.**
+**A financial-document RAG benchmark with hybrid search, cross-encoder reranking, and source-verified numeric answers.**
 
 ![Python 3.12](https://img.shields.io/badge/python-3.12-255e6a)
 ![License MIT](https://img.shields.io/badge/license-MIT-52616b)
@@ -20,7 +20,20 @@ An experimental explanation reader also measures model-native answerability on a
 separate set of 40 new, source-anchored questions frozen before inference. Its
 generated explanations remain unverified and often incomplete.
 
-![Measured retrieval ablations](docs/report/ablations.png)
+**New retrieval iteration:** entity-aware BM25, structure-aware chunks, and a
+60-candidate reranker improve test **recall@5 from 59.5% to 88.1%** and **answer
+correctness from 57.1% to 85.7%**, with the same reader in both runs. The profile
+was selected from six development ablations before test. This is exploratory
+evidence on the reused 42-answerable/14-negative test split, not a new holdout.
+CPU p95 increased from **1.36 s to 3.25 s**. Query plans, candidate lists, ranking
+scores, and failure attribution are preserved for all **312 predictions**.
+See the [measured comparison](docs/retrieval-v2/results.md),
+[design and reproduction](docs/RETRIEVAL_V2.md), and
+[resume bullets and interview guide](docs/RESUME.md).
+
+![Exploratory retrieval improvements with the reader held fixed](docs/retrieval-v2/comparison.png)
+
+[View the original 12-configuration ablation plot](docs/report/ablations.png).
 
 **Start here:** [measured ablations](docs/report/ablations.md) ·
 [failure analysis](docs/FAILURE_ANALYSIS.md) ·
@@ -92,6 +105,7 @@ uv run pytest -q
 uv run python scripts/audit_reference.py
 uv run python scripts/audit_generation_results.py
 uv run python scripts/audit_explanation_results.py
+uv run python scripts/audit_retrieval_results.py
 
 # Acquire the exact source documents and build the canonical corpus
 uv run filing-lens fetch
@@ -132,6 +146,9 @@ or annotations.
 uv run filing-lens ask "What was Micron Technology's FY2023 revenue in USD millions?"
 uv run filing-lens ask "What diluted earnings per common share did Analog Devices report in FY2023?" --config structure-bm25-rerank --json
 uv run filing-lens ask "What was NVIDIA's FY2028 revenue?"
+
+# New development-selected retrieval profile; defaults preserve the reference profile
+uv run filing-lens ask "What was Micron Technology's FY2023 revenue in USD millions?" --config structure-bm25-rerank --retrieval-profile entity --candidate-pool 60 --json
 
 # Override retrieval, or try the optional local amount-only generator
 uv run filing-lens ask "What was AMD's FY2023 net income?" --config structure-bm25-rerank
@@ -225,6 +242,8 @@ flowchart LR
 | Small exact index | NumPy cosine search avoids ANN parameters at this scale. |
 | Real pretrained models | Pinned MiniLM bi-encoder and MS MARCO cross-encoder; no simulated dense or reranker scores. |
 | Rank fusion | RRF combines ranks without pretending BM25 and cosine scores share a scale. |
+| Metadata-aware candidates | Optional query-only entity routing constrains both lexical and dense retrieval before candidate truncation; comparative filing years stay searchable. |
+| Ranking diagnostics | Candidate recall, per-stage scores, and promotion/demotion traces distinguish retrieval misses from reranker failures. |
 | Frozen answerer | Retrieval changes cannot be confused with reader changes. |
 | Explicit abstention | No answer without sufficient evidence; refusal and coverage are both scored. |
 | Decimal controls | Parentheses, signs, cents, millions, thousands, and per-share units are checked without float equality. |
@@ -266,6 +285,7 @@ data/*-lock.json              Source, model, generator, and benchmark provenance
 data/evidence/                Small parsed-statement audit fixtures
 src/filing_lens/              Parsing, chunking, retrieval, reader, controls, evaluation
 results/reference/           All 960 main predictions, 36 aggregate rows, run metadata
+results/retrieval-v2/        312 exploratory predictions, query plans, stage scores, dev-first selection
 results/generator/           Raw local-model outputs and guarded answer metrics
 results/generator-v2/        Dev-first FLAN-T5-base outputs, fingerprints, and metrics
 results/explanations/        New supplied-passage explanation and native-refusal study
@@ -273,6 +293,8 @@ data/explanations/           Frozen new questions, model/protocol locks, pending
 data/review/                 Pending source-linked review sheet and explicit status
 results/controls/            Isolated source-cell mutation study
 docs/report/                 Standalone interactive report, plot, and failure ledger
+docs/retrieval-v2/           New measured comparison, plot, recovered cases, and remaining failures
+docs/RESUME.md               Evidence-backed resume bullets and interview discussion guide
 tests/                       Offline behavior, leakage, parsing, and tampering checks
 ```
 

@@ -11,6 +11,8 @@ from filing_lens.service import create_server
 class FakeEngine:
     config = "fixed-bm25"
     reader = "extractive"
+    retrieval_profile = "entity"
+    candidate_pool = 60
 
     def ask(self, question):
         if question == "crash":
@@ -47,6 +49,8 @@ def request(api, method, path, body=None, content_type="application/json"):
 def test_service_serves_answers_and_measures_errors_and_refusals(api):
     assert request(api, "GET", "/health")[2] == {"status": "ok"}
     assert request(api, "GET", "/ready")[2]["config"] == "fixed-bm25"
+    assert request(api, "GET", "/ready")[2]["retrieval_profile"] == "entity"
+    assert request(api, "GET", "/ready")[2]["candidate_pool"] == 60
     status, headers, answer = request(api, "POST", "/ask", json.dumps({"question": "revenue"}))
     assert status == 200 and not answer["refused"]
     assert headers["X-Request-ID"] == api[1][0]["request_id"]

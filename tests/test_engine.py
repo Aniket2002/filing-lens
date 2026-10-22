@@ -79,6 +79,33 @@ def test_engine_rejects_unsupported_profile_before_loading_data(tmp_path):
         QueryEngine(tmp_path, config="invalid")
 
 
+@pytest.mark.parametrize(
+    "options",
+    [
+        {"candidate_pool": 19},
+        {"candidate_pool": 201},
+        {"retrieval_profile": "unknown"},
+    ],
+)
+def test_retrieval_options_are_validated_before_loading_corpus(tmp_path, options):
+    with pytest.raises(ValueError):
+        QueryEngine(tmp_path, config="fixed-bm25", **options)
+
+
+def test_live_retrieval_profile_has_trace_without_gold_files(root):
+    engine = QueryEngine(
+        root, config="structure-bm25", retrieval_profile="finance", candidate_pool=60
+    )
+    response = engine.ask("What was Micron's FY2023 revenue?")
+    assert response["claims"][0]["value"] == "15540"
+    trace = response["retrieval"]
+    assert trace["candidate_pool"] == 60
+    assert trace["query_plan"]["doc_ids"] == ["MU-2023"]
+    assert trace["trace"][0]["doc_id"] == "MU-2023"
+    assert trace["trace"][0]["url"] == "https://example.com/micron.pdf#page=57"
+    assert not (root / "data/questions.jsonl").exists()
+
+
 def test_explanation_engine_bypasses_extractive_reader_and_uses_source_text(root, monkeypatch):
     def forbidden(*args, **kwargs):
         raise AssertionError("Explanation mode must bypass the extractive answerer")

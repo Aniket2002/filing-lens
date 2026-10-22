@@ -37,6 +37,16 @@ start inference. Configure these limits with `--max-in-flight` and
 `--queue-timeout` (seconds). A zero queue timeout allows only immediate execution.
 The wait limit does not interrupt an already running model call.
 
+For metadata-aware retrieval with ranking diagnostics:
+
+```bash
+uv run filing-lens serve --config structure-bm25-rerank --retrieval-profile entity --candidate-pool 60
+```
+
+`--retrieval-profile finance` also expands financial vocabulary for BM25; `baseline`
+retains reference retrieval. Candidate depth is bounded to 20–200. All profiles keep
+the reader's five-chunk evidence budget. See the [retrieval study](RETRIEVAL_V2.md).
+
 ## Request and response
 
 `POST /ask` requires `Content-Type: application/json` and this body:
@@ -54,6 +64,11 @@ Invoke-RestMethod http://127.0.0.1:8000/ask -Method Post -ContentType applicatio
 
 A successful response includes `answer`, `refused`, `reason`, `citations`, `claims`,
 `numeric_checks`, the retrieval `config`, `reader` and `table_evidence_assembly`.
+The `retrieval` object includes the query plan, eligible chunk count, candidate
+budget/count, stage timings, and a `trace` of up to 20 source-linked rankings.
+Each trace row records BM25/dense ranks and scores, RRF score where applicable,
+candidate rank, final rank, and reranker score. Unused signals are null. Scores
+are not confidence probabilities; source text is not duplicated in the trace.
 Generative responses also preserve `raw_generation`. Citations include source URLs
 with one-based PDF pages. An evidence-based refusal is HTTP 200 with `refused: true`.
 Malformed requests are 400, oversized bodies 413, unsupported media types 415,
@@ -73,7 +88,7 @@ have different reasons; invalid outputs are not counted as model refusals.
 
 - `GET /health`: process is serving HTTP.
 - `GET /ready`: initialized engine's retrieval configuration and reader.
-  Includes `max_in_flight` and `queue_timeout_seconds`.
+  Includes `retrieval_profile`, `candidate_pool`, `max_in_flight` and `queue_timeout_seconds`.
 - `GET /metrics`: cumulative POST request, error, answer, refusal, numeric
   verification failure and elapsed-time counters, plus process uptime. Separate
   `model_refusals`, `model_protocol_errors` and `unverified_answers` counters

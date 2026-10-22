@@ -7,6 +7,7 @@ from threading import Lock
 
 from filing_lens.chunking import chunk_pages
 from filing_lens.io import read_json, read_jsonl
+from filing_lens.query_planning import PROFILES
 from filing_lens.reader import answer_question
 from filing_lens.retrieval import Index, Models
 
@@ -20,9 +21,16 @@ class QueryEngine:
         config: str | None = None,
         reader: str = "extractive",
         assemble_table_evidence: bool = True,
+        retrieval_profile: str = "baseline",
+        candidate_pool: int = 20,
     ):
         if reader not in READERS:
             raise ValueError(f"Unknown reader: {reader}")
+        if retrieval_profile not in PROFILES:
+            raise ValueError(f"Unknown retrieval profile: {retrieval_profile}")
+        if not isinstance(candidate_pool, int) or not 20 <= candidate_pool <= 200:
+            raise ValueError("candidate_pool must be between 20 and 200")
+        self.retrieval_profile, self.candidate_pool = retrieval_profile, candidate_pool
         if config is None:
             reference = root / "results/reference/run.json"
             config = (
@@ -46,7 +54,7 @@ class QueryEngine:
         self.tables = {t["id"]: t for t in read_jsonl(root / "data/processed/tables.jsonl")}
         chunks = chunk_pages(pages, self.documents, parts[0])
         models = Models(root)
-        self.index = Index(chunks, models, dense=self.method != "bm25")
+        self.index = Index(chunks, models, dense=self.method != "bm25", documents=self.documents)
         if self.rerank:
             _ = models.reranker
         self.generator = None
@@ -67,7 +75,13 @@ class QueryEngine:
             raise ValueError("question must contain 1 to 2000 characters")
         # Keep model inference bounded to one concurrent CPU request.
         with self._lock:
-            found = self.index.search(question, method=self.method, rerank=self.rerank)
+            found = self.index.search(
+                question,
+                method=self.method,
+                rerank=self.rerank,
+                profile=self.retrieval_profile,
+                candidate_pool=self.candidate_pool,
+            )
             if self.explainer is not None:
                 evidence = [
                     {
@@ -110,9 +124,23 @@ class QueryEngine:
                 answer["raw_generation"] = raw
         for citation in answer["citations"]:
             citation["url"] = self.doc_map[citation["doc_id"]]["url"] + f"#page={citation['page']}"
+        for chunk in found["trace"]:
+            chunk["url"] = self.doc_map[chunk["doc_id"]]["url"] + f"#page={chunk['page']}"
         return {
             **answer,
             "config": self.config,
             "reader": self.reader,
+            "retrieval": {
+                key: found[key]
+                for key in (
+                    "query_plan",
+                    "eligible_chunks",
+                    "candidate_count",
+                    "candidate_pool",
+                    "retrieval_ms",
+                    "rerank_ms",
+                    "trace",
+                )
+            },
             "table_evidence_assembly": self.assemble_table_evidence and self.explainer is None,
         }

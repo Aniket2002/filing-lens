@@ -117,6 +117,8 @@ def create_server(
                         "status": "ready",
                         "config": engine.config,
                         "reader": engine.reader,
+                        "retrieval_profile": getattr(engine, "retrieval_profile", "baseline"),
+                        "candidate_pool": getattr(engine, "candidate_pool", 20),
                         "max_in_flight": max_in_flight,
                         "queue_timeout_seconds": queue_timeout,
                     },

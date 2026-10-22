@@ -127,14 +127,39 @@
       "bytes": 106051
     },
     {
+      "path": "docs/RESUME.md",
+      "sha256": "b006c9d1bc3fb2a13f1192165bcb6f1aff79aecfbbe716270c70b74699e5bbaf",
+      "bytes": 5802
+    },
+    {
+      "path": "docs/retrieval-v2/comparison.png",
+      "sha256": "de9586b90d55cbbadd85acfaa235fc3a165f6fa556a2280ba7d82c8af436ceb7",
+      "bytes": 96017
+    },
+    {
+      "path": "docs/retrieval-v2/failure-ledger.md",
+      "sha256": "1bf69b818224322d99bdafbf5c592cc11e018f84a114ca84ff316e04d74c9653",
+      "bytes": 7639
+    },
+    {
+      "path": "docs/retrieval-v2/results.md",
+      "sha256": "5723e57f53eeb3ea4895fb8df74db1140ef6fcf0b1181a839057e5230057d620",
+      "bytes": 1988
+    },
+    {
+      "path": "docs/RETRIEVAL_V2.md",
+      "sha256": "11bc4fcc2838e3afc7f633c7a59fa38d4204214149d9e15e4912970421405fa7",
+      "bytes": 9068
+    },
+    {
       "path": "docs/SERVICE.md",
-      "sha256": "247a2c54e306698fc55e6e12cd8ec05f2d98c957151bcdebaae75e730c26d543",
-      "bytes": 5191
+      "sha256": "bc4fe5bdf44add81b324006a76704e0b5851910efe31641304158a1f88e7b492",
+      "bytes": 6057
     },
     {
       "path": "README.md",
-      "sha256": "79cd4dcb2c742951f0acf0b45c3e745c4b0eebebd5ae4c422cae7f47398fa51f",
-      "bytes": 17967
+      "sha256": "ebca9ed1544f5f4dd90a6360d53a3a74bf5452654cffab771477e612e8523254",
+      "bytes": 19747
     },
     {
       "path": "results/controls/metrics.json",
@@ -270,6 +295,36 @@
       "path": "results/representation-diagnostics.json",
       "sha256": "b41305173413bd2714a35915ef08cd535cc818a095525bae7f403aa53ae2403f",
       "bytes": 716
+    },
+    {
+      "path": "results/retrieval-v2/dev/metrics.json",
+      "sha256": "b51b81cdd4e5919b4ba6658260b3b5fe9a045f70d50eb17217de71579d3e6176",
+      "bytes": 5886
+    },
+    {
+      "path": "results/retrieval-v2/dev/predictions.jsonl",
+      "sha256": "1501c4a3ae6c2fcb9babe42fa7cd2e818cbd980725b449b33af1ec65c607edc6",
+      "bytes": 1589762
+    },
+    {
+      "path": "results/retrieval-v2/dev/run.json",
+      "sha256": "6e34f136ddcbe71f8a3c3cad978600591f4afd560ea54ec15e2b24e31c64e19b",
+      "bytes": 4069
+    },
+    {
+      "path": "results/retrieval-v2/test/metrics.json",
+      "sha256": "132a524f46d998eb3c333ce08b3ca15b8497c8bfaa9fd79362d8ef31b7592896",
+      "bytes": 3170
+    },
+    {
+      "path": "results/retrieval-v2/test/predictions.jsonl",
+      "sha256": "cc41e4d348a5dec18f73f11db50bb7488e222314b38b32c0419679f5f7a600ce",
+      "bytes": 1709293
+    },
+    {
+      "path": "results/retrieval-v2/test/run.json",
+      "sha256": "b3cb531571908af109d8d8bfbe9deb0a4df2aba7054a2f542bb06642f523ea00",
+      "bytes": 5856
     }
   ],
   "note": "Integrity seal of evidence and report bytes; does not independently validate source facts."
