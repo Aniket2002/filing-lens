@@ -1,4 +1,4 @@
-# Research paper package
+# Supporting technical report: retrieval baseline
 
 **Status: a reproducible research draft, not a submitted or independently validated paper.**
 
@@ -41,7 +41,7 @@ uv run python scripts/build_paper.py --refresh-corpus-summary
 
 | Paper element | Source |
 | :-- | :-- |
-| Corpus composition | `data/questions.jsonl`, `data/corpus.json`, `paper/corpus-summary.json` |
+| Corpus composition | `data/questions.jsonl`, `data/corpus.json`, `corpus-summary.json` |
 | Development and test tables | `results/retrieval-v2/{dev,test}/metrics.json`, recomputed by the result audit |
 | Bootstrap intervals | `results/retrieval-v2/test/run.json`, recomputed by the result audit |
 | Candidate/ranking failure counts | `results/retrieval-v2/test/predictions.jsonl` and canonical gold spans |

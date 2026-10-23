@@ -55,22 +55,25 @@ def test_paper_evidence_check_rejects_stale_text_and_modified_pdf(tmp_path):
         "evidence.json",
         "build.json",
     ):
-        shutil.copyfile(ROOT / "paper" / name, tmp_path / "paper" / name)
+        shutil.copyfile(
+            ROOT / "research/retrieval-baseline" / name,
+            tmp_path / "research/retrieval-baseline" / name,
+        )
     assert build(tmp_path, check=True)["pdf_pages"] >= 1
-    path = tmp_path / "paper/manuscript.md"
+    path = tmp_path / "research/retrieval-baseline/manuscript.md"
     original = path.read_bytes()
     path.write_text("Invented result", encoding="utf-8")
     with pytest.raises(ValueError, match="stale"):
         build(tmp_path, check=True)
     path.write_bytes(original)
-    pdf = tmp_path / "paper/manuscript.pdf"
+    pdf = tmp_path / "research/retrieval-baseline/manuscript.pdf"
     pdf.write_bytes(pdf.read_bytes() + b"modified")
     with pytest.raises(ValueError, match="artifact changed"):
         build(tmp_path, check=True)
 
 
 def test_review_pdf_contains_results_references_and_figure():
-    with pymupdf.open(ROOT / "paper/manuscript.pdf") as document:
+    with pymupdf.open(ROOT / "research/retrieval-baseline/manuscript.pdf") as document:
         text = "\n".join(page.get_text() for page in document)
         assert "88.1%" in text and "85.7%" in text
         assert "FinQA" in text and "References" in text

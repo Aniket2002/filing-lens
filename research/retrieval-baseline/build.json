@@ -1,10 +1,10 @@
 {
   "inputs": {
-    "paper/manuscript.template.md": "4f3c013c6e1c870aa108bbd784ef89d3147049f64f7c0b799c732d27202abb2d",
-    "paper/references.json": "c1ac4e0f813324b46fa7266df83bbf076e132440e89d352865944f9afb971d39",
-    "paper/corpus-summary.json": "0a9661f1c9ee348058fbc81262cf0415451e94b5b9b2246523a522d4234a7a51",
-    "src/filing_lens/paper.py": "1558e18b9e5ebd79846199c11a154d69ec715f661adc807b4f9be2457ce97044",
-    "scripts/build_paper.py": "ababc080fedca051d08d173b26c4a60ed6cf097bd501c2359b794801b0fffdc0",
+    "research/retrieval-baseline/manuscript.template.md": "c956318ea96c5c1980a035030fcffbb7e07f6be03ac434cef884a960b2a2a486",
+    "research/retrieval-baseline/references.json": "c1ac4e0f813324b46fa7266df83bbf076e132440e89d352865944f9afb971d39",
+    "research/retrieval-baseline/corpus-summary.json": "0a9661f1c9ee348058fbc81262cf0415451e94b5b9b2246523a522d4234a7a51",
+    "src/filing_lens/paper.py": "a3d30600de4015c8fb9bfac460b208fa10a1bc8c59373024594e537b7cfd2f3f",
+    "scripts/build_paper.py": "4436f57a5188e30d43d57d7fe627eb75eed591c104435129ee1d21492e6e1a6d",
     "scripts/audit_retrieval_results.py": "41f01ef90edf43d6019990c521f06baa79f0fb95d657113f4bf15c566a4d035e",
     "data/questions.jsonl": "f1836439f5da8841334258dcf7f28ffedaa3d8616a46aeb4cd2be8b2f2d55e3d",
     "data/corpus.json": "d90d45fda8ec6d89f86fe24b93561ff3e14d6c945789baf4166187650014a685",
@@ -18,8 +18,8 @@
     "docs/retrieval-v2/comparison.png": "de9586b90d55cbbadd85acfaa235fc3a165f6fa556a2280ba7d82c8af436ceb7"
   },
   "outputs": {
-    "manuscript.md": "33240477e4c429589c480232dd45e999bc36cb2d7468437bcc1e4c2f6fd6117c",
-    "manuscript.html": "3172199e996aa93f793ee11abd70d442d293f203e6db1b85e249f7423c59c08b",
+    "manuscript.md": "ee535842412a8fcc06d973938ad159c6733c9652a445318e5eb48b9053fcaeda",
+    "manuscript.html": "18e691d546a1b7a2837e6ed9d60d277d5717a355eb50a2d1bb5848093ceb3cf2",
     "references.bib": "80f45f7dd3e12249eac18d4d8996a282d9df2611b25cce06f236ed27a6385af5",
     "evidence.json": "172e5f48436229b783939ca3b14f5e13d05b38910e2e08b55603d4817e874bdc",
     "manuscript.pdf": "c30ba13a1041e60ee919f3244f02b8406c984e6051872dc1c7bbbb83a2bb5e0d"

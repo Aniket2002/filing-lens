@@ -7,18 +7,19 @@ from filing_lens.io import digest, write_json
 root = Path(__file__).resolve().parents[1]
 paths = [
     root / "README.md",
+    root / "docs/EXPERIMENTS.md",
+    root / "docs/experiments/REFERENCE_RESULTS.md",
     root / "data/questions.jsonl",
     root / "docs/FAILURE_ANALYSIS.md",
     root / "docs/EXPERIMENT_PROTOCOL.md",
-    root / "docs/GENERATION_V2.md",
+    root / "docs/experiments/GENERATION_V2.md",
     root / "docs/ANNOTATION_REVIEW.md",
     root / "docs/ANSWER_REVIEW.md",
     root / "docs/SERVICE.md",
     root / "docs/DATA_CARD.md",
-    root / "docs/ITERATION_1.md",
-    root / "docs/EXPLANATION_STUDY.md",
+    root / "docs/experiments/ITERATION_1.md",
+    root / "docs/experiments/EXPLANATION_STUDY.md",
     root / "docs/RETRIEVAL_V2.md",
-    root / "docs/RESUME.md",
     root / "data/generator-v2-lock.json",
 ]
 for folder in [
@@ -35,7 +36,7 @@ for folder in [
     "results/controls",
     "docs/report",
     "docs/retrieval-v2",
-    "paper",
+    "research/retrieval-baseline",
     "research/equivariance",
     "results/equivariance/base/dev",
     "results/equivariance/base/test",

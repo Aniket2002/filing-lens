@@ -81,4 +81,4 @@ from initially correct test answers. The original prospective freeze is commit
 `53a7d02`; report prose and visualization code are written after that freeze and
 are not represented as preregistered analysis.
 
-See [the novelty assessment](NOVELTY.md), [frozen protocol](protocol.json), and [publication plan](VALIDATION.md). The existing [retrieval paper](../../paper/manuscript.md) remains a separate empirical baseline.
+See [the novelty assessment](NOVELTY.md), [frozen protocol](protocol.json), and [publication plan](VALIDATION.md). The supporting [retrieval baseline report](../retrieval-baseline/manuscript.md) documents the earlier study.

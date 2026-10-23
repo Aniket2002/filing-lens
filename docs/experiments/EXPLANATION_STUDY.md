@@ -22,7 +22,7 @@ Test uses the other eight companies: 32 questions across eight passages. Questio
 sharing a passage are dependent; this is not a sample of 40 independent cases.
 
 One model and prompt pair was declared in
-[`model-lock.json`](../data/explanations/model-lock.json): the same pinned
+[`model-lock.json`](../../data/explanations/model-lock.json): the same pinned
 FLAN-T5-base weights used in generation v2, greedy CPU decoding, 512 input tokens,
 four answerability output tokens and 128 explanation output tokens. The protocol
 records hashes of the dataset, prompt, study implementation and source-input lock.
@@ -122,7 +122,7 @@ and overwriting an existing split. The offline audit recomputes native refusal,
 concept coverage, source-excerpt metadata and aggregate scores without weights or
 PDFs. It cannot independently validate source extraction or semantic correctness.
 
-The separate [`review-pending.csv`](../data/explanations/review-pending.csv) includes
+The separate [`review-pending.csv`](../../data/explanations/review-pending.csv) includes
 all 40 source-linked questions with blank decisions. Copy it before editing.
 Reviewers must judge answerability against the supplied excerpt and record the
 actual explanation expected, including valid paraphrases and missing concepts.

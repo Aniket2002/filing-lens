@@ -25,7 +25,7 @@ pages; see [the inspection record](SOURCE_SPOT_CHECKS.md).
 The [source-linked review workflow](ANNOTATION_REVIEW.md) now exports all 80
 questions and validates separately recorded adjudications. The committed sheet
 has **zero completed reviews**; independent human review remains pending.
-A [separate explanation challenge](EXPLANATION_STUDY.md) adds 40 new questions
+A [separate explanation challenge](experiments/EXPLANATION_STUDY.md) adds 40 new questions
 frozen before inference from ten other passages in the same filings. Its own
 review sheet also has zero completed reviews. It is not part of the 80-question
 reference benchmark and is not independent human validation.

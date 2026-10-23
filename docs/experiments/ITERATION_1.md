@@ -98,8 +98,8 @@ chunks, cross pages, or bypass the verifier.
 
 The profile was frozen as `fixed-bm25-rerank+table-evidence`. Development ran
 first; the test profile was run once afterward. Full predictions and metadata
-are in [`results/iter1/dev/`](../results/iter1/dev/) and
-[`results/iter1/test/`](../results/iter1/test/). The run metadata includes source
+are in [`results/iter1/dev/`](../../results/iter1/dev/) and
+[`results/iter1/test/`](../../results/iter1/test/). The run metadata includes source
 hashes and the unchanged benchmark input lock.
 
 | Split / profile | R@1 | R@5 | R@10 | MRR@20 | Answer correct | Citation support | Unanswerable refusal | p95 ms |

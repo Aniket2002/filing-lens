@@ -7,7 +7,7 @@ numeric outputs on this narrow benchmark while retaining its failures.
 ## Protocol
 
 One model and one prompt were predeclared in
-[`generator-v2-lock.json`](../data/generator-v2-lock.json):
+[`generator-v2-lock.json`](../../data/generator-v2-lock.json):
 [`google/flan-t5-base`](https://huggingface.co/google/flan-t5-base), revision
 `7bcac572ce56db69c1ea7c8af255c5d7c9672fc2`, greedy CPU decoding with four threads,
 512 input tokens and 32 output tokens. No weights were fine-tuned.

@@ -47,7 +47,7 @@ body = (
     f"**{assembled['answer_coverage']:.1%} coverage (27/42)**, with unchanged retrieval and "
     "unanswerable refusal. Use `--no-assemble-table-evidence` for the original reader; "
     "benchmark defaults and frozen reference artifacts retain the original behavior. "
-    "See [Iteration 1](docs/ITERATION_1.md).\n\n"
+    "See [Iteration 1](ITERATION_1.md).\n\n"
     "**Generation v2, exploratory:** pinned FLAN-T5-base with aligned year/value records "
     f"achieves **{generation_v2['raw_amount_correctness']:.1%} raw amount correctness (21/35)** "
     f"and **{generation_v2['answer_correctness']:.1%} verified numeric correctness and coverage "
@@ -57,8 +57,8 @@ body = (
     "This is row-assisted amount generation on a previously inspected test set, with model, "
     "prompt, context format, and evidence assembly changed together. It is not an independent "
     "validation, a controlled model-size comparison, or general financial QA. "
-    "See the [generation study](docs/GENERATION_V2.md) and "
-    "[preserved outputs](results/generator-v2/test/predictions.jsonl).\n\n"
+    "See the [generation study](GENERATION_V2.md) and "
+    "[preserved outputs](../../results/generator-v2/test/predictions.jsonl).\n\n"
     "**New explanation challenge, supplied evidence:** 40 new AI-authored questions "
     "(8 development, 32 test) were frozen before inference using the same source filings. "
     "The experimental `flan-t5-explain` reader generates prose and its own yes/no answerability "
@@ -69,9 +69,9 @@ body = (
     "a correctness or entailment score. Human quality scores remain unassigned. "
     "This isolates model behavior on supplied passages; it does not evaluate retrieval or "
     "establish independent human validation. See the "
-    "[explanation study](docs/EXPLANATION_STUDY.md)."
+    "[explanation study](EXPLANATION_STUDY.md)."
 )
-path = root / "README.md"
+path = root / "docs/experiments/REFERENCE_RESULTS.md"
 text = path.read_text(encoding="utf-8")
 start, end = "<!-- RESULTS_START -->", "<!-- RESULTS_END -->"
 prefix, rest = text.split(start, 1)

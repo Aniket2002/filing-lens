@@ -32,7 +32,7 @@ if __name__ == "__main__":
         if len({(p["doc_id"], p["page"]) for p in pages}) != len(pages):
             raise ValueError("Duplicate corpus pages")
         write_json(
-            root / "paper/corpus-summary.json",
+            root / "research/retrieval-baseline/corpus-summary.json",
             {
                 "pages_sha256": sha,
                 "document_pages": dict(sorted(Counter(p["doc_id"] for p in pages).items())),

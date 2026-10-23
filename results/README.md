@@ -8,7 +8,7 @@
 - `generator-v2/dev/` and `generator-v2/test/`: a development-first FLAN-T5-base
   experiment with aligned year/value records and retrieved table-evidence assembly.
   Preserves all 70 outputs, source contexts, metrics and implementation fingerprints.
-  Test is a reused, previously inspected split; see `docs/GENERATION_V2.md`.
+  Test is a reused, previously inspected split; see `docs/experiments/GENERATION_V2.md`.
 - `iter1/dev/` and `iter1/test/`: the separately measured table-assembly reader
   improvement. The current live CLI/API enables it; reference benchmark defaults do not.
 - `controls/`: isolated numeric verifier study on correct source cells with
@@ -21,6 +21,9 @@
   AI-authored questions. Supplied source passages isolate direct model explanation
   and learned answerability; no extractive or numeric guard decides refusals.
   Concept coverage is a screen, while human correctness and entailment remain null.
+- `equivariance/{base,small}/{dev,test}/`: the flagship controlled-intervention pilot.
+  It preserves 4,800 outcomes, model locks, per-case scores, and prompt hashes; see
+  `../research/equivariance/README.md`.
 
 `reference/metrics.json` has development, test, and pooled aggregates. Use the test
 split for headline comparisons. Pooled results are descriptive and must not be
@@ -35,6 +38,7 @@ uv run python scripts/audit_reference.py
 uv run python scripts/audit_generation_results.py
 uv run python scripts/audit_explanation_results.py
 uv run python scripts/audit_retrieval_results.py
+uv run python scripts/run_equivariance.py audit
 ```
 
 To reproduce inference, use `results/reproduced` as the output directory. Preserve

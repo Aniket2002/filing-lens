@@ -1,7 +1,7 @@
 {
   "inputs": {
     "scripts/report_equivariance.py": "9019e1384932d7553994bf6f02c52c22dc16ce6644656c062acf34c9d1ad3cb9",
-    "src/filing_lens/paper.py": "1558e18b9e5ebd79846199c11a154d69ec715f661adc807b4f9be2457ce97044",
+    "src/filing_lens/paper.py": "a3d30600de4015c8fb9bfac460b208fa10a1bc8c59373024594e537b7cfd2f3f",
     "research/equivariance/manuscript.template.md": "be568745312477e4a92417f812db1ba92d037c0a6deeceeb3564cb3d59cdba26",
     "research/equivariance/references.json": "28a4ad59fdb85b0a6d502bb9d06a944bd4fa27a73e3783adbfd33d4a908ad050",
     "research/equivariance/freeze.json": "f687105a01b4dcd3a5b547988cb775ce9121cba0331bd67ad20c653995a389a9",

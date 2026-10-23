@@ -19,9 +19,9 @@ LABELS = {
     "structure-hybrid-finance-60": "H60",
 }
 INPUTS = [
-    "paper/manuscript.template.md",
-    "paper/references.json",
-    "paper/corpus-summary.json",
+    "research/retrieval-baseline/manuscript.template.md",
+    "research/retrieval-baseline/references.json",
+    "research/retrieval-baseline/corpus-summary.json",
     "src/filing_lens/paper.py",
     "scripts/build_paper.py",
     "scripts/audit_retrieval_results.py",
@@ -87,7 +87,7 @@ def collect(root: Path) -> tuple[dict, dict]:
     dev = read_json(root / "results/retrieval-v2/dev/metrics.json")
     test = read_json(root / "results/retrieval-v2/test/metrics.json")
     run = read_json(root / "results/retrieval-v2/test/run.json")
-    corpus = read_json(root / "paper/corpus-summary.json")
+    corpus = read_json(root / "research/retrieval-baseline/corpus-summary.json")
     if corpus["pages_sha256"] != read_json(root / "data/benchmark-lock.json")["pages_sha256"]:
         raise ValueError("Corpus summary does not describe the frozen extraction")
     rows = read_jsonl(root / "results/retrieval-v2/test/predictions.jsonl")
@@ -301,9 +301,11 @@ def to_html(markdown: str) -> str:
 
 def outputs(root: Path) -> dict[str, str]:
     fields, evidence = collect(root)
-    references = read_json(root / "paper/references.json")
+    references = read_json(root / "research/retrieval-baseline/references.json")
     manuscript = render_template(
-        (root / "paper/manuscript.template.md").read_text(encoding="utf-8"), fields, references
+        (root / "research/retrieval-baseline/manuscript.template.md").read_text(encoding="utf-8"),
+        fields,
+        references,
     )
     bibliography = (
         "\n\n".join(
@@ -334,7 +336,7 @@ def outputs(root: Path) -> dict[str, str]:
 
 
 def build(root: Path, check: bool = False) -> dict:
-    directory = root / "paper"
+    directory = root / "research/retrieval-baseline"
     rendered = outputs(root)
     inputs = {name: digest((root / name).read_bytes()) for name in INPUTS}
     if check:
@@ -352,9 +354,9 @@ def build(root: Path, check: bool = False) -> dict:
         return manifest
     for name, content in rendered.items():
         (directory / name).write_text(content, encoding="utf-8", newline="\n")
-    # HTML lives in paper/; the PDF archive is rooted at the repository so figure
+    # HTML lives beside this report; the PDF archive is rooted at the repository so figure
     # paths do not require parent-directory traversal inside MuPDF's archive.
-    pdf_html = rendered["manuscript.html"].replace('src="../docs/', 'src="docs/')
+    pdf_html = rendered["manuscript.html"].replace('src="../../docs/', 'src="docs/')
     story = pymupdf.Story(pdf_html, archive=str(root))
 
     def rectangle(index, filled):

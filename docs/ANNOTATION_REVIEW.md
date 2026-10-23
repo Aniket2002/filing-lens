@@ -47,7 +47,7 @@ published metrics. Accepted corrections require a new dataset version and a new
 experiment, with fresh test questions where possible. Do not retroactively repair
 the reference scores to improve a headline.
 
-The [new explanation challenge](EXPLANATION_STUDY.md) has a separate 40-row review
+The [new explanation challenge](experiments/EXPLANATION_STUDY.md) has a separate 40-row review
 sheet. Add `--dataset explanations` to both commands to work with it. Answerability
 is scoped to the supplied passage; use `passage_inspection` or `visual_pdf`.
 All 40 new reviews are pending, separate from the 80 original pending reviews.

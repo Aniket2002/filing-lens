@@ -14,3 +14,46 @@ dist/
 results/reproduced/
 results/lexical/
 docs/reproduced/
+
+# Local editor configuration
+.vscode/
+.idea/
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Python tooling and generated coverage
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.hypothesis/
+.tox/
+.nox/
+.ipynb_checkpoints/
+
+# Temporary files and local experiments
+*.log
+*.tmp
+*.bak
+*.swp
+scratch/
+tmp/
+temp/
+results/scratch/
+results/tmp/
+results/local/
+
+# Local build directories
+build/
+site/
+research/**/_build/
+
+# Downloaded models and checkpoints
+models/
+checkpoints/
+
+# Personal resume material
+personal-notes/

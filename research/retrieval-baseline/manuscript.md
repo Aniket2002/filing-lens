@@ -253,7 +253,7 @@ company-bootstrap 95% interval [+9.5, +42.9]. Against S20, the recall improvemen
 chunking, routing, and depth changes; the S20 comparison combines routing and depth. Their
 individual effects on this test set are not identified by these three test conditions.
 
-![Exploratory test comparison with a fixed reader](../docs/retrieval-v2/comparison.png)
+![Exploratory test comparison with a fixed reader](../../docs/retrieval-v2/comparison.png)
 
 Figure 1. The development-selected profile improves the measured retrieval and answer
 endpoints. This is a descriptive result on previously inspected questions, not an external
