@@ -33,27 +33,48 @@ def prepare(root: Path) -> None:
         return
     documents = read_json(root / "data/corpus.json")["documents"]
     lock = read_json(root / "data/source-lock.json")
+    mirrors = read_json(root / "data/replay-source-mirrors.json")["mirrors"]
     raw = root / "data/raw"
     raw.mkdir(parents=True, exist_ok=True)
-    with httpx.Client(follow_redirects=True, timeout=120) as client:
+    with httpx.Client(
+        follow_redirects=True,
+        timeout=120,
+        limits=httpx.Limits(max_keepalive_connections=0),
+        headers={
+            "User-Agent": "FilingLensResearch/1.0 (+https://github.com/Aniket2002/filing-lens)"
+        },
+    ) as client:
         for doc in documents:
             record = lock[doc["id"]]
             if record["url"] != doc["url"]:
                 raise ValueError(f"Source URL differs from lock: {doc['id']}")
             path = raw / f"{doc['id']}.pdf"
             if not path.exists():
-                for attempt in range(3):
-                    try:
-                        response = client.get(record["url"])
-                        response.raise_for_status()
-                        if digest(response.content) != record["sha256"]:
-                            raise ValueError(f"Downloaded source changed: {doc['id']}")
-                        path.write_bytes(response.content)
+                last_error = None
+                for url in [record["url"], *mirrors.get(doc["id"], [])]:
+                    for attempt in range(3):
+                        try:
+                            response = client.get(url)
+                            response.raise_for_status()
+                            if digest(response.content) != record["sha256"]:
+                                raise ValueError(f"Downloaded source changed: {doc['id']}")
+                            path.write_bytes(response.content)
+                            print(f"Downloaded locked source from {url}", flush=True)
+                            break
+                        except httpx.HTTPError as exc:
+                            last_error = exc
+                            print(
+                                f"HTTP attempt {attempt + 1} failed for {doc['id']}: {exc}",
+                                flush=True,
+                            )
+                            if attempt < 2:
+                                time.sleep(2 ** (attempt + 1))
+                    if path.exists():
                         break
-                    except httpx.HTTPError:
-                        if attempt == 2:
-                            raise
-                        time.sleep(2 ** (attempt + 1))
+                if not path.exists():
+                    raise RuntimeError(
+                        f"All locked source endpoints failed: {doc['id']}"
+                    ) from last_error
             if (
                 path.stat().st_size != record["bytes"]
                 or digest(path.read_bytes()) != record["sha256"]

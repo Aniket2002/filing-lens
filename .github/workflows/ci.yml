@@ -31,6 +31,7 @@ jobs:
     needs: tests
     timeout-minutes: 30
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
@@ -45,7 +46,7 @@ jobs:
           path: |
             data/raw
             data/processed/pages.jsonl
-          key: replay-v1-${{ runner.os }}-${{ hashFiles('data/source-lock.json', 'data/benchmark-lock.json', 'data/corpus.json', 'src/filing_lens/corpus.py', 'src/filing_lens/table_layout.py', 'src/filing_lens/io.py', 'scripts/prepare_replay_corpus.py', 'uv.lock') }}
+          key: replay-v1-${{ runner.os }}-${{ hashFiles('data/source-lock.json', 'data/replay-source-mirrors.json', 'data/benchmark-lock.json', 'data/corpus.json', 'src/filing_lens/corpus.py', 'src/filing_lens/table_layout.py', 'src/filing_lens/io.py', 'scripts/prepare_replay_corpus.py', 'uv.lock') }}
       - name: Restore and verify the locked parsed corpus
         run: uv run python scripts/prepare_replay_corpus.py
       - name: Rebuild all 16 indexes and replay all 800 outcomes

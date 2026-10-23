@@ -1,0 +1,6 @@
+{
+  "note": "Optional publisher-host mirrors used only after HTTP failures. Every download must match data/source-lock.json byte length and SHA-256; mirrors do not replace source provenance.",
+  "mirrors": {
+    "NXPI-2023": ["https://www.annualreports.co.uk/HostedData/AnnualReportArchive/n/NASDAQ_NXPI_2023.pdf"]
+  }
+}
