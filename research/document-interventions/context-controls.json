@@ -1,0 +1,360 @@
+{
+  "status": "Synthetic controls only; zero real restatements or reviewed XBRL filings",
+  "inputs": {
+    "src/filing_lens/financial_context.py": "013d052a203d8d2e73f75d8f43431299419af9d0f586d33b11af53c7379ef078",
+    "scripts/run_context_controls.py": "786f9f489e314ffed9199ccb387926f9b9bdefab64b9f09117f7687d9c285249"
+  },
+  "controls": [
+    {
+      "control": "historical_before_revision",
+      "expected_status": "numeric",
+      "expected_value": "100",
+      "output": {
+        "status": "numeric",
+        "value": "100",
+        "unit": "USD",
+        "citations": [
+          "original"
+        ],
+        "sources": [
+          "https://example.invalid/original"
+        ]
+      }
+    },
+    {
+      "control": "at_revision_publication",
+      "expected_status": "numeric",
+      "expected_value": "90",
+      "output": {
+        "status": "numeric",
+        "value": "90",
+        "unit": "USD",
+        "citations": [
+          "revision"
+        ],
+        "sources": [
+          "https://example.invalid/revision"
+        ]
+      }
+    },
+    {
+      "control": "explicit_supersession",
+      "expected_status": "numeric",
+      "expected_value": "90",
+      "output": {
+        "status": "numeric",
+        "value": "90",
+        "unit": "USD",
+        "citations": [
+          "revision"
+        ],
+        "sources": [
+          "https://example.invalid/revision"
+        ]
+      }
+    },
+    {
+      "control": "later_date_is_not_supersession",
+      "expected_status": "conflict",
+      "expected_value": null,
+      "output": {
+        "status": "conflict",
+        "value": null,
+        "unit": "USD",
+        "citations": [
+          "original",
+          "unlinked"
+        ],
+        "sources": [
+          "https://example.invalid/original",
+          "https://example.invalid/revision"
+        ]
+      }
+    },
+    {
+      "control": "future_fact_unavailable",
+      "expected_status": "missing_evidence",
+      "expected_value": null,
+      "output": {
+        "status": "missing_evidence",
+        "value": null,
+        "unit": "USD",
+        "citations": [],
+        "sources": []
+      }
+    },
+    {
+      "control": "before_any_publication",
+      "expected_status": "missing_evidence",
+      "expected_value": null,
+      "output": {
+        "status": "missing_evidence",
+        "value": null,
+        "unit": "USD",
+        "citations": [],
+        "sources": []
+      }
+    },
+    {
+      "control": "same_value_duplicates",
+      "expected_status": "numeric",
+      "expected_value": "100",
+      "output": {
+        "status": "numeric",
+        "value": "100",
+        "unit": "USD",
+        "citations": [
+          "duplicate",
+          "original"
+        ],
+        "sources": [
+          "https://example.invalid/original"
+        ]
+      }
+    },
+    {
+      "control": "segment_scope",
+      "expected_status": "numeric",
+      "expected_value": "100",
+      "output": {
+        "status": "numeric",
+        "value": "100",
+        "unit": "USD",
+        "citations": [
+          "original"
+        ],
+        "sources": [
+          "https://example.invalid/original"
+        ]
+      }
+    },
+    {
+      "control": "segment_scope_alone",
+      "expected_status": "missing_evidence",
+      "expected_value": null,
+      "output": {
+        "status": "missing_evidence",
+        "value": null,
+        "unit": "USD",
+        "citations": [],
+        "sources": []
+      }
+    },
+    {
+      "control": "currency",
+      "expected_status": "numeric",
+      "expected_value": "100",
+      "output": {
+        "status": "numeric",
+        "value": "100",
+        "unit": "USD",
+        "citations": [
+          "original"
+        ],
+        "sources": [
+          "https://example.invalid/original"
+        ]
+      }
+    },
+    {
+      "control": "currency_alone",
+      "expected_status": "missing_evidence",
+      "expected_value": null,
+      "output": {
+        "status": "missing_evidence",
+        "value": null,
+        "unit": "USD",
+        "citations": [],
+        "sources": []
+      }
+    },
+    {
+      "control": "quarterly_duration",
+      "expected_status": "numeric",
+      "expected_value": "100",
+      "output": {
+        "status": "numeric",
+        "value": "100",
+        "unit": "USD",
+        "citations": [
+          "original"
+        ],
+        "sources": [
+          "https://example.invalid/original"
+        ]
+      }
+    },
+    {
+      "control": "quarterly_duration_alone",
+      "expected_status": "missing_evidence",
+      "expected_value": null,
+      "output": {
+        "status": "missing_evidence",
+        "value": null,
+        "unit": "USD",
+        "citations": [],
+        "sources": []
+      }
+    },
+    {
+      "control": "instant_vs_duration",
+      "expected_status": "numeric",
+      "expected_value": "100",
+      "output": {
+        "status": "numeric",
+        "value": "100",
+        "unit": "USD",
+        "citations": [
+          "original"
+        ],
+        "sources": [
+          "https://example.invalid/original"
+        ]
+      }
+    },
+    {
+      "control": "instant_vs_duration_alone",
+      "expected_status": "missing_evidence",
+      "expected_value": null,
+      "output": {
+        "status": "missing_evidence",
+        "value": null,
+        "unit": "USD",
+        "citations": [],
+        "sources": []
+      }
+    },
+    {
+      "control": "adjusted_basis",
+      "expected_status": "numeric",
+      "expected_value": "100",
+      "output": {
+        "status": "numeric",
+        "value": "100",
+        "unit": "USD",
+        "citations": [
+          "original"
+        ],
+        "sources": [
+          "https://example.invalid/original"
+        ]
+      }
+    },
+    {
+      "control": "adjusted_basis_alone",
+      "expected_status": "missing_evidence",
+      "expected_value": null,
+      "output": {
+        "status": "missing_evidence",
+        "value": null,
+        "unit": "USD",
+        "citations": [],
+        "sources": []
+      }
+    },
+    {
+      "control": "different_entity",
+      "expected_status": "numeric",
+      "expected_value": "100",
+      "output": {
+        "status": "numeric",
+        "value": "100",
+        "unit": "USD",
+        "citations": [
+          "original"
+        ],
+        "sources": [
+          "https://example.invalid/original"
+        ]
+      }
+    },
+    {
+      "control": "different_entity_alone",
+      "expected_status": "missing_evidence",
+      "expected_value": null,
+      "output": {
+        "status": "missing_evidence",
+        "value": null,
+        "unit": "USD",
+        "citations": [],
+        "sources": []
+      }
+    },
+    {
+      "control": "different_entity_scheme",
+      "expected_status": "numeric",
+      "expected_value": "100",
+      "output": {
+        "status": "numeric",
+        "value": "100",
+        "unit": "USD",
+        "citations": [
+          "original"
+        ],
+        "sources": [
+          "https://example.invalid/original"
+        ]
+      }
+    },
+    {
+      "control": "different_entity_scheme_alone",
+      "expected_status": "missing_evidence",
+      "expected_value": null,
+      "output": {
+        "status": "missing_evidence",
+        "value": null,
+        "unit": "USD",
+        "citations": [],
+        "sources": []
+      }
+    },
+    {
+      "control": "different_taxonomy",
+      "expected_status": "numeric",
+      "expected_value": "100",
+      "output": {
+        "status": "numeric",
+        "value": "100",
+        "unit": "USD",
+        "citations": [
+          "original"
+        ],
+        "sources": [
+          "https://example.invalid/original"
+        ]
+      }
+    },
+    {
+      "control": "different_taxonomy_alone",
+      "expected_status": "missing_evidence",
+      "expected_value": null,
+      "output": {
+        "status": "missing_evidence",
+        "value": null,
+        "unit": "USD",
+        "citations": [],
+        "sources": []
+      }
+    },
+    {
+      "control": "duplicate_id_rejected",
+      "expected_status": "invalid_input",
+      "output": "invalid_input"
+    },
+    {
+      "control": "missing_prior_rejected",
+      "expected_status": "invalid_input",
+      "output": "invalid_input"
+    },
+    {
+      "control": "cross_context_supersession_rejected",
+      "expected_status": "invalid_input",
+      "output": "invalid_input"
+    },
+    {
+      "control": "nonchronological_supersession_rejected",
+      "expected_status": "invalid_input",
+      "output": "invalid_input"
+    }
+  ]
+}

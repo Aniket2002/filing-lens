@@ -111,17 +111,48 @@ Table 3 separates numerical correctness from coordinate correctness for pointer 
 
 Full per-question predictions preserve raw model output, decoded value or ID, invalid-output state, prompt fingerprint, token count, evidence source, intervention, and scoring fields. All aggregate tables are regenerated from these outcomes and checked against the saved metrics. This audit establishes internal consistency and provenance; it does not independently validate source annotation or prove model execution from a cryptographic signature.
 
+## 6.1. Exploratory follow-up: rebuilding document-text retrieval
+
+An exploratory follow-up records 800 symbolic-reader outcomes over 16 rebuilt BM25 indexes: four presentation variants crossed with two chunkers and native or unit-neutral index text. All 1,275 parsed pages participate. Statement pages are reconstructed from existing tables; other pages remain unchanged. Text changes precede chunking, indexing and answer-time parsing. Prior table preparation and removal of surrounding statement-page prose limit this experiment; it does not evaluate raw-PDF extraction.
+
+The symbolic reader resolves the issuer, requested year, one of five metric families and the output unit from question text. It selects only complete retrieved rows and executes exact unit conversion, refusing missing or conflicting values. The unit-neutral index masks monetary row values and normalizes monetary scale tokens only for retrieval; the reader always receives the original, unmasked text for that variant. This representation is intended for single-fact lookup, not questions about monetary thresholds. Neither model outputs nor answer annotations enter ranking or selection.
+
+| Chunks | Index view | Variant | N | Page@5 | Correct | Frozen correct |
+| --- | --- | --- | --- | --- | --- | --- |
+| fixed | native | base | 35 | 31 | 20 | 20 |
+| fixed | native | unit_rescale | 35 | 21 | 5 | 20 |
+| fixed | unit_neutral | base | 35 | 33 | 22 | 22 |
+| fixed | unit_neutral | unit_rescale | 35 | 33 | 22 | 22 |
+| structure | native | base | 35 | 32 | 30 | 30 |
+| structure | native | unit_rescale | 35 | 17 | 13 | 30 |
+| structure | unit_neutral | base | 35 | 33 | 33 | 33 |
+| structure | unit_neutral | unit_rescale | 35 | 33 | 33 | 33 |
+
+Table 4. Test counts over the same 35 questions. Page@5 is annotated source-page coverage, not span recall. Frozen correct answers from changed text at original top-five chunk identities; it isolates the effect of ranking movement. With structure-aware chunks, native BM25 falls from 30/35 original answers correct to 13/35 after rescaling. Keeping original chunk rankings while reading changed text retains 30/35 correct answers. The unit-neutral index scores 33/35 originally and 33/35 after rescaling. On this prepared corpus, lexical sensitivity to scale and amounts can therefore dominate exact numerical execution. This is evidence for separating retrieval robustness from reader robustness.
+
+The native-index run was inspected before adding the unit-neutral view and frozen-ranking diagnostic. All chunkers, views, variants, development/test results and failures are published in `research/document-interventions/results.md`. The follow-up is explicitly exploratory and reuses the pilot companies. It neither establishes fresh-holdout superiority nor repairs the original LLM arms' accuracy loss. Its results are not directly comparable with those arms because the retriever, presentation and reader differ.
+
 ## 7. Limitations and next experiments
 
-The narrow schema and pre-extracted cells substantially simplify natural filings. The pilot does not address publication-time availability, segment scope, GAAP versus adjusted metrics, currency conversion, quarterly duration alignment, arithmetic over multiple cells, or contradictory disclosures. The original labels were AI authored and source checked; independent financial adjudication remains necessary. Synthetic interventions have exact executable oracles but do not add independent real-world observations.
+The narrow schema and prepared tables simplify natural filings. Labels are AI authored and source checked, without independent financial adjudication. Synthetic interventions add conditions, not independent observations. The seven limitations below constrain the claims even after the exploratory retrieval follow-up.
 
-The original retriever is held fixed. Consequently, this study localizes downstream sensitivity and cannot establish that mutated document corpora preserve candidate recall or ranking. A full extension should rebuild the index after each transformation and report candidate coverage, ranked evidence coverage, and answer quality separately. Broader model families, constrained-decoding and trained table-selection baselines, value-blind selection, and separate sorting/normalization ablations are also needed.
+Beyond these limitations, multi-cell arithmetic, trained table-selection baselines, constrained decoding, value-blind selection and separate sorting/normalization ablations remain open. Candidate coverage, ranked evidence coverage and answer quality must be reported separately for each extension.
+
+| Limitation | Importance | Consequence and required evidence |
+|---|---|---|
+| 35 test questions across seven previously studied issuers | High | Transformations do not enlarge the independent sample; require fresh issuers, industries, periods and question authors. |
+| Two small FLAN-T5 variants | High | No cross-family or larger-model conclusion; require pinned models from at least two independent families. |
+| Typed evidence prepared before intervention | High for end-to-end claims | The document follow-up still reconstructs statement pages; require transformations of raw documents before extraction. |
+| Canonicalization and pointers lower base accuracy | High | The original tradeoff remains; require paired base-accuracy and robustness comparisons on the same pipeline. |
+| No independent financial annotations | High | Require two source-reviewing annotators and adjudication before treating labels as validated. |
+| Retrieval frozen in the LLM pilot | Medium | Rebuilt lexical retrieval is now measured separately; learned retrieval and integrated LLM runs remain open. |
+| No real restatements, XBRL contexts or conflicting-disclosure evaluation | High | Synthetic context software controls are not real financial cases; require accession-linked sources, publication times and reviewed context bindings. |
 
 The strongest defensible claim at this stage is an auditable experimental contribution: the repository can distinguish preservation, changed binding, and lost support, and can measure whether canonicalization or pointer output helps on a restricted pilot. Publication-level novelty, broad superiority, and external validity are open questions. A fresh industry-diverse holdout and independent review should precede a stronger manuscript submission.
 
 ## 8. Reproducibility and availability
 
-The repository includes the frozen protocol, source-linked case dataset, all 4,800 outcomes, model locks, prompt fingerprints, unit tests, metric audit, report generator, bibliography, and rendered PDF. Run `python scripts/run_equivariance.py audit` to recompute scores without model downloads and `python scripts/report_equivariance.py --check` to verify this draft. The earlier retrieval study and its manuscript remain intact as a separate baseline. Synthetic variants are labeled as such and never replace original evidence.
+The repository preserves the frozen protocol, source-linked cases, 4,800 LLM outcomes, 800 follow-up outcomes, locks, fingerprints, audits and manuscript sources. Run `python scripts/run_equivariance.py audit` and `python scripts/run_document_interventions.py audit` to recompute saved outcomes; the latter's `--replay` option rebuilds rankings from the locked parsed corpus. Run `python scripts/report_equivariance.py --check` to verify this draft. The supporting retrieval report and original evidence remain unchanged.
 
 ## References
 

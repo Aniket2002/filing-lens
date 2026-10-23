@@ -26,6 +26,8 @@ without giving every experiment equal prominence.
 
 ## Research papers
 
+- **Exploratory follow-up:** [Rebuilt document-text retrieval and financial context controls](../research/document-interventions/README.md), with [external evaluation requirements](../research/document-interventions/EXTERNAL_EVALUATION.md).
+
 - **Flagship:** [Financial Evidence Equivariance](../research/equivariance/README.md).
 - **Supporting baseline:** [Filing Lens retrieval report](../research/retrieval-baseline/README.md).
 

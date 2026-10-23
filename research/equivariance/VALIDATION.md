@@ -2,6 +2,8 @@
 
 This repository supplies an executable pilot and a manuscript scaffold with measured results. The following work is needed for a serious external research claim.
 
+Progress: the [document-text follow-up](../document-interventions/README.md) adds rebuilt lexical retrieval, a symbolic baseline, retrieval-only normalization and synthetic financial-context controls. These partially address items 4, 5 and 7 below. They do not supply fresh issuers, larger models, independently reviewed labels, raw-document extraction or real restatement cases. The [external evaluation protocol](../document-interventions/EXTERNAL_EVALUATION.md) records concrete completion criteria for all seven limitations.
+
 1. **Independent financial adjudication.** Have two reviewers check source row identity, year headers, units, duplicate statements, and all transform rules. Measure agreement and resolve disagreements without consulting model outputs. Current annotations are AI authored and source checked, not independently certified.
 2. **Fresh external evaluation.** Freeze the pipeline, then add issuers from banking, insurance, retail, and energy, plus later filings and genuinely unseen question authors. The existing test companies have already appeared in earlier repository experiments.
 3. **Stronger model diversity.** Add at least two independent model families at larger scales. Keep all arms, prompts, token budgets, and invalid-output handling fixed. Report inference cost and latency; the two local T5 variants are a feasibility pilot.

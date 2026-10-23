@@ -10,11 +10,13 @@ Filing Lens studies a practical failure in financial question answering: a fluen
 
 ## Flagship study: Financial Evidence Equivariance
 
-The [six-page paper](research/equivariance/manuscript.pdf) tests how financial RAG answers respond to unit changes, column order, changed fiscal-year bindings, and missing evidence. Its frozen pilot contains **600 cases**, compares four decoding arms and two local language models, and preserves **4,800 outcomes** from **2,252 inference calls**.
+The [research paper](research/equivariance/manuscript.pdf) tests how financial RAG answers respond to unit changes, column order, changed fiscal-year bindings, and missing evidence. Its frozen pilot contains **600 cases**, compares four decoding arms and two local language models, and preserves **4,800 outcomes** from **2,252 inference calls**.
 
 On 35 test questions with retrieved evidence, canonical cell selection raises paired correctness under unit rescaling from **14.3% to 37.1%**. Original-input accuracy falls from **62.9% to 37.1%**; the simpler canonical-amount arm reaches **40.0%** paired correctness. All four base-model arms fail the evidence-removal refusal test. The results show a real tradeoff, not a general performance gain.
 
 Read the [study overview](research/equivariance/README.md), [measured results](research/equivariance/results.md), [all rescaling regressions](research/equivariance/failures.md), and [prior-art assessment](research/equivariance/NOVELTY.md). The originality claim remains provisional; the paper identifies the closest research and validation needed before submission.
+
+A separate [document-intervention follow-up](research/document-interventions/README.md) rebuilds retrieval across **16 indexes and 800 outcomes**. With structure-aware chunks, native BM25 plus a symbolic reader falls from **30/35 to 13/35** correct under unit rescaling; a unit-neutral index scores **33/35 on both**. This uses reconstructed statement pages and the same questions, with no new LLM inference or independent validation. The [external evaluation requirements](research/document-interventions/EXTERNAL_EVALUATION.md) track all seven remaining limitations.
 
 ## Supporting technical report: retrieval baseline
 
@@ -34,6 +36,8 @@ uv run python scripts/audit_generation_results.py
 uv run python scripts/audit_explanation_results.py
 uv run python scripts/audit_retrieval_results.py
 uv run python scripts/run_equivariance.py audit
+uv run python scripts/run_document_interventions.py audit
+uv run python scripts/run_context_controls.py --check
 uv run python scripts/build_paper.py --check
 uv run python scripts/report_equivariance.py --check
 ```
@@ -62,6 +66,7 @@ The repository preserves the frozen question sets, evidence fixtures, prediction
 ```text
 src/filing_lens/                 Retrieval, readers, numeric checks, and APIs
 research/equivariance/           Flagship study, paper, protocol, and results
+research/document-interventions/ Rebuilt retrieval study and financial context controls
 research/retrieval-baseline/    Supporting retrieval report and paper source
 data/                            Questions, evidence fixtures, and provenance locks
 results/                         Frozen predictions and aggregate measurements

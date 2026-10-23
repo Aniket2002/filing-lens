@@ -2,7 +2,7 @@
 
 A research pilot on whether financial RAG systems preserve economic meaning across changes in table presentation while responding correctly to changes in evidence. The candidate contribution is a **typed intervention protocol, a non-vacuous paired evaluation, and a controlled decoding study**. Neither metamorphic testing nor cell selection is claimed as a new invention.
 
-**Read:** [six-page paper](manuscript.pdf), [Markdown manuscript](manuscript.md),
+**Read:** [research paper](manuscript.pdf), [Markdown manuscript](manuscript.md),
 [measured results](results.md), [all scale regressions](failures.md), and
 [metric breakdown](metric-breakdown.md).
 
@@ -15,6 +15,8 @@ score **0/35** on evidence-removal refusal. This is a measured robustness/accura
 tradeoff and failure analysis, not a general improvement claim.
 
 The central question: **Can canonical financial evidence and coordinate-first decoding separate numerical fidelity from evidence selection, and what failures remain after representation invariance is guaranteed?**
+
+The manuscript now includes a separate [document-text intervention follow-up](../document-interventions/README.md): 800 symbolic-reader outcomes over 16 rebuilt BM25 indexes. It measures ranking sensitivity on reconstructed statement pages and evaluates a retrieval-only normalization baseline. It does not add independent questions or stronger LLM results. See the [seven-limitations completion criteria](../document-interventions/EXTERNAL_EVALUATION.md).
 
 ```mermaid
 flowchart LR

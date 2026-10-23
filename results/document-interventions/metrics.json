@@ -1,0 +1,578 @@
+[
+  {
+    "split": "dev",
+    "strategy": "fixed",
+    "view": "native",
+    "variant": "base",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 13,
+    "cell_coverage": 9,
+    "correct": 11,
+    "paired_correct": 11,
+    "regressions": 0,
+    "frozen_correct": 11,
+    "statuses": {
+      "missing_evidence": 4,
+      "numeric": 11
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "fixed",
+    "view": "native",
+    "variant": "column_reverse",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 13,
+    "cell_coverage": 9,
+    "correct": 11,
+    "paired_correct": 11,
+    "regressions": 0,
+    "frozen_correct": 11,
+    "statuses": {
+      "missing_evidence": 4,
+      "numeric": 11
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "fixed",
+    "view": "native",
+    "variant": "unit_rescale",
+    "n": 15,
+    "candidate_page_hit": 12,
+    "top5_page_hit": 10,
+    "cell_coverage": 2,
+    "correct": 2,
+    "paired_correct": 2,
+    "regressions": 9,
+    "frozen_correct": 11,
+    "statuses": {
+      "missing_evidence": 13,
+      "numeric": 2
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "fixed",
+    "view": "native",
+    "variant": "reverse_and_rescale",
+    "n": 15,
+    "candidate_page_hit": 12,
+    "top5_page_hit": 10,
+    "cell_coverage": 2,
+    "correct": 2,
+    "paired_correct": 2,
+    "regressions": 9,
+    "frozen_correct": 11,
+    "statuses": {
+      "missing_evidence": 13,
+      "numeric": 2
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "fixed",
+    "view": "unit_neutral",
+    "variant": "base",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 13,
+    "cell_coverage": 9,
+    "correct": 11,
+    "paired_correct": 11,
+    "regressions": 0,
+    "frozen_correct": 11,
+    "statuses": {
+      "missing_evidence": 4,
+      "numeric": 11
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "fixed",
+    "view": "unit_neutral",
+    "variant": "column_reverse",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 13,
+    "cell_coverage": 9,
+    "correct": 11,
+    "paired_correct": 11,
+    "regressions": 0,
+    "frozen_correct": 11,
+    "statuses": {
+      "missing_evidence": 4,
+      "numeric": 11
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "fixed",
+    "view": "unit_neutral",
+    "variant": "unit_rescale",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 13,
+    "cell_coverage": 9,
+    "correct": 11,
+    "paired_correct": 11,
+    "regressions": 0,
+    "frozen_correct": 11,
+    "statuses": {
+      "missing_evidence": 4,
+      "numeric": 11
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "fixed",
+    "view": "unit_neutral",
+    "variant": "reverse_and_rescale",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 13,
+    "cell_coverage": 9,
+    "correct": 11,
+    "paired_correct": 11,
+    "regressions": 0,
+    "frozen_correct": 11,
+    "statuses": {
+      "missing_evidence": 4,
+      "numeric": 11
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "structure",
+    "view": "native",
+    "variant": "base",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 14,
+    "cell_coverage": 14,
+    "correct": 14,
+    "paired_correct": 14,
+    "regressions": 0,
+    "frozen_correct": 14,
+    "statuses": {
+      "missing_evidence": 1,
+      "numeric": 14
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "structure",
+    "view": "native",
+    "variant": "column_reverse",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 14,
+    "cell_coverage": 14,
+    "correct": 14,
+    "paired_correct": 14,
+    "regressions": 0,
+    "frozen_correct": 14,
+    "statuses": {
+      "missing_evidence": 1,
+      "numeric": 14
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "structure",
+    "view": "native",
+    "variant": "unit_rescale",
+    "n": 15,
+    "candidate_page_hit": 13,
+    "top5_page_hit": 10,
+    "cell_coverage": 7,
+    "correct": 7,
+    "paired_correct": 7,
+    "regressions": 7,
+    "frozen_correct": 14,
+    "statuses": {
+      "missing_evidence": 8,
+      "numeric": 7
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "structure",
+    "view": "native",
+    "variant": "reverse_and_rescale",
+    "n": 15,
+    "candidate_page_hit": 13,
+    "top5_page_hit": 10,
+    "cell_coverage": 7,
+    "correct": 7,
+    "paired_correct": 7,
+    "regressions": 7,
+    "frozen_correct": 14,
+    "statuses": {
+      "missing_evidence": 8,
+      "numeric": 7
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "structure",
+    "view": "unit_neutral",
+    "variant": "base",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 14,
+    "cell_coverage": 14,
+    "correct": 14,
+    "paired_correct": 14,
+    "regressions": 0,
+    "frozen_correct": 14,
+    "statuses": {
+      "missing_evidence": 1,
+      "numeric": 14
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "structure",
+    "view": "unit_neutral",
+    "variant": "column_reverse",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 14,
+    "cell_coverage": 14,
+    "correct": 14,
+    "paired_correct": 14,
+    "regressions": 0,
+    "frozen_correct": 14,
+    "statuses": {
+      "missing_evidence": 1,
+      "numeric": 14
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "structure",
+    "view": "unit_neutral",
+    "variant": "unit_rescale",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 14,
+    "cell_coverage": 14,
+    "correct": 14,
+    "paired_correct": 14,
+    "regressions": 0,
+    "frozen_correct": 14,
+    "statuses": {
+      "missing_evidence": 1,
+      "numeric": 14
+    }
+  },
+  {
+    "split": "dev",
+    "strategy": "structure",
+    "view": "unit_neutral",
+    "variant": "reverse_and_rescale",
+    "n": 15,
+    "candidate_page_hit": 15,
+    "top5_page_hit": 14,
+    "cell_coverage": 14,
+    "correct": 14,
+    "paired_correct": 14,
+    "regressions": 0,
+    "frozen_correct": 14,
+    "statuses": {
+      "missing_evidence": 1,
+      "numeric": 14
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "fixed",
+    "view": "native",
+    "variant": "base",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 31,
+    "cell_coverage": 17,
+    "correct": 20,
+    "paired_correct": 20,
+    "regressions": 0,
+    "frozen_correct": 20,
+    "statuses": {
+      "missing_evidence": 15,
+      "numeric": 20
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "fixed",
+    "view": "native",
+    "variant": "column_reverse",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 31,
+    "cell_coverage": 17,
+    "correct": 20,
+    "paired_correct": 20,
+    "regressions": 0,
+    "frozen_correct": 20,
+    "statuses": {
+      "missing_evidence": 15,
+      "numeric": 20
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "fixed",
+    "view": "native",
+    "variant": "unit_rescale",
+    "n": 35,
+    "candidate_page_hit": 30,
+    "top5_page_hit": 21,
+    "cell_coverage": 5,
+    "correct": 5,
+    "paired_correct": 5,
+    "regressions": 15,
+    "frozen_correct": 20,
+    "statuses": {
+      "missing_evidence": 30,
+      "numeric": 5
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "fixed",
+    "view": "native",
+    "variant": "reverse_and_rescale",
+    "n": 35,
+    "candidate_page_hit": 30,
+    "top5_page_hit": 21,
+    "cell_coverage": 5,
+    "correct": 5,
+    "paired_correct": 5,
+    "regressions": 15,
+    "frozen_correct": 20,
+    "statuses": {
+      "missing_evidence": 30,
+      "numeric": 5
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "fixed",
+    "view": "unit_neutral",
+    "variant": "base",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 33,
+    "cell_coverage": 19,
+    "correct": 22,
+    "paired_correct": 22,
+    "regressions": 0,
+    "frozen_correct": 22,
+    "statuses": {
+      "missing_evidence": 13,
+      "numeric": 22
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "fixed",
+    "view": "unit_neutral",
+    "variant": "column_reverse",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 33,
+    "cell_coverage": 19,
+    "correct": 22,
+    "paired_correct": 22,
+    "regressions": 0,
+    "frozen_correct": 22,
+    "statuses": {
+      "missing_evidence": 13,
+      "numeric": 22
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "fixed",
+    "view": "unit_neutral",
+    "variant": "unit_rescale",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 33,
+    "cell_coverage": 19,
+    "correct": 22,
+    "paired_correct": 22,
+    "regressions": 0,
+    "frozen_correct": 22,
+    "statuses": {
+      "missing_evidence": 13,
+      "numeric": 22
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "fixed",
+    "view": "unit_neutral",
+    "variant": "reverse_and_rescale",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 33,
+    "cell_coverage": 19,
+    "correct": 22,
+    "paired_correct": 22,
+    "regressions": 0,
+    "frozen_correct": 22,
+    "statuses": {
+      "missing_evidence": 13,
+      "numeric": 22
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "structure",
+    "view": "native",
+    "variant": "base",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 32,
+    "cell_coverage": 30,
+    "correct": 30,
+    "paired_correct": 30,
+    "regressions": 0,
+    "frozen_correct": 30,
+    "statuses": {
+      "missing_evidence": 5,
+      "numeric": 30
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "structure",
+    "view": "native",
+    "variant": "column_reverse",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 32,
+    "cell_coverage": 30,
+    "correct": 30,
+    "paired_correct": 30,
+    "regressions": 0,
+    "frozen_correct": 30,
+    "statuses": {
+      "missing_evidence": 5,
+      "numeric": 30
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "structure",
+    "view": "native",
+    "variant": "unit_rescale",
+    "n": 35,
+    "candidate_page_hit": 30,
+    "top5_page_hit": 17,
+    "cell_coverage": 13,
+    "correct": 13,
+    "paired_correct": 13,
+    "regressions": 17,
+    "frozen_correct": 30,
+    "statuses": {
+      "missing_evidence": 22,
+      "numeric": 13
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "structure",
+    "view": "native",
+    "variant": "reverse_and_rescale",
+    "n": 35,
+    "candidate_page_hit": 30,
+    "top5_page_hit": 17,
+    "cell_coverage": 13,
+    "correct": 13,
+    "paired_correct": 13,
+    "regressions": 17,
+    "frozen_correct": 30,
+    "statuses": {
+      "missing_evidence": 22,
+      "numeric": 13
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "structure",
+    "view": "unit_neutral",
+    "variant": "base",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 33,
+    "cell_coverage": 32,
+    "correct": 33,
+    "paired_correct": 33,
+    "regressions": 0,
+    "frozen_correct": 33,
+    "statuses": {
+      "missing_evidence": 2,
+      "numeric": 33
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "structure",
+    "view": "unit_neutral",
+    "variant": "column_reverse",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 33,
+    "cell_coverage": 32,
+    "correct": 33,
+    "paired_correct": 33,
+    "regressions": 0,
+    "frozen_correct": 33,
+    "statuses": {
+      "missing_evidence": 2,
+      "numeric": 33
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "structure",
+    "view": "unit_neutral",
+    "variant": "unit_rescale",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 33,
+    "cell_coverage": 32,
+    "correct": 33,
+    "paired_correct": 33,
+    "regressions": 0,
+    "frozen_correct": 33,
+    "statuses": {
+      "missing_evidence": 2,
+      "numeric": 33
+    }
+  },
+  {
+    "split": "test",
+    "strategy": "structure",
+    "view": "unit_neutral",
+    "variant": "reverse_and_rescale",
+    "n": 35,
+    "candidate_page_hit": 35,
+    "top5_page_hit": 33,
+    "cell_coverage": 32,
+    "correct": 33,
+    "paired_correct": 33,
+    "regressions": 0,
+    "frozen_correct": 33,
+    "statuses": {
+      "missing_evidence": 2,
+      "numeric": 33
+    }
+  }
+]

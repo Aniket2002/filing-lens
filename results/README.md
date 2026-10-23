@@ -24,6 +24,10 @@
 - `equivariance/{base,small}/{dev,test}/`: the flagship controlled-intervention pilot.
   It preserves 4,800 outcomes, model locks, per-case scores, and prompt hashes; see
   `../research/equivariance/README.md`.
+- `document-interventions/`: 800 symbolic-reader outcomes, all top-five evidence,
+  candidate rankings, 16 rebuilt index fingerprints and original-ranking diagnostics.
+  This is an exploratory follow-up on the same questions, not a fresh holdout;
+  see [its protocol and limits](../research/document-interventions/README.md).
 
 `reference/metrics.json` has development, test, and pooled aggregates. Use the test
 split for headline comparisons. Pooled results are descriptive and must not be

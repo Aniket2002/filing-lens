@@ -1,0 +1,30 @@
+{
+  "name": "Rebuilt document-text retrieval under financial presentation changes",
+  "status": "Exploratory engineering follow-up; no external preregistration or fresh holdout",
+  "variants": ["base", "column_reverse", "unit_rescale", "reverse_and_rescale"],
+  "chunking": ["fixed", "structure"],
+  "retrieval_views": ["native", "unit_neutral"],
+  "unit_neutral": "Mask monetary row values and normalize monetary scale tokens in the BM25 index and query only. Keep raw chunks for the reader; retain periods, labels, entities, shares and per-share values.",
+  "exploration_disclosure": "Native-view 400-outcome run was inspected before adding the unit-neutral view and original-ranking diagnostic. Native structure test accuracy was 30/35 original and 14/35 rescaled. This is hypothesis development on reused data, not confirmatory evidence.",
+  "prepublication_correction": "Review of the first 800-outcome draft found that a broad shares-label rule misclassified monetary equity rows and some share-count rows. Narrow count-row recognition and explicit thousands overrides corrected the preparation; all conditions were rerun. Earlier exploratory numbers above describe the development history, not the final results.",
+  "frozen_ranking_reference": "Answer from transformed chunks at original top-5 chunk identities; compare with rerun retrieval to diagnose ranking-induced changes. No annotated source page is injected.",
+  "chunk_words": 160,
+  "fixed_overlap": 32,
+  "retrieval": "Unfiltered BM25 across all issuers; fresh index for every variant and chunker",
+  "candidate_depth": 20,
+  "answer_depth": 5,
+  "reader": "Question-resolved symbolic selection with exact Decimal unit conversion and conflict refusal",
+  "data": "50 existing numeric questions, 1275 locked parsed pages, existing statement table fixtures",
+  "preparation": "Replace every page represented in statement-tables.jsonl with all its reconstructed statement tables; retain other pages. No queried metric or gold value selects rows or pages.",
+  "intervention_boundary": "Rendered table text before chunking, index construction, retrieval and answer-time cell parsing",
+  "outcomes": ["source-page coverage at 20", "source-page coverage at 5", "complete target cell coverage at 5", "numeric correctness", "base-and-transformed paired correctness", "loss of originally correct answers"],
+  "reporting": "Publish both chunkers, all variants and every failure separately by development/test split; no selection and no significance claim",
+  "limits": [
+    "Statement reconstruction still depends on prior table extraction; no general PDF or OCR claim",
+    "Affected statement pages lose surrounding prose; results are not directly comparable with the original LLM pilot",
+    "BM25 only; no dense retrieval or learned reranker claim",
+    "Other pages are unchanged, including duplicate narrative disclosures; no evidence-removal experiment is claimed",
+    "Reused issuer split and five metric families; no new independent questions or human adjudication",
+    "Symbolic reader is a restricted baseline, not a stronger LLM result"
+  ]
+}

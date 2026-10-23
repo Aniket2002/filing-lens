@@ -103,8 +103,8 @@
     },
     {
       "path": "docs/EXPERIMENTS.md",
-      "sha256": "ed1172ae670539a251570ed19352479aaa95fde4866605bfb65b84f09ed446de",
-      "bytes": 1737
+      "sha256": "2ae86e426b67c110891d2ebb9a2334dcbc03a9392e761c00c51e6faad94ea8f4",
+      "bytes": 1979
     },
     {
       "path": "docs/FAILURE_ANALYSIS.md",
@@ -163,13 +163,38 @@
     },
     {
       "path": "README.md",
-      "sha256": "8a87de36090e54369e2016bacbccda10bd97f1d6f4ebcc73d6f7d17262e60847",
-      "bytes": 5839
+      "sha256": "d8570c9e359ca6939f371efa830c93dd742cdf2fe2d63bcf01a6f2f40737b11e",
+      "bytes": 6609
+    },
+    {
+      "path": "research/document-interventions/context-controls.json",
+      "sha256": "565805a757624126949ac05d432d7f2ee51d8bc59d4e3dccfae7f2388aa0f767",
+      "bytes": 8457
+    },
+    {
+      "path": "research/document-interventions/EXTERNAL_EVALUATION.md",
+      "sha256": "52b576627fe7619e1175367b874c6e63f2d6ab5e29fc151b68255869e71cd466",
+      "bytes": 6995
+    },
+    {
+      "path": "research/document-interventions/protocol.json",
+      "sha256": "03b81196dd790e1f95766b092e166822ff346181cac518ee66be0a44ac170d7b",
+      "bytes": 3115
+    },
+    {
+      "path": "research/document-interventions/README.md",
+      "sha256": "aa98d0e1a7313b28b56fa73cc4d248cdb298be191569c04c83835ee25449b216",
+      "bytes": 6647
+    },
+    {
+      "path": "research/document-interventions/results.md",
+      "sha256": "12fe5b1300c6caa21041751e4b28a247e1a52b2c38d116893e610d268a9145b2",
+      "bytes": 30015
     },
     {
       "path": "research/equivariance/build.json",
-      "sha256": "4df4ea9f5d06ec91c80161f96ec92fc6ab45ca07e952852568f7a5834c4205e1",
-      "bytes": 3415
+      "sha256": "014ab326887aecdaa05d39131c3dfc1741f1371062825b8ac92972383d42c7aa",
+      "bytes": 3899
     },
     {
       "path": "research/equivariance/comparison.png",
@@ -183,8 +208,8 @@
     },
     {
       "path": "research/equivariance/evidence.json",
-      "sha256": "5940f21c1ab57ab76bd0e903730bc3ed655a952265b450c27d45bd1f8ab66cb3",
-      "bytes": 3705
+      "sha256": "eb71222f843da36bbc4cb576f2dd85cb354c2c9424aad0b4410880ed10c09040",
+      "bytes": 4622
     },
     {
       "path": "research/equivariance/failures.md",
@@ -198,23 +223,23 @@
     },
     {
       "path": "research/equivariance/manuscript.html",
-      "sha256": "585a5b4cf0f663aff27b12395fe4a909dbcadc035c784d0ba0aa1bffdf21e832",
-      "bytes": 24938
+      "sha256": "2122ab7de71ac78ac30a5184e312b0dcfb2a415010796cb8033b379772c2d7cf",
+      "bytes": 29489
     },
     {
       "path": "research/equivariance/manuscript.md",
-      "sha256": "204fea1683102cb1e5bf58237a46b87f01ea9cab9366aad052ee51059937e05e",
-      "bytes": 22126
+      "sha256": "f5077022271af7d246da7f51b6e09b4f5cb3e02ece5d311d1aeb81a55ab3f5fc",
+      "bytes": 25973
     },
     {
       "path": "research/equivariance/manuscript.pdf",
-      "sha256": "7dff98673b6b317d622b1568767b658eab9ebfe31631252ebbfe2ef30a78f62e",
-      "bytes": 326016
+      "sha256": "a7efef2ae83eaf633e0f152049b4ce1962b6dde8d479d90009e212d03337275b",
+      "bytes": 335858
     },
     {
       "path": "research/equivariance/manuscript.template.md",
-      "sha256": "be568745312477e4a92417f812db1ba92d037c0a6deeceeb3564cb3d59cdba26",
-      "bytes": 17212
+      "sha256": "318378f3f62196766bd329cb89dd1ea70a0028811357424a4a24e588ec2f3fbc",
+      "bytes": 20305
     },
     {
       "path": "research/equivariance/metric-breakdown.md",
@@ -233,8 +258,8 @@
     },
     {
       "path": "research/equivariance/README.md",
-      "sha256": "7f6cd765b7517d90547d34ba495230500c8ff61c7c9df02840f73294e02283fe",
-      "bytes": 6400
+      "sha256": "bcefbdcc5d04c4dfcb9e7a358e9195edbea4d7fde550e87c27ac875fbe895b59",
+      "bytes": 6858
     },
     {
       "path": "research/equivariance/references.bib",
@@ -253,8 +278,8 @@
     },
     {
       "path": "research/equivariance/VALIDATION.md",
-      "sha256": "9f2094eeee39125d12d76595ea2ed9166d1f48126e76c18a636f2a6ddc7a8a4f",
-      "bytes": 2851
+      "sha256": "138e9457f85aaf141a199aa4700a36926ac8b6512a1643431f23c02ed47ace74",
+      "bytes": 3381
     },
     {
       "path": "research/retrieval-baseline/build.json",
@@ -320,6 +345,26 @@
       "path": "results/controls/predictions.jsonl",
       "sha256": "ddb99a8224e4944f603377ee261ee393e181df64e0f58343010fe5ab8db78a16",
       "bytes": 221628
+    },
+    {
+      "path": "results/document-interventions/evidence.jsonl",
+      "sha256": "d431cce33d0bd33aa486a884d96140eac02266b6eeb8daf08bfb8b58f6999aa2",
+      "bytes": 928995
+    },
+    {
+      "path": "results/document-interventions/manifest.json",
+      "sha256": "0c712be60599212ce46e936db7c185e5a34f39dc0cedb72a0975f623ab73411c",
+      "bytes": 7056
+    },
+    {
+      "path": "results/document-interventions/metrics.json",
+      "sha256": "ee72fc62b67b489689442b72b48802ddd79e3918200c0d7c3dcdfa6fb3900a30",
+      "bytes": 11885
+    },
+    {
+      "path": "results/document-interventions/predictions.jsonl",
+      "sha256": "52a0cfcdb31103d75e2da29cbbd2a33207204259b55d38439a8e1dfef6742e42",
+      "bytes": 2912657
     },
     {
       "path": "results/equivariance/base/dev/metrics.json",

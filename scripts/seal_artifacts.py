@@ -38,6 +38,8 @@ for folder in [
     "docs/retrieval-v2",
     "research/retrieval-baseline",
     "research/equivariance",
+    "research/document-interventions",
+    "results/document-interventions",
     "results/equivariance/base/dev",
     "results/equivariance/base/test",
     "results/equivariance/small/dev",

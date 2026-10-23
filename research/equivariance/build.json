@@ -1,10 +1,14 @@
 {
   "inputs": {
-    "scripts/report_equivariance.py": "9019e1384932d7553994bf6f02c52c22dc16ce6644656c062acf34c9d1ad3cb9",
+    "scripts/report_equivariance.py": "f1ad7168a758a859e2012c7307791f3a1c67dfbe36c51f1bcf265517289e9a5b",
     "src/filing_lens/paper.py": "a3d30600de4015c8fb9bfac460b208fa10a1bc8c59373024594e537b7cfd2f3f",
-    "research/equivariance/manuscript.template.md": "be568745312477e4a92417f812db1ba92d037c0a6deeceeb3564cb3d59cdba26",
+    "research/equivariance/manuscript.template.md": "318378f3f62196766bd329cb89dd1ea70a0028811357424a4a24e588ec2f3fbc",
     "research/equivariance/references.json": "28a4ad59fdb85b0a6d502bb9d06a944bd4fa27a73e3783adbfd33d4a908ad050",
     "research/equivariance/freeze.json": "f687105a01b4dcd3a5b547988cb775ce9121cba0331bd67ad20c653995a389a9",
+    "results/document-interventions/manifest.json": "0c712be60599212ce46e936db7c185e5a34f39dc0cedb72a0975f623ab73411c",
+    "results/document-interventions/metrics.json": "ee72fc62b67b489689442b72b48802ddd79e3918200c0d7c3dcdfa6fb3900a30",
+    "results/document-interventions/evidence.jsonl": "d431cce33d0bd33aa486a884d96140eac02266b6eeb8daf08bfb8b58f6999aa2",
+    "results/document-interventions/predictions.jsonl": "52a0cfcdb31103d75e2da29cbbd2a33207204259b55d38439a8e1dfef6742e42",
     "results/equivariance/base/dev/metrics.json": "840303ea2a8b939aba52ed52f163430fbe9c5430bb1225f78faea0b2ac78f7ea",
     "results/equivariance/base/dev/model-lock.json": "b1e099793fbc2c1af331cee57ddc2445d8d2b4d51c2f13a4d4177abd8378cc4b",
     "results/equivariance/base/dev/run.json": "27aed9607906f9b3c005cdc2b4eec96c81c952577bbe7f2e7c7b71f1472a2151",
@@ -24,15 +28,15 @@
   },
   "outputs": {
     "comparison.png": "c482908f6e88d4d8c8e848723dc544906c9541fd500d4d99a3422cb466fd1fdc",
-    "evidence.json": "5940f21c1ab57ab76bd0e903730bc3ed655a952265b450c27d45bd1f8ab66cb3",
+    "evidence.json": "eb71222f843da36bbc4cb576f2dd85cb354c2c9424aad0b4410880ed10c09040",
     "failures.md": "f80ccd02c0335f16766300f7c72b218c2610fe47c5497ef8d5558668f413b167",
-    "manuscript.html": "585a5b4cf0f663aff27b12395fe4a909dbcadc035c784d0ba0aa1bffdf21e832",
-    "manuscript.md": "204fea1683102cb1e5bf58237a46b87f01ea9cab9366aad052ee51059937e05e",
-    "manuscript.pdf": "7dff98673b6b317d622b1568767b658eab9ebfe31631252ebbfe2ef30a78f62e",
+    "manuscript.html": "2122ab7de71ac78ac30a5184e312b0dcfb2a415010796cb8033b379772c2d7cf",
+    "manuscript.md": "f5077022271af7d246da7f51b6e09b4f5cb3e02ece5d311d1aeb81a55ab3f5fc",
+    "manuscript.pdf": "a7efef2ae83eaf633e0f152049b4ce1962b6dde8d479d90009e212d03337275b",
     "metric-breakdown.md": "b5fe0efe3b2dc67095b32f8f8d5dbfb06406f76463144c3463c03a8bfa4ec31b",
     "references.bib": "596d2a1f71f9e14afbf65c633accbb5cc2acea60890b2b2fb8fe1c0297bd1db9",
     "results.md": "b08183c53fa9c4403a59b104e3c1eaa84ffd2cf5fff698869936067655d4446b"
   },
-  "pdf_pages": 6,
+  "pdf_pages": 7,
   "status": "Pilot, not peer reviewed or submitted; originality not established"
 }

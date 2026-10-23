@@ -298,9 +298,63 @@ def plot(metrics, path):
     plt.close(fig)
 
 
+def document_followup(root: Path) -> dict:
+    manifest = read_json(root / "results/document-interventions/manifest.json")
+    for path, expected in {**manifest["inputs"], **manifest["outputs"]}.items():
+        if digest((root / path).read_bytes()) != expected:
+            raise ValueError(f"Document follow-up artifact changed: {path}")
+    rows = read_jsonl(root / "results/document-interventions/predictions.jsonl")
+    summaries = read_json(root / "results/document-interventions/metrics.json")
+    for s in summaries:
+        subset = [
+            r for r in rows if all(r[k] == s[k] for k in ("split", "strategy", "view", "variant"))
+        ]
+        if len(subset) != s["n"] or sum(r["scores"]["correct"] for r in subset) != s["correct"]:
+            raise ValueError("Document follow-up counts disagree with predictions")
+    visible = [
+        s for s in summaries if s["split"] == "test" and s["variant"] in {"base", "unit_rescale"}
+    ]
+
+    def group(view, variant):
+        return next(
+            s
+            for s in visible
+            if s["strategy"] == "structure" and s["view"] == view and s["variant"] == variant
+        )
+
+    nb, ns = group("native", "base"), group("native", "unit_rescale")
+    ub, us = group("unit_neutral", "base"), group("unit_neutral", "unit_rescale")
+    return {
+        "document_outcomes": str(len(rows)),
+        "document_table": table(
+            ["Chunks", "Index view", "Variant", "N", "Page@5", "Correct", "Frozen correct"],
+            [
+                [
+                    s["strategy"],
+                    s["view"],
+                    s["variant"],
+                    s["n"],
+                    s["top5_page_hit"],
+                    s["correct"],
+                    s["frozen_correct"],
+                ]
+                for s in visible
+            ],
+        ),
+        "document_finding": (
+            f"With structure-aware chunks, native BM25 falls from {nb['correct']}/{nb['n']} "
+            f"original answers correct to {ns['correct']}/{ns['n']} after rescaling. "
+            f"Keeping original chunk rankings while reading changed text retains "
+            f"{ns['frozen_correct']}/{ns['n']} correct answers. The unit-neutral index scores "
+            f"{ub['correct']}/{ub['n']} originally and {us['correct']}/{us['n']} after rescaling."
+        ),
+    }
+
+
 def build(root: Path, check=False):
     folder = root / STUDY
     fields, metrics, rendered = collect(root)
+    fields.update(document_followup(root))
     references = read_json(folder / "references.json")
     manuscript = render_template(
         (folder / "manuscript.template.md").read_text(encoding="utf-8"), fields, references
@@ -337,6 +391,8 @@ def build(root: Path, check=False):
         folder / "manuscript.template.md",
         folder / "references.json",
         folder / "freeze.json",
+        *sorted((root / "results/document-interventions").glob("*.json")),
+        *sorted((root / "results/document-interventions").glob("*.jsonl")),
         *sorted((root / "results/equivariance").glob("*/*/*.json")),
         *sorted((root / "results/equivariance").glob("*/*/*.jsonl")),
     ]
