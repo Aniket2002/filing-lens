@@ -1,0 +1,14 @@
+# From pilot to a submission
+
+This repository supplies an executable pilot and a manuscript scaffold with measured results. The following work is needed for a serious external research claim.
+
+1. **Independent financial adjudication.** Have two reviewers check source row identity, year headers, units, duplicate statements, and all transform rules. Measure agreement and resolve disagreements without consulting model outputs. Current annotations are AI authored and source checked, not independently certified.
+2. **Fresh external evaluation.** Freeze the pipeline, then add issuers from banking, insurance, retail, and energy, plus later filings and genuinely unseen question authors. The existing test companies have already appeared in earlier repository experiments.
+3. **Stronger model diversity.** Add at least two independent model families at larger scales. Keep all arms, prompts, token budgets, and invalid-output handling fixed. Report inference cost and latency; the two local T5 variants are a feasibility pilot.
+4. **Full retrieval intervention.** Rebuild an index after each document-level transformation and measure candidate recall, top-k recall, cell coverage, and answer fidelity. The current study freezes retrieval and intervenes on extracted evidence; it cannot claim retrieval invariance.
+5. **Stronger competing methods.** Add a symbolic parser baseline, a trained cell-selection model, a constrained-decoding implementation, and existing table/financial QA systems where reproducible. Include a value-blind selector to test whether amounts distract from period selection. Do not silently add arms after seeing pilot outcomes and call them confirmatory.
+6. **Separate mechanisms.** Split canonicalization into sorting-only and unit-normalization-only factors. Test composed interventions on realistic mixed scales and entities. Extend dimension typing to shares, percentages, currencies, and fiscal quarters before handling those inputs.
+7. **Harder financial semantics.** Add consolidated versus segment scope, GAAP versus adjusted metrics, duration versus instant contexts, restatements with publication timestamps, arithmetic over multiple facts, and evidence conflicts. A synthetic header rotation is an intervention, not a financially valid restatement.
+8. **External registration and replication.** Register the expanded protocol before fresh test inference. Share data provenance, code, all predictions, failures, exclusions, and a container or locked environment. The current local freeze establishes artifact consistency, not independent preregistration or historical priority.
+
+Submission readiness requires the first four items plus a literature review confirming a defensible incremental contribution. A workshop systems/analysis paper may be a reasonable initial target; no acceptance or publication is implied.

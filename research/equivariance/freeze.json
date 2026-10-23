@@ -1,0 +1,18 @@
+{
+  "inputs": {
+    "src/filing_lens/equivariance.py": "d4cc75d9d13bb56b33b1937c94aa507a36e1450152d0791064d06c9360f7df35",
+    "src/filing_lens/generation.py": "162788502c8c472fe0fa6af0325b86ca870e3bc1c04d8db45698714176edeb11",
+    "src/filing_lens/numeric.py": "bda56a3b6468ca5bef28125983822ce117a85d7f6978e0f2a53f4c043aceeb36",
+    "src/filing_lens/io.py": "39a85d76699ebece6c833fd6e23b49581ecc67b6bd077cc3d0a60f4165f0b545",
+    "scripts/run_equivariance.py": "69e601f3c74217e51f556df1df32902849abd59a7181841930e05af61b6605cc",
+    "research/equivariance/protocol.json": "91d2f194ffd4d55b040238265987942a4d5b6dd8f7e11ae6fc4d07c2f160c71b",
+    "data/evidence/statement-tables.jsonl": "7f25b5d73680d5a8849daedeb07359adefc663c822652bbdf87b9691fc0b3189",
+    "data/questions.jsonl": "f1836439f5da8841334258dcf7f28ffedaa3d8616a46aeb4cd2be8b2f2d55e3d",
+    "data/corpus.json": "d90d45fda8ec6d89f86fe24b93561ff3e14d6c945789baf4166187650014a685",
+    "results/retrieval-v2/dev/predictions.jsonl": "1501c4a3ae6c2fcb9babe42fa7cd2e818cbd980725b449b33af1ec65c607edc6",
+    "results/retrieval-v2/test/predictions.jsonl": "cc41e4d348a5dec18f73f11db50bb7488e222314b38b32c0419679f5f7a600ce",
+    "uv.lock": "59f479d762cd81f615fbe05ea90020dea88123c55b3e14afc7e9d31cca392c3d"
+  },
+  "dataset_sha256": "915b4f75d1238176ae03f60e5c6f9b18e7885ae90e2edf3bf398d56f9d549f05",
+  "cases": 600
+}
