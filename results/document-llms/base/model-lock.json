@@ -1,0 +1,51 @@
+{
+  "name": "Matched FLAN-T5 readers after rebuilt document retrieval",
+  "status": "Exploratory follow-up on reused issuers; not external confirmation",
+  "selection": "Structure chunking is chosen after seeing the earlier symbolic study. Publish both models, all arms and every variant regardless of results.",
+  "retrieval_views": [
+    "native",
+    "unit_neutral"
+  ],
+  "variants": [
+    "base",
+    "column_reverse",
+    "unit_rescale",
+    "reverse_and_rescale"
+  ],
+  "arms": [
+    "native_amount",
+    "canonical_amount",
+    "native_pointer",
+    "canonical_pointer"
+  ],
+  "models": {
+    "base": {
+      "model": "google/flan-t5-base",
+      "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2"
+    },
+    "small": {
+      "model": "google/flan-t5-small",
+      "revision": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+    }
+  },
+  "prompt_template": "Use only the financial records below. {question}\nRecords:\n{context}\nAnswer:",
+  "max_input_tokens": 2048,
+  "max_new_tokens": 32,
+  "do_sample": false,
+  "seed": 17,
+  "reader": "Original infer_input, decode and LocalGenerator functions; source cells parsed only from the saved top-five raw chunks of each rebuilt ranking",
+  "unit_intent": "Resolve from question text using the existing symbolic question parser; no expected-value or annotated-unit fallback",
+  "cell_ids": "Opaque globally shuffled IDs over source document/page/row-label/metric/period keys; duplicate chunk copies coalesced only if values and units agree",
+  "comparisons": "Within each model and decoding arm, compare native versus unit-neutral retrieval on original numeric accuracy and paired original/rescaled accuracy. Also retain all four decoding arms to expose the original accuracy tradeoff.",
+  "scoring": "Expected numeric value from original question annotation; target coordinate requires annotated source page, metric and period. All questions remain in denominators; refusals and invalid outputs are numeric failures.",
+  "limits": [
+    "Same 15 development and 35 test questions; no new independent sample",
+    "Same small FLAN-T5 family, not a model-diversity evaluation",
+    "Reconstructed statement text with a restricted five-metric parser",
+    "Cells now come from complete top-five chunks, unlike the original pilot's expanded source pages; absolute results are not interchangeable",
+    "No synthetic result establishes real XBRL, restatement or raw-PDF handling",
+    "No significance or first-ever novelty claim; configuration chosen after earlier exploratory results"
+  ],
+  "model": "google/flan-t5-base",
+  "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2"
+}

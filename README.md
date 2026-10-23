@@ -16,7 +16,9 @@ On 35 test questions with retrieved evidence, canonical cell selection raises pa
 
 Read the [study overview](research/equivariance/README.md), [measured results](research/equivariance/results.md), [all rescaling regressions](research/equivariance/failures.md), and [prior-art assessment](research/equivariance/NOVELTY.md). The originality claim remains provisional; the paper identifies the closest research and validation needed before submission.
 
-A separate [document-intervention follow-up](research/document-interventions/README.md) rebuilds retrieval across **16 indexes and 800 outcomes**. With structure-aware chunks, native BM25 plus a symbolic reader falls from **30/35 to 13/35** correct under unit rescaling; a unit-neutral index scores **33/35 on both**. This uses reconstructed statement pages and the same questions, with no new LLM inference or independent validation. The [external evaluation requirements](research/document-interventions/EXTERNAL_EVALUATION.md) track all seven remaining limitations.
+A separate [document-intervention follow-up](research/document-interventions/README.md) rebuilds retrieval across **16 indexes and 800 symbolic outcomes**. Native BM25 with structure-aware chunks falls from **30/35 to 13/35** correct under unit rescaling; a unit-neutral index scores **33/35 on both**. Ordinary Linux and Windows CI restores the locked public corpus and replays every index and outcome.
+
+The [matched LLM follow-up](research/document-llms/README.md) adds **3,200 outcomes from 1,812 inference calls**. For FLAN-T5-base/native-pointer, unit-neutral retrieval improves paired rescaling correctness from **5/35 to 16/35**, while original accuracy stays at **17/35**. Native-amount remains at **0/35** paired correctness. This isolates an important limitation: retrieval robustness does not automatically repair numerical generation. Both follow-ups use reconstructed statement text and previously studied questions; neither is independent validation. The [external evaluation requirements](research/document-interventions/EXTERNAL_EVALUATION.md) track the remaining limitations.
 
 ## Supporting technical report: retrieval baseline
 
@@ -37,12 +39,15 @@ uv run python scripts/audit_explanation_results.py
 uv run python scripts/audit_retrieval_results.py
 uv run python scripts/run_equivariance.py audit
 uv run python scripts/run_document_interventions.py audit
+uv run python scripts/run_document_llms.py audit
 uv run python scripts/run_context_controls.py --check
 uv run python scripts/build_paper.py --check
 uv run python scripts/report_equivariance.py --check
 ```
 
 These committed-result checks run offline and do not download models or source PDFs. Model inference is a separate, explicitly recorded step. See the [experiment index](docs/EXPERIMENTS.md) and [result artifact guide](results/README.md).
+
+To repeat CI's full retrieval reconstruction, run `uv run python scripts/prepare_replay_corpus.py`, then `uv run python scripts/run_document_interventions.py audit --replay`. A cold cache requires network access to the locked public PDFs; source bytes and parsed output must match their recorded hashes.
 
 ## Try a question
 
@@ -67,6 +72,7 @@ The repository preserves the frozen question sets, evidence fixtures, prediction
 src/filing_lens/                 Retrieval, readers, numeric checks, and APIs
 research/equivariance/           Flagship study, paper, protocol, and results
 research/document-interventions/ Rebuilt retrieval study and financial context controls
+research/document-llms/          Matched LLM readers on rebuilt retrieval evidence
 research/retrieval-baseline/    Supporting retrieval report and paper source
 data/                            Questions, evidence fixtures, and provenance locks
 results/                         Frozen predictions and aggregate measurements

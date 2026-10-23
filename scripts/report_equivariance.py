@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import runpy
 from pathlib import Path
 
 import pymupdf
@@ -351,10 +352,63 @@ def document_followup(root: Path) -> dict:
     }
 
 
+def matched_llm_followup(root: Path) -> dict:
+    runner = runpy.run_path(str(root / "scripts/run_document_llms.py"))
+    summaries = runner["audit"](root)
+    runs = [read_json(root / f"results/document-llms/{m}/run.json") for m in summaries]
+    rows = []
+    groups = {}
+    for model, summary in summaries.items():
+        for arm, label in zip(ARMS, LABELS, strict=True):
+            g = {
+                (s["view"], s["variant"]): s
+                for s in summary
+                if s["split"] == "test" and s["arm"] == arm
+            }
+            groups[model, arm] = g
+            rows.append(
+                [
+                    model,
+                    label,
+                    g["native", "base"]["correct"],
+                    g["unit_neutral", "base"]["correct"],
+                    g["native", "unit_rescale"]["paired_correct"],
+                    g["unit_neutral", "unit_rescale"]["paired_correct"],
+                ]
+            )
+    pointer = groups["base", "native_pointer"]
+    amount = groups["base", "native_amount"]
+    canonical = groups["base", "canonical_pointer"]
+    n = pointer["native", "base"]["n"]
+    finding = (
+        f"For FLAN-T5-base with native-pointer decoding, unit-neutral retrieval raises "
+        f"paired scale correctness from {pointer['native', 'unit_rescale']['paired_correct']}/{n} "
+        f"to {pointer['unit_neutral', 'unit_rescale']['paired_correct']}/{n}, while original "
+        f"accuracy is {pointer['native', 'base']['correct']}/{n} with native retrieval and "
+        f"{pointer['unit_neutral', 'base']['correct']}/{n} with unit-neutral retrieval. "
+        f"Native-amount paired scale correctness remains "
+        f"{amount['native', 'unit_rescale']['paired_correct']}/{n} and "
+        f"{amount['unit_neutral', 'unit_rescale']['paired_correct']}/{n}, respectively. "
+        f"Canonical-pointer original accuracy with unit-neutral retrieval is "
+        f"{canonical['unit_neutral', 'base']['correct']}/{n}."
+    )
+    return {
+        "matched_outcomes": f"{sum(r['outcomes'] for r in runs):,}",
+        "matched_calls": f"{sum(r['inference_calls'] for r in runs):,}",
+        "matched_max_tokens": str(max(r["max_input_tokens_observed"] for r in runs)),
+        "matched_finding": finding,
+        "matched_table": table(
+            ["Model", "Arm", "Native base", "Neutral base", "Native paired", "Neutral paired"],
+            rows,
+        ),
+    }
+
+
 def build(root: Path, check=False):
     folder = root / STUDY
     fields, metrics, rendered = collect(root)
     fields.update(document_followup(root))
+    fields.update(matched_llm_followup(root))
     references = read_json(folder / "references.json")
     manuscript = render_template(
         (folder / "manuscript.template.md").read_text(encoding="utf-8"), fields, references
@@ -362,9 +416,14 @@ def build(root: Path, check=False):
     rendered.update(
         {
             "manuscript.md": manuscript,
-            "manuscript.html": to_html(manuscript).replace(
+            "manuscript.html": to_html(manuscript)
+            .replace(
                 "<h2>References</h2>",
                 '<h2 style="page-break-before: always;">References</h2>',
+            )
+            .replace(
+                "<h2>7. Limitations and next experiments</h2>",
+                '<h2 style="page-break-before: always;">7. Limitations and next experiments</h2>',
             ),
             "evidence.json": json.dumps(fields, indent=2) + "\n",
             "references.bib": "\n\n".join(
@@ -391,6 +450,9 @@ def build(root: Path, check=False):
         folder / "manuscript.template.md",
         folder / "references.json",
         folder / "freeze.json",
+        root / "research/document-llms/freeze.json",
+        *sorted((root / "results/document-llms").glob("*/*.json")),
+        *sorted((root / "results/document-llms").glob("*/*.jsonl")),
         *sorted((root / "results/document-interventions").glob("*.json")),
         *sorted((root / "results/document-interventions").glob("*.jsonl")),
         *sorted((root / "results/equivariance").glob("*/*/*.json")),

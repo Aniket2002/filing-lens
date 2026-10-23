@@ -42,13 +42,18 @@ uv run python scripts/run_document_interventions.py audit
 uv run python scripts/run_context_controls.py --check
 ```
 
-To reconstruct every ranking, first obtain the repository's locked parsed corpus using its fetch/parse instructions, then run:
+Ordinary push and pull-request CI runs a full retrieval replay on Linux and Windows, in addition to the saved-output audit. It restores a checksum-verified cache or fetches all ten PDFs from their locked public source URLs, parses and enriches them with the repository's pinned pipeline, and verifies the exact parsed-corpus digest. Source unavailability, source drift, parsing differences or replay differences fail the job; there is no silent skip.
+
+To reproduce the same path locally:
 
 ```powershell
+uv run python scripts/prepare_replay_corpus.py
 uv run python scripts/run_document_interventions.py audit --replay
 ```
 
-The replay compares all 800 predictions, evidence records and index fingerprints exactly. It requires `data/processed/pages.jsonl`; the basic audit does not. For a new full run, use a separate checkout and archive its existing `results/document-interventions` directory before running `uv run python scripts/run_document_interventions.py run`. Runs refuse to overwrite existing results. All indexes use unfiltered BM25, 160-word chunks, fixed-window overlap 32, candidate depth 20 and answer depth five. No gold issuer filter is applied.
+The replay compares all 800 predictions, evidence records and index fingerprints exactly. It requires `data/processed/pages.jsonl`, which the preparation command restores; the basic audit remains offline. Caches are keyed by OS, source and benchmark locks, corpus metadata, parsing code, restoration code and dependency lock. Cache contents are still hashed before use. Original PDFs and parsed text remain outside version control. This CI path reparses original PDFs; it does not transform PDFs before extraction.
+
+For a new full run, use a separate checkout and archive its existing `results/document-interventions` directory before running `uv run python scripts/run_document_interventions.py run`. Runs refuse to overwrite existing results. All indexes use unfiltered BM25, 160-word chunks, fixed-window overlap 32, candidate depth 20 and answer depth five. No gold issuer filter is applied.
 
 ## Context and conflicting disclosures
 
@@ -59,5 +64,7 @@ The resolver excludes future publications before choosing facts. It uses explici
 The [27 saved controls](context-controls.json) cover historical availability, explicit revisions, unlinked conflicts, duplicate facts, currency, segment scope, annual versus quarterly durations, instant contexts, accounting basis, entity identifiers and taxonomy namespaces, plus invalid supersession inputs. They use a fictional issuer and `example.invalid` sources. They establish software behavior only: **zero real restatement cases have been collected or independently reviewed**. This is not an XBRL parser or taxonomy validator. Taxonomy mapping, typed/default dimensions, rounding-consistent duplicates and provenance validation still require adapters and financial review.
 
 ## What remains
+
+The separate [matched LLM study](../document-llms/README.md) evaluates the original two models and four decoding arms on both retrieval views. Its results must be judged separately from this symbolic baseline; adding those measurements does not guarantee that the original LLM problems are solved.
 
 The [external evaluation protocol](EXTERNAL_EVALUATION.md) sets out the next data, model, annotation and accuracy requirements. More synthetic variants cannot resolve the reused sample, small models or lack of independent reviewers. Both the original paper and its limitations remain explicit about those gaps.

@@ -16,7 +16,7 @@ tradeoff and failure analysis, not a general improvement claim.
 
 The central question: **Can canonical financial evidence and coordinate-first decoding separate numerical fidelity from evidence selection, and what failures remain after representation invariance is guaranteed?**
 
-The manuscript now includes a separate [document-text intervention follow-up](../document-interventions/README.md): 800 symbolic-reader outcomes over 16 rebuilt BM25 indexes. It measures ranking sensitivity on reconstructed statement pages and evaluates a retrieval-only normalization baseline. It does not add independent questions or stronger LLM results. See the [seven-limitations completion criteria](../document-interventions/EXTERNAL_EVALUATION.md).
+The manuscript includes a [document-text intervention follow-up](../document-interventions/README.md): 800 symbolic-reader outcomes over 16 rebuilt BM25 indexes, plus [3,200 matched LLM outcomes](../document-llms/README.md). The latter crosses retrieval normalization with all four original decoding arms. FLAN-T5-base/native-pointer improves paired scale correctness from **5/35 to 16/35**, with original accuracy unchanged at **17/35**; native-amount remains at **0/35** paired correctness. This is an arm-dependent retrieval benefit on reconstructed text and reused questions, not independent validation. See the [remaining completion criteria](../document-interventions/EXTERNAL_EVALUATION.md).
 
 ```mermaid
 flowchart LR

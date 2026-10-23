@@ -1,0 +1,15 @@
+{
+  "model": "small",
+  "started_utc": "2026-10-23T10:17:52.498690+00:00",
+  "elapsed_seconds": 310.4890760000126,
+  "freeze_sha256": "e23dfb2436271c9798172c16c19976bd54c134d9b2829248a5f6b4edf17dbe26",
+  "files": {
+    "model-lock.json": "9f1946339db157b2edba127353fd2b8e10e8506c42bfcff7db5292211a1e9d72",
+    "predictions.jsonl": "146e74a18a682de35ac3a03a7bd5c230e932424f3850cdc55d1442cf88e05372",
+    "metrics.json": "495bd496799c47cf09189fe98a0197adb9333c1601b8e2606a4846c62a3b2f4b"
+  },
+  "outcomes": 1600,
+  "inference_calls": 906,
+  "max_input_tokens_observed": 805,
+  "note": "Identical-prompt reuse within model; outcomes are not independent trials"
+}

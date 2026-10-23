@@ -28,6 +28,10 @@
   candidate rankings, 16 rebuilt index fingerprints and original-ranking diagnostics.
   This is an exploratory follow-up on the same questions, not a fresh holdout;
   see [its protocol and limits](../research/document-interventions/README.md).
+- `document-llms/{base,small}/`: 3,200 matched outcomes from the original models
+  and four decoding arms over both rebuilt retrieval views. Preserves raw output,
+  prompt hashes, model locks and separate original/paired correctness;
+  see [the matched comparison](../research/document-llms/README.md).
 
 `reference/metrics.json` has development, test, and pooled aggregates. Use the test
 split for headline comparisons. Pooled results are descriptive and must not be

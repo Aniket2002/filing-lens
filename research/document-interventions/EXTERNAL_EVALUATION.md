@@ -7,11 +7,11 @@ Status: a proposed next study, not completed data collection, model inference, e
 | Limitation | Current change | Evidence still required |
 |---|---|---|
 | 35 reused test questions, seven issuers | No change to the independent sample | At least 30 fresh test issuers, six industries, multiple filing years and independently authored questions. |
-| Two small models from one family | Symbolic baseline added; no new LLM runs | At least two independent instruction-tuned model families, with a larger open-weight model in each; pin exact revisions and publish all outputs. |
+| Two small models from one family | Symbolic baseline and 3,200 matched outcomes from the original two models added | At least two independent instruction-tuned model families, with a larger open-weight model in each; pin exact revisions and publish all outputs. |
 | Pre-extracted typed cells | Text is mutated before reindexing and answer-time parsing | Raw PDF/HTML/iXBRL changes before extraction; publish extraction errors separately. |
-| Lower original accuracy | New retrieval-only representation retains raw answer evidence; measured separately | Within the same LLM pipeline, compare original accuracy and paired robustness jointly; do not substitute the symbolic result for this evidence. |
+| Lower original accuracy | [Matched LLM comparisons](../document-llms/README.md) now evaluate both retrieval views with the original models and all four arms | Judge both original accuracy and paired robustness; these reused-data comparisons cannot establish general recovery or external superiority. |
 | No independent annotations | Existing source review tooling remains available | Two independent source reviewers, adjudication, agreement statistics and retained disagreements. |
-| Frozen retrieval | Rebuilt lexical indexes and original-ranking diagnostic implemented | Dense/hybrid/reranked retrieval under the same transformations and integrated LLM inference. |
+| Frozen retrieval | Rebuilt lexical indexes, original-ranking diagnostic, matched LLM inference and full replay in ordinary CI | Dense/hybrid/reranked retrieval and independent external evaluation. |
 | No realistic restatements or context conflicts | Normalized context resolver and synthetic controls added | Real accession-linked disclosures, reviewed context mappings and explicit amendment/restatement provenance. |
 
 ## Data collection and separation

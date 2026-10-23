@@ -1,0 +1,15 @@
+{
+  "model": "base",
+  "started_utc": "2026-10-23T10:17:53.409305+00:00",
+  "elapsed_seconds": 797.3118822999968,
+  "freeze_sha256": "e23dfb2436271c9798172c16c19976bd54c134d9b2829248a5f6b4edf17dbe26",
+  "files": {
+    "model-lock.json": "2052d1b7caa87726a90518bfb898b35c8490baaf1b07f5de9d59112fc30cdaeb",
+    "predictions.jsonl": "83bf4809ecbbb5b1c9af836e2351eaa793c47f411b4aa5045ae6dc1564993978",
+    "metrics.json": "5a777ead98b6b2ae036f03334da1b93235d8afb1151c12a4c6afe28e83a0225f"
+  },
+  "outcomes": 1600,
+  "inference_calls": 906,
+  "max_input_tokens_observed": 805,
+  "note": "Identical-prompt reuse within model; outcomes are not independent trials"
+}
