@@ -1,0 +1,22 @@
+{
+  "created_utc": "2026-10-23T10:16:47.263293+00:00",
+  "inputs": {
+    "scripts/run_document_llms.py": "8fb14d755f612201cd552e03006864859806ae50bae0b9dd2987c64f9e092ff5",
+    "src/filing_lens/document_interventions.py": "998ca4b4bc4c6d71115835aaa6f9cd501488585eb4bb6b0caa3273fe7d72ca53",
+    "src/filing_lens/equivariance.py": "d4cc75d9d13bb56b33b1937c94aa507a36e1450152d0791064d06c9360f7df35",
+    "src/filing_lens/generation.py": "162788502c8c472fe0fa6af0325b86ca870e3bc1c04d8db45698714176edeb11",
+    "src/filing_lens/numeric.py": "bda56a3b6468ca5bef28125983822ce117a85d7f6978e0f2a53f4c043aceeb36",
+    "src/filing_lens/reader.py": "2fbbd6744721121807f4bd997ade0a852622c5b18ac0b4e8d1d1977954c2fa80",
+    "src/filing_lens/io.py": "39a85d76699ebece6c833fd6e23b49581ecc67b6bd077cc3d0a60f4165f0b545",
+    "data/corpus.json": "d90d45fda8ec6d89f86fe24b93561ff3e14d6c945789baf4166187650014a685",
+    "data/questions.jsonl": "f1836439f5da8841334258dcf7f28ffedaa3d8616a46aeb4cd2be8b2f2d55e3d",
+    "results/document-interventions/predictions.jsonl": "52a0cfcdb31103d75e2da29cbbd2a33207204259b55d38439a8e1dfef6742e42",
+    "results/document-interventions/evidence.jsonl": "d431cce33d0bd33aa486a884d96140eac02266b6eeb8daf08bfb8b58f6999aa2",
+    "results/document-interventions/manifest.json": "0c712be60599212ce46e936db7c185e5a34f39dc0cedb72a0975f623ab73411c",
+    "research/document-llms/protocol.json": "cfbc708154587d2671ebcf2187a58ef1039c1f3836d61b881fc81357686b893e",
+    "uv.lock": "59f479d762cd81f615fbe05ea90020dea88123c55b3e14afc7e9d31cca392c3d"
+  },
+  "case_count": 400,
+  "cases_sha256": "acbaa840fd2bb5e7d2207cdbc5d41707c7f176d63bdcb208ce2a88f839d5d6bd",
+  "status": "Local execution freeze on reused exploratory data; not preregistration"
+}

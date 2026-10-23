@@ -26,3 +26,27 @@ jobs:
       - run: uv run python scripts/run_document_interventions.py audit
       - run: uv run python scripts/run_context_controls.py --check
       - run: uv run python scripts/report_equivariance.py --check
+
+  retrieval-replay:
+    needs: tests
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --locked --extra dev --python 3.12
+      - uses: actions/cache@v4
+        with:
+          path: |
+            data/raw
+            data/processed/pages.jsonl
+          key: replay-v1-${{ runner.os }}-${{ hashFiles('data/source-lock.json', 'data/benchmark-lock.json', 'data/corpus.json', 'src/filing_lens/corpus.py', 'src/filing_lens/table_layout.py', 'src/filing_lens/io.py', 'scripts/prepare_replay_corpus.py', 'uv.lock') }}
+      - name: Restore and verify the locked parsed corpus
+        run: uv run python scripts/prepare_replay_corpus.py
+      - name: Rebuild all 16 indexes and replay all 800 outcomes
+        run: uv run python scripts/run_document_interventions.py audit --replay
