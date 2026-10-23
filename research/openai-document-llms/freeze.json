@@ -1,0 +1,12 @@
+{
+  "created_utc": "2026-10-23T17:06:01.142554+00:00",
+  "inputs": {
+    "scripts/run_openai_document_llms.py": "567d7a4f68d28e7313ee8b95905dccf3587ff39fc290dc0c7a30db8ba82ae863",
+    "src/filing_lens/openai_eval.py": "749f5f3ce2bca0b42128bb7dfaa49a66c528a116ca733626f8dbfba4e6c49169",
+    "research/document-llms/freeze.json": "e23dfb2436271c9798172c16c19976bd54c134d9b2829248a5f6b4edf17dbe26",
+    "research/openai-document-llms/protocol.json": "71be81d236b2af29d3c025545e968c2fa37cba5fce49c4ee89f80390f1c8d25b"
+  },
+  "outcomes_per_model": 1600,
+  "unique_prompts_per_model": 906,
+  "status": "Frozen before evaluation inference; exploratory reused data"
+}

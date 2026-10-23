@@ -1,0 +1,30 @@
+{
+  "name": "OpenAI readers on matched rebuilt-retrieval evidence",
+  "status": "Exploratory extension on previously inspected questions; not a fresh holdout",
+  "models": {
+    "gpt54": {"model": "gpt-5.4-2026-03-05", "usd_per_million_tokens": {"input": "2.50", "cached_input": "0.25", "output": "15.00"}},
+    "gpt54mini": {"model": "gpt-5.4-mini-2026-03-17", "usd_per_million_tokens": {"input": "0.75", "cached_input": "0.075", "output": "4.50"}}
+  },
+  "arms": ["native_amount", "canonical_amount", "native_pointer", "canonical_pointer"],
+  "prompt_template": "Use only the financial records below. {question}\nRecords:\n{context}\nAnswer:",
+  "max_output_tokens": 32,
+  "max_input_bytes": 16384,
+  "reasoning_effort": "none",
+  "temperature": 0,
+  "estimated_budget_usd": "10.00",
+  "pricing_checked": "2026-10-23",
+  "pricing_sources": ["https://developers.openai.com/api/docs/models/gpt-5.4", "https://developers.openai.com/api/docs/models/gpt-5.4-mini"],
+  "execution": "Responses API, no tools, no conversation history, store=false, truncation disabled, standard service tier; dev before test; one recorded response per unique full request reused across identical cases",
+  "comparison": "Reuse the exact 400 cases and original prompt/decoder/scorer from the matched FLAN-T5 follow-up. Report every arm, split, retrieval view and variant. No post-development selection.",
+  "limitations": [
+    "50 reused source questions: 15 development and 35 test; no independent evaluation or financial review",
+    "Two configurations from one OpenAI family, compared with the existing FLAN-T5 family; parameter counts are not established",
+    "Prepared statement text and restricted row parser; no raw-PDF or iXBRL intervention",
+    "No historical amendment/restatement evaluation",
+    "API outputs may vary even at temperature zero; snapshot identifiers and response records do not make hosted inference bitwise reproducible",
+    "Identical-input response reuse makes agreement structural; this is not a stochastic repeatability study",
+    "The 32-token output budget and no-reasoning setting test a matched short-answer interface, not maximum model capability",
+    "Input ceiling uses UTF-8 bytes rather than the FLAN tokenizer; actual API token usage is retained",
+    "Local cost accounting is an estimate based on published rates, not a provider-enforced billing cap"
+  ]
+}

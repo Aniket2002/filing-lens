@@ -40,6 +40,7 @@ for folder in [
     "research/equivariance",
     "research/document-interventions",
     "research/document-llms",
+    "research/openai-document-llms",
     "results/document-interventions",
     "results/document-llms/base",
     "results/document-llms/small",

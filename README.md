@@ -20,6 +20,8 @@ A separate [document-intervention follow-up](research/document-interventions/REA
 
 The [matched LLM follow-up](research/document-llms/README.md) adds **3,200 outcomes from 1,812 inference calls**. For FLAN-T5-base/native-pointer, unit-neutral retrieval improves paired rescaling correctness from **5/35 to 16/35**, while original accuracy stays at **17/35**. Native-amount remains at **0/35** paired correctness. This isolates an important limitation: retrieval robustness does not automatically repair numerical generation. Both follow-ups use reconstructed statement text and previously studied questions; neither is independent validation. The [external evaluation requirements](research/document-interventions/EXTERNAL_EVALUATION.md) track the remaining limitations.
 
+An [OpenAI model extension](research/openai-document-llms/README.md) is implemented for dated GPT-5.4 and GPT-5.4-mini versions, with the same evidence and scoring, response provenance and a $10 estimated-spend ceiling. **Inference is pending API credits; no OpenAI accuracy results are claimed.** Credentials are loaded from outside the repository. The original paper's measured results remain unchanged.
+
 ## Supporting technical report: retrieval baseline
 
 The original [retrieval study PDF](research/retrieval-baseline/manuscript.pdf) documents the source pipeline, chunking and retrieval ablations, and numeric answer checks. Entity-aware retrieval with structure-aware chunking and a larger reranker pool improved recall@5 from **59.5% to 88.1%** and answer correctness from **57.1% to 85.7%** on a reused test split. The study and its per-question predictions remain available as supporting evidence, not as a second independently validated publication.
@@ -40,6 +42,7 @@ uv run python scripts/audit_retrieval_results.py
 uv run python scripts/run_equivariance.py audit
 uv run python scripts/run_document_interventions.py audit
 uv run python scripts/run_document_llms.py audit
+uv run python scripts/run_openai_document_llms.py check
 uv run python scripts/run_context_controls.py --check
 uv run python scripts/build_paper.py --check
 uv run python scripts/report_equivariance.py --check

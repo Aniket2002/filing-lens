@@ -25,6 +25,7 @@ jobs:
       - run: uv run python scripts/run_equivariance.py audit
       - run: uv run python scripts/run_document_interventions.py audit
       - run: uv run python scripts/run_document_llms.py audit
+      - run: uv run python scripts/run_openai_document_llms.py check
       - run: uv run python scripts/run_context_controls.py --check
       - run: uv run python scripts/report_equivariance.py --check
 

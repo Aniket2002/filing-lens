@@ -163,8 +163,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "cd378bc4cdf5e1447f1d63c93a8c18bb16d55e0f241a47a3f59617caeb3feecc",
-      "bytes": 7570
+      "sha256": "c4ab8f54828b184010615377eecade14a4d0ee69ff943005169cac935b42cb1a",
+      "bytes": 8033
     },
     {
       "path": "research/document-interventions/context-controls.json",
@@ -300,6 +300,21 @@
       "path": "research/equivariance/VALIDATION.md",
       "sha256": "138e9457f85aaf141a199aa4700a36926ac8b6512a1643431f23c02ed47ace74",
       "bytes": 3381
+    },
+    {
+      "path": "research/openai-document-llms/freeze.json",
+      "sha256": "ee5a6697eea19e27f53c5766b675491cd1db9f5f96879523a181b5e8a52c1291",
+      "bytes": 660
+    },
+    {
+      "path": "research/openai-document-llms/protocol.json",
+      "sha256": "71be81d236b2af29d3c025545e968c2fa37cba5fce49c4ee89f80390f1c8d25b",
+      "bytes": 2384
+    },
+    {
+      "path": "research/openai-document-llms/README.md",
+      "sha256": "cba6fb9a9e1e82dd979dbda6a1fc47ff46285abcdbc2863c6f189477a90cb4b6",
+      "bytes": 4934
     },
     {
       "path": "research/retrieval-baseline/build.json",
