@@ -31,12 +31,30 @@ See the [measured comparison](docs/retrieval-v2/results.md),
 [design and reproduction](docs/RETRIEVAL_V2.md), and
 [resume bullets and interview guide](docs/RESUME.md).
 
-**Research paper:** [read the draft PDF](paper/manuscript.pdf) or
+**Retrieval baseline paper:** [read the draft PDF](paper/manuscript.pdf) or
 [browse the manuscript and reproducible build](paper/README.md). Its tables,
 paired gains/regressions, and company-level sensitivity analysis derive from the
 saved experiments. It includes verified primary references and an explicit
 [validation plan](paper/VALIDATION_PLAN.md); independent review and a fresh holdout
 remain necessary for stronger publication claims.
+
+**New research paper — Financial Evidence Equivariance:**
+[read the draft PDF](research/equivariance/manuscript.pdf) or explore the
+[frozen, executable study](research/equivariance/README.md). It tests whether financial
+RAG answers preserve economic meaning under unit and column changes, follow
+changed fiscal-year bindings, and refuse after evidence removal. It compares
+canonical evidence and cell-identifier decoding against amount generation using
+two local models. The [novelty assessment](research/equivariance/NOVELTY.md)
+distinguishes the proposed contribution from existing table QA and metamorphic
+RAG research; originality is a research question, not an asserted priority claim.
+
+The pilot preserves **4,800 outcomes from 2,252 inference calls**. On 35 test
+questions, canonical cell selection improves paired unit-rescaling correctness
+**14.3% → 37.1%**, while original-input accuracy falls **62.9% → 37.1%**. All four
+base-model arms fail the evidence-removal refusal test. The
+[results and ablations](research/equivariance/results.md) report these tradeoffs
+alongside the simpler canonical-amount control, which reaches **40.0%** paired
+correctness. This is a separate research pilot, not the serving reader.
 
 ![Exploratory retrieval improvements with the reader held fixed](docs/retrieval-v2/comparison.png)
 

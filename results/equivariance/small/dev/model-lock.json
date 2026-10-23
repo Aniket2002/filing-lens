@@ -1,0 +1,60 @@
+{
+  "name": "Financial Evidence Equivariance",
+  "version": 1,
+  "status": "prospective local pilot; not externally preregistered",
+  "seed": 17,
+  "variants": [
+    "base",
+    "column_reverse",
+    "unit_rescale",
+    "reverse_and_rescale",
+    "period_rebind",
+    "remove_period"
+  ],
+  "sources": [
+    "oracle_page",
+    "retrieved_pages"
+  ],
+  "arms": [
+    "native_amount",
+    "canonical_amount",
+    "native_pointer",
+    "canonical_pointer"
+  ],
+  "models": {
+    "base": {
+      "model": "google/flan-t5-base",
+      "revision": "7bcac572ce56db69c1ea7c8af255c5d7c9672fc2"
+    },
+    "small": {
+      "model": "google/flan-t5-small",
+      "revision": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+    }
+  },
+  "max_input_tokens": 2048,
+  "max_new_tokens": 32,
+  "do_sample": false,
+  "prompt_template": "Use only the financial records below. {question}\nRecords:\n{context}\nAnswer:",
+  "retrieval_config": "structure-entity-60",
+  "retrieval_k": 5,
+  "primary_contrast": "canonical_pointer minus native_amount paired usable accuracy on unit_rescale, retrieved_pages, base model, test companies",
+  "primary_metric": "fraction of base/variant pairs with both numeric answers correct, denominator all questions",
+  "uncertainty": "paired company-cluster bootstrap, 2000 resamples, seed 17; seven test companies",
+  "selection": "none; publish all four arms and both models regardless of direction",
+  "hypotheses": [
+    "H1: canonical pointer decoding improves paired usable accuracy under unit rescaling relative to native amount generation",
+    "H2: canonicalization alone explains some of any improvement; compare canonical_amount and canonical_pointer",
+    "H3: preserving-transform consistency can coexist with wrong answers; publish consistency and usable accuracy separately",
+    "H4: period rebinding and evidence removal expose failures hidden by preserving-transform consistency"
+  ],
+  "limitations": [
+    "Existing test companies were seen in earlier repository studies; this is a new frozen pilot, not a fresh independent holdout",
+    "Five metric families, ten semiconductor companies, FY2023 filings, source annotations pending independent human review",
+    "Typed cells come from existing extracted tables, not a new general PDF parser",
+    "Post-retrieval interventions do not measure reranking under a rebuilt mutated index",
+    "Both models are small members of one instruction-tuned family; no frontier-model claim",
+    "No new algorithm or first-ever novelty claim for cell selection, normalization, or metamorphic testing"
+  ],
+  "model": "google/flan-t5-small",
+  "revision": "0fc9ddf78a1e988dac52e2dac162b0ede4fd74ab"
+}

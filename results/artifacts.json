@@ -128,8 +128,8 @@
     },
     {
       "path": "docs/RESUME.md",
-      "sha256": "ae20aea0f623ab2c2962e896f61ef9fbcd31669a72cf994b64b4fa772d83ccb8",
-      "bytes": 5802
+      "sha256": "3366be953e908c38832a6b8f275fec9c2fc8ffa3bdf4c2a78fa7095bf09591ab",
+      "bytes": 7085
     },
     {
       "path": "docs/retrieval-v2/comparison.png",
@@ -213,8 +213,98 @@
     },
     {
       "path": "README.md",
-      "sha256": "4a1e968c434edc93d5102f47147c17591bd28a7c50f78763a94f8c3053924cd8",
-      "bytes": 20323
+      "sha256": "a735e6c5842cf6dceee91562359f81b32fdfb1c1e36519bcd1ee05bf2444d2ff",
+      "bytes": 21564
+    },
+    {
+      "path": "research/equivariance/build.json",
+      "sha256": "e5469280e6933e07a55e8643186ab7b50d110db52114d30866c36c721b5a57c2",
+      "bytes": 3415
+    },
+    {
+      "path": "research/equivariance/comparison.png",
+      "sha256": "c482908f6e88d4d8c8e848723dc544906c9541fd500d4d99a3422cb466fd1fdc",
+      "bytes": 68379
+    },
+    {
+      "path": "research/equivariance/dataset.jsonl",
+      "sha256": "915b4f75d1238176ae03f60e5c6f9b18e7885ae90e2edf3bf398d56f9d549f05",
+      "bytes": 2360033
+    },
+    {
+      "path": "research/equivariance/evidence.json",
+      "sha256": "5940f21c1ab57ab76bd0e903730bc3ed655a952265b450c27d45bd1f8ab66cb3",
+      "bytes": 3705
+    },
+    {
+      "path": "research/equivariance/failures.md",
+      "sha256": "f80ccd02c0335f16766300f7c72b218c2610fe47c5497ef8d5558668f413b167",
+      "bytes": 1682
+    },
+    {
+      "path": "research/equivariance/freeze.json",
+      "sha256": "f687105a01b4dcd3a5b547988cb775ce9121cba0331bd67ad20c653995a389a9",
+      "bytes": 1370
+    },
+    {
+      "path": "research/equivariance/manuscript.html",
+      "sha256": "585a5b4cf0f663aff27b12395fe4a909dbcadc035c784d0ba0aa1bffdf21e832",
+      "bytes": 24938
+    },
+    {
+      "path": "research/equivariance/manuscript.md",
+      "sha256": "204fea1683102cb1e5bf58237a46b87f01ea9cab9366aad052ee51059937e05e",
+      "bytes": 22126
+    },
+    {
+      "path": "research/equivariance/manuscript.pdf",
+      "sha256": "7dff98673b6b317d622b1568767b658eab9ebfe31631252ebbfe2ef30a78f62e",
+      "bytes": 326016
+    },
+    {
+      "path": "research/equivariance/manuscript.template.md",
+      "sha256": "be568745312477e4a92417f812db1ba92d037c0a6deeceeb3564cb3d59cdba26",
+      "bytes": 17212
+    },
+    {
+      "path": "research/equivariance/metric-breakdown.md",
+      "sha256": "b5fe0efe3b2dc67095b32f8f8d5dbfb06406f76463144c3463c03a8bfa4ec31b",
+      "bytes": 2641
+    },
+    {
+      "path": "research/equivariance/NOVELTY.md",
+      "sha256": "02c18884f58f6e13ed6ef741ebcf05d29762791722cc1e6c2ab0417454c5ba2c",
+      "bytes": 4541
+    },
+    {
+      "path": "research/equivariance/protocol.json",
+      "sha256": "91d2f194ffd4d55b040238265987942a4d5b6dd8f7e11ae6fc4d07c2f160c71b",
+      "bytes": 2474
+    },
+    {
+      "path": "research/equivariance/README.md",
+      "sha256": "197cf241cc33d0a26592b19d8995ead995f7b1b278495c65b9de73373a64c17b",
+      "bytes": 6388
+    },
+    {
+      "path": "research/equivariance/references.bib",
+      "sha256": "596d2a1f71f9e14afbf65c633accbb5cc2acea60890b2b2fb8fe1c0297bd1db9",
+      "bytes": 2122
+    },
+    {
+      "path": "research/equivariance/references.json",
+      "sha256": "28a4ad59fdb85b0a6d502bb9d06a944bd4fa27a73e3783adbfd33d4a908ad050",
+      "bytes": 1993
+    },
+    {
+      "path": "research/equivariance/results.md",
+      "sha256": "b08183c53fa9c4403a59b104e3c1eaa84ffd2cf5fff698869936067655d4446b",
+      "bytes": 3240
+    },
+    {
+      "path": "research/equivariance/VALIDATION.md",
+      "sha256": "9f2094eeee39125d12d76595ea2ed9166d1f48126e76c18a636f2a6ddc7a8a4f",
+      "bytes": 2851
     },
     {
       "path": "results/controls/metrics.json",
@@ -225,6 +315,86 @@
       "path": "results/controls/predictions.jsonl",
       "sha256": "ddb99a8224e4944f603377ee261ee393e181df64e0f58343010fe5ab8db78a16",
       "bytes": 221628
+    },
+    {
+      "path": "results/equivariance/base/dev/metrics.json",
+      "sha256": "840303ea2a8b939aba52ed52f163430fbe9c5430bb1225f78faea0b2ac78f7ea",
+      "bytes": 18411
+    },
+    {
+      "path": "results/equivariance/base/dev/model-lock.json",
+      "sha256": "b1e099793fbc2c1af331cee57ddc2445d8d2b4d51c2f13a4d4177abd8378cc4b",
+      "bytes": 2662
+    },
+    {
+      "path": "results/equivariance/base/dev/predictions.jsonl",
+      "sha256": "21e2da28be207b6554e4a55ccf3547d054f40ca6533fb580d5a78a8c38d43ebe",
+      "bytes": 370492
+    },
+    {
+      "path": "results/equivariance/base/dev/run.json",
+      "sha256": "27aed9607906f9b3c005cdc2b4eec96c81c952577bbe7f2e7c7b71f1472a2151",
+      "bytes": 642
+    },
+    {
+      "path": "results/equivariance/base/test/metrics.json",
+      "sha256": "4d19ee6d65e970c5178c8ede1c9086e943cfa62c9797d291d02044dd6274dd2c",
+      "bytes": 18672
+    },
+    {
+      "path": "results/equivariance/base/test/model-lock.json",
+      "sha256": "b1e099793fbc2c1af331cee57ddc2445d8d2b4d51c2f13a4d4177abd8378cc4b",
+      "bytes": 2662
+    },
+    {
+      "path": "results/equivariance/base/test/predictions.jsonl",
+      "sha256": "bcc34ccd05da290c2aec966bf1e61ba8e47b04325c4e200cb3ea3db09f6bc71a",
+      "bytes": 866077
+    },
+    {
+      "path": "results/equivariance/base/test/run.json",
+      "sha256": "0820ad949726d9acabfc4f55d66c6b4609d5b52f530faf4b267dcecd5455919e",
+      "bytes": 645
+    },
+    {
+      "path": "results/equivariance/small/dev/metrics.json",
+      "sha256": "2f674c7f2dd5c8f5d76b7702839ce3b43f7b858afecf0b182459eba5e71b8825",
+      "bytes": 17654
+    },
+    {
+      "path": "results/equivariance/small/dev/model-lock.json",
+      "sha256": "a3b075d473bc7dc6fccf7ee2209d3fbe15dd2fb4d5a7db8cc96717afda2e97d0",
+      "bytes": 2663
+    },
+    {
+      "path": "results/equivariance/small/dev/predictions.jsonl",
+      "sha256": "c48faa443ca608742f881a62dd0c8b56ea2b830be8b193f4b494226c5af84a32",
+      "bytes": 388794
+    },
+    {
+      "path": "results/equivariance/small/dev/run.json",
+      "sha256": "ad77bf7265e49ff9681e3aa2bc4ff04bedd1fc81d7f842c56bd5560ccbff1f77",
+      "bytes": 643
+    },
+    {
+      "path": "results/equivariance/small/test/metrics.json",
+      "sha256": "206b6d5ea7f222773c39f9ae4991dca3c08a7ddeca356bca0181681f3d8e903b",
+      "bytes": 18439
+    },
+    {
+      "path": "results/equivariance/small/test/model-lock.json",
+      "sha256": "a3b075d473bc7dc6fccf7ee2209d3fbe15dd2fb4d5a7db8cc96717afda2e97d0",
+      "bytes": 2663
+    },
+    {
+      "path": "results/equivariance/small/test/predictions.jsonl",
+      "sha256": "4b82ba8fc2987b71e07c9db9ec5ca53b54db376040f7bb284e79c29894212154",
+      "bytes": 865978
+    },
+    {
+      "path": "results/equivariance/small/test/run.json",
+      "sha256": "38aaeddd75c360dd468ce5fedab255ab9a0bdfcf526b168b38420155d72202d7",
+      "bytes": 646
     },
     {
       "path": "results/explanations/dev/metrics.json",

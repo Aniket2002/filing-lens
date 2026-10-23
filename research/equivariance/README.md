@@ -2,7 +2,37 @@
 
 A research pilot on whether financial RAG systems preserve economic meaning across changes in table presentation while responding correctly to changes in evidence. The candidate contribution is a **typed intervention protocol, a non-vacuous paired evaluation, and a controlled decoding study**. Neither metamorphic testing nor cell selection is claimed as a new invention.
 
+**Read:** [six-page paper](manuscript.pdf), [Markdown manuscript](manuscript.md),
+[measured results](results.md), [all scale regressions](failures.md), and
+[metric breakdown](metric-breakdown.md).
+
+The completed pilot records **4,800 outcomes from 2,252 inference calls**. On the
+35 test questions with retrieved evidence, canonical-pointer improves paired
+unit-rescaling correctness from **14.3% to 37.1%**, while original-input accuracy
+falls from **62.9% to 37.1%**. Canonical-amount reaches **40.0%** paired correctness,
+so pointer output does not establish an additional gain. All four base-model arms
+score **0/35** on evidence-removal refusal. This is a measured robustness/accuracy
+tradeoff and failure analysis, not a general improvement claim.
+
 The central question: **Can canonical financial evidence and coordinate-first decoding separate numerical fidelity from evidence selection, and what failures remain after representation invariance is guaranteed?**
+
+```mermaid
+flowchart LR
+    A[Original filing evidence] --> B[Frozen retrieval: top five pages]
+    A --> C[Annotated source-page control]
+    B --> D[Typed financial cells]
+    C --> D
+    D --> E[Preserve quantity: order and scale]
+    D --> F[Change binding: fiscal-year headers]
+    D --> G[Remove support: requested period]
+    E --> H[Native or canonical evidence]
+    F --> H
+    G --> H
+    H --> I[Generate amount]
+    H --> J[Select cell ID and execute conversion]
+    I --> K[Paired correctness, consistency, refusal]
+    J --> K
+```
 
 ## What is implemented
 
@@ -43,5 +73,12 @@ uv run python scripts/run_equivariance.py run --model small --split test
 ```
 
 `prepare` refuses to overwrite a frozen dataset; runs refuse to overwrite existing run directories. To replicate inference, use a separate checkout and move its existing `results/equivariance` directory to an archive location before running the four inference commands. Keep the frozen dataset and protocol. Prompts identical within a run reuse a deterministic output; inference calls and evaluation outcomes are reported separately. A 2,048-token ceiling is checked before inference; truncation aborts the run.
+
+Build the manuscript and figures with `uv run python scripts/report_equivariance.py`;
+use `--check` to verify the saved draft without regenerating it. The report links
+every headline number to saved outcomes and lists all unit-rescaling regressions
+from initially correct test answers. The original prospective freeze is commit
+`53a7d02`; report prose and visualization code are written after that freeze and
+are not represented as preregistered analysis.
 
 See [the novelty assessment](NOVELTY.md), [frozen protocol](protocol.json), and [publication plan](VALIDATION.md). The existing [retrieval paper](../../paper/manuscript.md) remains a separate empirical baseline.

@@ -8,6 +8,11 @@ Python, PyTorch, Sentence Transformers, BM25, dense vector search, reciprocal ra
 fusion (RRF), cross-encoder reranking, PDF/table extraction, REST API, pytest,
 GitHub Actions, reproducible evaluation.
 
+The separate research pilot adds dimensional analysis, metamorphic testing,
+counterfactual fiscal-year interventions, structured LLM decoding, and paired
+company-cluster bootstrap evaluation. See
+[Financial Evidence Equivariance](../research/equivariance/README.md).
+
 Use the keywords that match the role and that you can explain. The project runs
 locally on CPU; it does not have a production deployment, a vector database,
 fine-tuned models, or independently human-validated labels.
@@ -24,6 +29,10 @@ fine-tuned models, or independently human-validated labels.
 - Engineered source-cell numeric verification and evidence-based abstention,
   validated with **500 control cases**; exposed a local REST API with bounded
   inference admission, request metrics, and offline Windows/Linux CI checks.
+- Designed a **600-case financial evidence intervention study** with four decoding
+  ablations and two pinned instruction-tuned models; audited **4,800 outcomes**
+  from **2,252 inference calls**, identifying a robustness/accuracy tradeoff and
+  failures to abstain after fiscal-period evidence removal.
 
 The first bullet describes supported retrieval options, not a claim that hybrid
 search is the best measured configuration. The 500 cases test the verifier given
@@ -33,7 +42,7 @@ The retrieval comparison is exploratory, not an independently validated result.
 The associated latency tradeoff is CPU p95 **1.36 s → 3.25 s**. There are also 14
 negative test questions: refusal improved from 11/14 to 12/14. Cite the full
 [measured comparison](retrieval-v2/results.md) if asked about denominators or tradeoffs.
-The updated repository passes **140 tests**, and its new offline audit checks
+The updated repository passes **147 tests**, and its retrieval audit checks
 all **312** iteration predictions without downloading models or source PDFs.
 
 ## A 60-second explanation
@@ -56,6 +65,17 @@ inspected. I can demonstrate the improvement on that benchmark; I would need a
 new, independently reviewed holdout to claim broader generalization.”
 
 ## Interview questions worth preparing
+
+The research angle is a concrete question: **Can a system remain consistent under
+harmless financial presentation changes while still responding to changed or
+missing evidence?** Explain why an always-refusing or consistently wrong system
+can look robust under agreement alone. Then demonstrate the four decoding arms,
+the synthetic fiscal-year interventions, and the raw failures. Cell selection and
+unit normalization are established techniques; the proposed contribution is the
+controlled response-profile study and its measured mechanism analysis.
+
+Do not list the manuscript as a publication or claim to have invented financial
+RAG. Describe it as an independent research project with a reproducible draft.
 
 | Question | Concrete answer to demonstrate |
 | :-- | :-- |

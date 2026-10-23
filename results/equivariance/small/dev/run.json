@@ -1,0 +1,15 @@
+{
+  "model": "small",
+  "split": "dev",
+  "freeze_sha256": "f687105a01b4dcd3a5b547988cb775ce9121cba0331bd67ad20c653995a389a9",
+  "files": {
+    "predictions.jsonl": "c48faa443ca608742f881a62dd0c8b56ea2b830be8b193f4b494226c5af84a32",
+    "metrics.json": "2f674c7f2dd5c8f5d76b7702839ce3b43f7b858afecf0b182459eba5e71b8825",
+    "model-lock.json": "a3b075d473bc7dc6fccf7ee2209d3fbe15dd2fb4d5a7db8cc96717afda2e97d0"
+  },
+  "outcomes": 720,
+  "inference_calls": 288,
+  "max_input_tokens_observed": 401,
+  "elapsed_seconds": 243.7948538000055,
+  "note": "Identical deterministic prompts reused within this run; no stochastic robustness inference."
+}
